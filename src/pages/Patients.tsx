@@ -153,7 +153,7 @@ export default function Patients() {
               setPatientToEdit(null)
               setIsModalOpen(true)
             }}
-            className="bg-[#2F4858] hover:bg-[#243743] text-white rounded-xl h-10 shadow-xs shrink-0 font-medium"
+            className="bg-[#5F8D7A] hover:bg-[#4E7263] text-white rounded-xl h-10 shadow-xs shrink-0 font-medium"
           >
             <Plus className="w-4 h-4 mr-1.5" />
             Novo paciente
@@ -167,7 +167,7 @@ export default function Patients() {
           onClick={() => setStatusFilter('all')}
           className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
             statusFilter === 'all'
-              ? 'bg-[#2F4858] text-white shadow-xs'
+              ? 'bg-[#5F8D7A] text-white shadow-xs'
               : 'bg-white text-[#64748B] border border-[#E2E8F0] hover:bg-[#F8FAFC]'
           }`}
         >
@@ -211,12 +211,12 @@ export default function Patients() {
       {/* Patients Grid */}
       {isLoading ? (
         <div className="p-12 text-center text-sm text-[#64748B] flex flex-col items-center gap-3">
-          <Loader2 className="w-6 h-6 animate-spin text-[#2F4858]" />
+          <Loader2 className="w-6 h-6 animate-spin text-[#5F8D7A]" />
           <span>Carregando lista de pacientes...</span>
         </div>
       ) : filteredPatients.length === 0 ? (
         <div className="p-12 bg-white rounded-2xl border border-[#E2E8F0] text-center space-y-3">
-          <div className="w-12 h-12 rounded-2xl bg-[#EAEFF2] text-[#2F4858] flex items-center justify-center mx-auto">
+          <div className="w-12 h-12 rounded-2xl bg-[#E8F0EC] text-[#5F8D7A] flex items-center justify-center mx-auto border border-[#C7DBCF]">
             <UserX className="w-6 h-6" />
           </div>
           <h3 className="font-serif text-lg font-bold text-[#1E293B]">
@@ -247,7 +247,7 @@ export default function Patients() {
                   setPatientToEdit(null)
                   setIsModalOpen(true)
                 }}
-                className="bg-[#2F4858] hover:bg-[#243743] text-white rounded-xl text-xs"
+                className="bg-[#5F8D7A] hover:bg-[#4E7263] text-white rounded-xl text-xs"
               >
                 <Plus className="w-4 h-4 mr-1.5" />
                 Cadastrar primeiro paciente
@@ -270,7 +270,7 @@ export default function Patients() {
                     <div className="flex items-center gap-3 min-w-0">
                       <PatientAvatar name={patient.full_name} size="md" />
                       <div className="min-w-0">
-                        <h3 className="font-semibold text-base text-[#1E293B] truncate group-hover:text-[#2F4858] transition-colors">
+                        <h3 className="font-semibold text-base text-[#1E293B] truncate group-hover:text-[#5F8D7A] transition-colors">
                           {patient.full_name}
                         </h3>
                         <p className="text-xs text-[#64748B] truncate">
@@ -316,17 +316,17 @@ export default function Patients() {
                   {/* Contact infos */}
                   <div className="mt-4 space-y-2 text-xs text-[#64748B]">
                     <div className="flex items-center gap-2">
-                      <Phone className="w-3.5 h-3.5 text-[#2F4858]" />
+                      <Phone className="w-3.5 h-3.5 text-[#5F8D7A]" />
                       <span className="font-mono text-[#1E293B] font-medium">{patient.phone}</span>
                     </div>
                     {patient.email && (
                       <div className="flex items-center gap-2 truncate">
-                        <Mail className="w-3.5 h-3.5 text-[#2F4858] shrink-0" />
+                        <Mail className="w-3.5 h-3.5 text-[#5F8D7A] shrink-0" />
                         <span className="truncate">{patient.email}</span>
                       </div>
                     )}
                     <div className="flex items-center gap-2">
-                      <Calendar className="w-3.5 h-3.5 text-[#2F4858]" />
+                      <Calendar className="w-3.5 h-3.5 text-[#5F8D7A]" />
                       <span>Cadastrado em {formatDatePtBr(patient.created)}</span>
                     </div>
                   </div>
@@ -335,7 +335,7 @@ export default function Patients() {
                 {/* Bottom status and click indicator */}
                 <div className="mt-5 pt-3 border-t border-[#E2E8F0]/80 flex items-center justify-between">
                   <StatusBadge status={patient.status} />
-                  <span className="text-[11px] font-medium text-[#2F4858] group-hover:underline">
+                  <span className="text-[11px] font-medium text-[#5F8D7A] group-hover:underline">
                     Ver prontuário →
                   </span>
                 </div>

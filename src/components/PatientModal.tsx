@@ -337,7 +337,7 @@ export const PatientModal: React.FC<PatientModalProps> = ({
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="bg-[#2F4858] hover:bg-[#243743] text-white"
+              className="bg-[#5F8D7A] hover:bg-[#4E7263] text-white"
             >
               {isSubmitting ? (
                 <>

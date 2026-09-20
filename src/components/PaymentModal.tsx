@@ -237,8 +237,8 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
       <DialogContent className="max-w-lg max-h-[92vh] overflow-y-auto rounded-3xl border-[#E2E8F0]">
         <DialogHeader>
           <div className="flex items-center gap-2.5">
-            <div className="w-10 h-10 rounded-2xl bg-[#EAEFF2] text-[#2F4858] flex items-center justify-center font-bold">
-              <DollarSign className="w-5 h-5 text-[#2F4858]" />
+            <div className="w-10 h-10 rounded-2xl bg-[#E8F0EC] text-[#5F8D7A] flex items-center justify-center font-bold">
+              <DollarSign className="w-5 h-5 text-[#5F8D7A]" />
             </div>
             <div>
               <DialogTitle className="font-serif text-2xl text-[#1E293B]">
@@ -428,7 +428,7 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
             <Button
               type="submit"
               disabled={isSubmitting || patientsList.length === 0}
-              className="bg-[#2F4858] hover:bg-[#243743] text-white rounded-xl text-xs sm:text-sm font-medium shadow-xs"
+              className="bg-[#5F8D7A] hover:bg-[#4E7263] text-white rounded-xl text-xs sm:text-sm font-medium shadow-xs"
             >
               {isSubmitting ? (
                 <>

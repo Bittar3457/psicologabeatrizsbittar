@@ -1,15 +1,15 @@
 import React from 'react'
 
 const PALETTE = [
-  // CLIAP: Azul-ardósia clínico suave
-  { bg: 'bg-[#EAEFF2]', text: 'text-[#2F4858]', border: 'border-[#C5D3DC]' },
-  // Acento terracota clínico suave
-  { bg: 'bg-[#FAEDE7]', text: 'text-[#B46647]', border: 'border-[#F1D0C5]' },
-  // Acento sálvia clínico suave
+  // Sálvia acolhedor suave
   { bg: 'bg-[#E8F0EC]', text: 'text-[#3D594D]', border: 'border-[#C7DBCF]' },
-  // Slate neutro refinado
-  { bg: 'bg-slate-100', text: 'text-slate-800', border: 'border-slate-300' },
-  // Âmbar clínico muito suave
+  // Terracota acolhedor suave
+  { bg: 'bg-[#FAEDE7]', text: 'text-[#B46647]', border: 'border-[#F1D0C5]' },
+  // Sálvia mais presente
+  { bg: 'bg-[#D5E5DC]', text: 'text-[#2D453B]', border: 'border-[#A3C4B3]' },
+  // Terracota quente
+  { bg: 'bg-[#FBE4DA]', text: 'text-[#964E33]', border: 'border-[#E7B8A7]' },
+  // Âmbar suave
   { bg: 'bg-amber-50', text: 'text-amber-900', border: 'border-amber-200' },
   // Esmeralda suave
   { bg: 'bg-emerald-50', text: 'text-emerald-900', border: 'border-emerald-200' },

@@ -8,8 +8,8 @@
 
 @layer base {
   :root {
-    /* Design system oficial CLIAP: sóbrio e clínico */
-    /* Base branca / off-white clínico #F8FAFC -> 210 40% 98% */
+    /* Identidade acolhedora: Verde-sálvia (#5F8D7A) e Terracota (#C97B5A) vivos */
+    /* Base branca / off-white clínico suave #F8FAFC -> 210 40% 98% */
     --background: 210 40% 98%;
     /* Text foreground: Slate escuro #1E293B -> 222 47% 17% */
     --foreground: 222 47% 17%;
@@ -21,21 +21,21 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 17%;
 
-    /* Primary: Deep Slate Blue (Azul-ardósia profundo) #2F4858 -> 203 30% 26% */
-    --primary: 203 30% 26%;
+    /* Primary: Verde-sálvia vivo #5F8D7A -> 155 20% 46% */
+    --primary: 155 20% 46%;
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary: Slate suave #F1F5F9 */
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222 47% 17%;
+    /* Secondary: Terracota vivo #C97B5A -> 18 51% 57% */
+    --secondary: 18 51% 57%;
+    --secondary-foreground: 0 0% 100%;
 
     /* Muted: #F1F5F9 & Slate 500 #64748B */
     --muted: 210 40% 96.1%;
     --muted-foreground: 215 16% 47%;
 
-    /* Accent: Slate Blue Light #EAEFF2 */
-    --accent: 204 22% 93%;
-    --accent-foreground: 203 30% 26%;
+    /* Accent: Sálvia suave / claro #E8F0EC */
+    --accent: 144 20% 93%;
+    --accent-foreground: 155 20% 36%;
 
     /* Destructive: #DC2626 */
     --destructive: 0 84% 60%;
@@ -44,35 +44,35 @@
     /* Border: #E2E8F0 -> 214 32% 91% */
     --border: 214 32% 91%;
     --input: 214 32% 91%;
-    --ring: 203 30% 26%;
+    --ring: 155 20% 46%;
 
     --radius: 0.875rem;
 
-    /* Sidebar: Base neutra muito limpa #FAFCFD */
+    /* Sidebar */
     --sidebar-background: 210 33% 99%;
     --sidebar-foreground: 222 47% 17%;
-    --sidebar-primary: 203 30% 26%;
+    --sidebar-primary: 155 20% 46%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 204 22% 93%;
-    --sidebar-accent-foreground: 203 30% 26%;
+    --sidebar-accent: 144 20% 93%;
+    --sidebar-accent-foreground: 155 20% 36%;
     --sidebar-border: 214 32% 91%;
-    --sidebar-ring: 203 30% 26%;
+    --sidebar-ring: 155 20% 46%;
 
-    /* Status CLIAP tokens */
+    /* Status tokens */
     --success: 152 76% 36%; /* Verde-esmeralda #059669 */
     --success-foreground: 0 0% 100%;
     --warning: 38 92% 50%; /* Âmbar #D97706 */
     --warning-foreground: 0 0% 100%;
 
-    /* Acentos Orgânicos CLIAP */
+    /* Cores de identidade da marca */
     --terracota: 18 51% 57%; /* #C97B5A */
     --salvia: 155 20% 46%; /* #5F8D7A */
 
-    --chart-1: 203 30% 26%;
-    --chart-2: 155 20% 46%;
-    --chart-3: 18 51% 57%;
-    --chart-4: 152 76% 36%;
-    --chart-5: 38 92% 50%;
+    --chart-1: 155 20% 46%;
+    --chart-2: 18 51% 57%;
+    --chart-3: 152 76% 36%;
+    --chart-4: 38 92% 50%;
+    --chart-5: 203 30% 26%;
   }
 
   .dark {

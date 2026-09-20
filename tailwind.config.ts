@@ -75,21 +75,7 @@ export default {
           border: 'hsl(var(--sidebar-border))',
           ring: 'hsl(var(--sidebar-ring))',
         },
-        // CLIAP palette: Deep Slate Blue as primary, Terracotta and Sage as organic accents
-        slateBlue: {
-          DEFAULT: '#2F4858',
-          hover: '#243743',
-          light: '#EAEFF2',
-          50: '#F5F7F9',
-          100: '#EAEFF2',
-          200: '#C5D3DC',
-          500: '#3D5A6C',
-          600: '#2F4858',
-          700: '#243743',
-          800: '#1B2932',
-          900: '#121C22',
-        },
-        // Organic accents (used in logo/monogram & specific accents only)
+        // Identidade Original: Verde-sálvia como primária, Terracota como secundária vibrante
         salvia: {
           DEFAULT: '#5F8D7A',
           hover: '#4E7263',
@@ -99,11 +85,15 @@ export default {
           200: '#C7DBCF',
           500: '#5F8D7A',
           600: '#4E7263',
+          700: '#3D594D',
         },
         terracota: {
           DEFAULT: '#C97B5A',
           hover: '#B46647',
           light: '#FAEDE7',
+          50: '#FDF6F3',
+          100: '#FAEDE7',
+          200: '#F1D0C5',
           500: '#C97B5A',
           600: '#B46647',
         },

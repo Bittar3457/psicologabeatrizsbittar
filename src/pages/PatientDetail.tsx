@@ -143,7 +143,7 @@ export default function PatientDetail() {
   if (isLoading || !patient) {
     return (
       <div className="p-16 text-center text-sm text-[#64748B] flex flex-col items-center gap-3">
-        <Loader2 className="w-6 h-6 animate-spin text-[#2F4858]" />
+        <Loader2 className="w-6 h-6 animate-spin text-[#5F8D7A]" />
         <span>Carregando prontuário do paciente...</span>
       </div>
     )
@@ -155,7 +155,7 @@ export default function PatientDetail() {
       <div>
         <Link
           to="/pacientes"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#64748B] hover:text-[#2F4858] transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#64748B] hover:text-[#5F8D7A] transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           Voltar para lista de pacientes
@@ -178,13 +178,13 @@ export default function PatientDetail() {
             <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm text-[#64748B]">
               {patient.occupation && (
                 <span className="flex items-center gap-1.5">
-                  <Briefcase className="w-4 h-4 text-[#2F4858]" />
+                  <Briefcase className="w-4 h-4 text-[#5F8D7A]" />
                   {patient.occupation}
                 </span>
               )}
               {patient.address && (
                 <span className="flex items-center gap-1.5 truncate max-w-xs">
-                  <MapPin className="w-4 h-4 text-[#2F4858]" />
+                  <MapPin className="w-4 h-4 text-[#5F8D7A]" />
                   <span className="truncate">{patient.address}</span>
                 </span>
               )}
@@ -194,9 +194,9 @@ export default function PatientDetail() {
             <div className="pt-1 flex flex-wrap items-center gap-3">
               <a
                 href={`tel:${cleanPhoneForTel(patient.phone)}`}
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#EAEFF2] hover:bg-[#d8e2e8] text-[#2F4858] font-mono text-xs font-semibold transition-colors"
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#E8F0EC] hover:bg-[#C7DBCF]/60 text-[#5F8D7A] font-mono text-xs font-semibold transition-colors border border-[#C7DBCF]"
               >
-                <Phone className="w-3.5 h-3.5 text-[#2F4858]" />
+                <Phone className="w-3.5 h-3.5 text-[#5F8D7A]" />
                 <span>Ligar: {patient.phone}</span>
               </a>
 
@@ -205,7 +205,7 @@ export default function PatientDetail() {
                   href={`mailto:${patient.email}`}
                   className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-[#1E293B] text-xs font-medium transition-colors border border-[#E2E8F0]"
                 >
-                  <Mail className="w-3.5 h-3.5 text-[#2F4858]" />
+                  <Mail className="w-3.5 h-3.5 text-[#5F8D7A]" />
                   <span>{patient.email}</span>
                 </a>
               )}
@@ -221,9 +221,9 @@ export default function PatientDetail() {
               setEditingPayment(null)
               setIsPaymentModalOpen(true)
             }}
-            className="rounded-xl border-[#E2E8F0] text-[#2F4858] bg-[#EAEFF2]/70 hover:bg-[#EAEFF2] text-xs sm:text-sm font-medium"
+            className="rounded-xl border-[#C7DBCF] text-[#5F8D7A] bg-[#E8F0EC]/70 hover:bg-[#E8F0EC] text-xs sm:text-sm font-medium"
           >
-            <DollarSign className="w-3.5 h-3.5 mr-1 text-[#2F4858]" />
+            <DollarSign className="w-3.5 h-3.5 mr-1 text-[#5F8D7A]" />
             Registrar pagamento
           </Button>
           <Button
@@ -240,7 +240,7 @@ export default function PatientDetail() {
               setEditingSession(null)
               setIsConsultationModalOpen(true)
             }}
-            className="rounded-xl bg-[#2F4858] hover:bg-[#243743] text-white text-xs sm:text-sm font-medium shadow-xs"
+            className="rounded-xl bg-[#5F8D7A] hover:bg-[#4E7263] text-white text-xs sm:text-sm font-medium shadow-xs"
           >
             <Plus className="w-4 h-4 mr-1.5" />
             Nova consulta
@@ -308,11 +308,11 @@ export default function PatientDetail() {
               <h4 className="text-xl font-serif font-bold text-[#1E293B]">
                 {sessions.filter((s) => s.status === 'completed').length}
               </h4>
-              <p className="text-[11px] text-[#2F4858]">
+              <p className="text-[11px] text-[#5F8D7A]">
                 Sessões clínicas registradas no prontuário
               </p>
             </div>
-            <div className="w-10 h-10 rounded-xl bg-[#EAEFF2] text-[#2F4858] flex items-center justify-center border border-[#C5D3DC]">
+            <div className="w-10 h-10 rounded-xl bg-[#E8F0EC] text-[#5F8D7A] flex items-center justify-center border border-[#C7DBCF]">
               <FileText className="w-5 h-5" />
             </div>
           </CardContent>
@@ -324,25 +324,25 @@ export default function PatientDetail() {
         <TabsList className="bg-white border border-[#E2E8F0] p-1 rounded-2xl h-12 flex flex-wrap gap-1">
           <TabsTrigger
             value="history"
-            className="rounded-xl data-[state=active]:bg-[#2F4858] data-[state=active]:text-white data-[state=active]:shadow-xs text-xs sm:text-sm font-medium px-4"
+            className="rounded-xl data-[state=active]:bg-[#5F8D7A] data-[state=active]:text-white data-[state=active]:shadow-xs text-xs sm:text-sm font-medium px-4"
           >
             Histórico de consultas ({sessions.length})
           </TabsTrigger>
           <TabsTrigger
             value="upcoming"
-            className="rounded-xl data-[state=active]:bg-[#2F4858] data-[state=active]:text-white data-[state=active]:shadow-xs text-xs sm:text-sm font-medium px-4"
+            className="rounded-xl data-[state=active]:bg-[#5F8D7A] data-[state=active]:text-white data-[state=active]:shadow-xs text-xs sm:text-sm font-medium px-4"
           >
             Próximas consultas ({appointments.length})
           </TabsTrigger>
           <TabsTrigger
             value="financial"
-            className="rounded-xl data-[state=active]:bg-[#2F4858] data-[state=active]:text-white data-[state=active]:shadow-xs text-xs sm:text-sm font-medium px-4"
+            className="rounded-xl data-[state=active]:bg-[#5F8D7A] data-[state=active]:text-white data-[state=active]:shadow-xs text-xs sm:text-sm font-medium px-4"
           >
             Financeiro ({payments.length})
           </TabsTrigger>
           <TabsTrigger
             value="info"
-            className="rounded-xl data-[state=active]:bg-[#2F4858] data-[state=active]:text-white data-[state=active]:shadow-xs text-xs sm:text-sm font-medium px-4"
+            className="rounded-xl data-[state=active]:bg-[#5F8D7A] data-[state=active]:text-white data-[state=active]:shadow-xs text-xs sm:text-sm font-medium px-4"
           >
             Informações cadastrais
           </TabsTrigger>
@@ -361,7 +361,7 @@ export default function PatientDetail() {
 
           {sessions.length === 0 ? (
             <div className="p-12 bg-white rounded-2xl border border-[#E2E8F0] text-center space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-[#EAEFF2] text-[#2F4858] flex items-center justify-center mx-auto">
+              <div className="w-12 h-12 rounded-2xl bg-[#E8F0EC] text-[#5F8D7A] flex items-center justify-center mx-auto border border-[#C7DBCF]">
                 <FileText className="w-6 h-6" />
               </div>
               <h3 className="font-serif text-base font-bold text-[#1E293B]">
@@ -374,7 +374,7 @@ export default function PatientDetail() {
               <div className="pt-2">
                 <Button
                   onClick={() => setIsConsultationModalOpen(true)}
-                  className="bg-[#2F4858] hover:bg-[#243743] text-white rounded-xl text-xs"
+                  className="bg-[#5F8D7A] hover:bg-[#4E7263] text-white rounded-xl text-xs"
                 >
                   <Plus className="w-3.5 h-3.5 mr-1" />
                   Registrar sessão
@@ -391,11 +391,11 @@ export default function PatientDetail() {
                     setEditingAppointment(null)
                     setIsConsultationModalOpen(true)
                   }}
-                  className="bg-white rounded-2xl border border-[#E2E8F0] p-5 hover:shadow-md hover:border-[#2F4858]/40 transition-all cursor-pointer group"
+                  className="bg-white rounded-2xl border border-[#E2E8F0] p-5 hover:shadow-md hover:border-[#5F8D7A]/40 transition-all cursor-pointer group"
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#E2E8F0]/80">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] flex items-center justify-center font-mono font-bold text-xs text-[#2F4858]">
+                      <div className="w-10 h-10 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] flex items-center justify-center font-mono font-bold text-xs text-[#5F8D7A]">
                         {sess.start_time}
                       </div>
                       <div>
@@ -411,8 +411,8 @@ export default function PatientDetail() {
                               <Video className="w-3 h-3" /> Online
                             </span>
                           ) : sess.type === 'mixed' ? (
-                            <span className="inline-flex items-center gap-1 text-[#2F4858] font-medium">
-                              <Layers className="w-3 h-3 text-[#2F4858]" /> Modalidade Mista
+                            <span className="inline-flex items-center gap-1 text-[#5F8D7A] font-medium">
+                              <Layers className="w-3 h-3 text-[#5F8D7A]" /> Modalidade Mista
                             </span>
                           ) : (
                             <span>Presencial no consultório</span>
@@ -423,7 +423,7 @@ export default function PatientDetail() {
 
                     <div className="flex items-center gap-2">
                       <StatusBadge status={sess.status} />
-                      <span className="text-xs text-[#2F4858] group-hover:underline flex items-center gap-1">
+                      <span className="text-xs text-[#5F8D7A] group-hover:underline flex items-center gap-1">
                         <Edit2 className="w-3 h-3" /> Editar
                       </span>
                     </div>
@@ -454,7 +454,7 @@ export default function PatientDetail() {
             <Button
               onClick={() => setIsConsultationModalOpen(true)}
               size="sm"
-              className="bg-[#2F4858] hover:bg-[#243743] text-white rounded-xl text-xs"
+              className="bg-[#5F8D7A] hover:bg-[#4E7263] text-white rounded-xl text-xs"
             >
               <Plus className="w-3.5 h-3.5 mr-1" />
               Agendar novo
@@ -463,7 +463,7 @@ export default function PatientDetail() {
 
           {appointments.length === 0 ? (
             <div className="p-12 bg-white rounded-2xl border border-[#E2E8F0] text-center space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-[#EAEFF2] text-[#2F4858] flex items-center justify-center mx-auto">
+              <div className="w-12 h-12 rounded-2xl bg-[#E8F0EC] text-[#5F8D7A] flex items-center justify-center mx-auto border border-[#C7DBCF]">
                 <Calendar className="w-6 h-6" />
               </div>
               <h3 className="font-serif text-base font-bold text-[#1E293B]">
@@ -475,7 +475,7 @@ export default function PatientDetail() {
               <div className="pt-2">
                 <Button
                   onClick={() => setIsConsultationModalOpen(true)}
-                  className="bg-[#2F4858] hover:bg-[#243743] text-white rounded-xl text-xs"
+                  className="bg-[#5F8D7A] hover:bg-[#4E7263] text-white rounded-xl text-xs"
                 >
                   <Plus className="w-3.5 h-3.5 mr-1" />
                   Agendar consulta
@@ -491,7 +491,7 @@ export default function PatientDetail() {
                 >
                   <div className="flex items-start gap-3.5">
                     <div className="w-14 text-center shrink-0 py-2 bg-[#F8FAFC] rounded-xl border border-[#E2E8F0]">
-                      <span className="block font-mono text-base font-bold text-[#2F4858]">
+                      <span className="block font-mono text-base font-bold text-[#5F8D7A]">
                         {appt.start_time}
                       </span>
                       <span className="block text-[10px] text-[#64748B]">
@@ -512,8 +512,8 @@ export default function PatientDetail() {
                             <Video className="w-3.5 h-3.5" /> Atendimento Online
                           </span>
                         ) : appt.type === 'mixed' ? (
-                          <span className="inline-flex items-center gap-1 text-[#2F4858] font-medium">
-                            <Layers className="w-3.5 h-3.5 text-[#2F4858]" /> Atendimento Misto
+                          <span className="inline-flex items-center gap-1 text-[#5F8D7A] font-medium">
+                            <Layers className="w-3.5 h-3.5 text-[#5F8D7A]" /> Atendimento Misto
                           </span>
                         ) : (
                           <span>Atendimento Presencial</span>
@@ -587,7 +587,7 @@ export default function PatientDetail() {
                 setIsPaymentModalOpen(true)
               }}
               size="sm"
-              className="bg-[#2F4858] hover:bg-[#243743] text-white rounded-xl text-xs"
+              className="bg-[#5F8D7A] hover:bg-[#4E7263] text-white rounded-xl text-xs"
             >
               <Plus className="w-3.5 h-3.5 mr-1" />
               Novo pagamento
@@ -596,7 +596,7 @@ export default function PatientDetail() {
 
           {payments.length === 0 ? (
             <div className="p-12 bg-white rounded-2xl border border-[#E2E8F0] text-center space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-[#EAEFF2] text-[#2F4858] flex items-center justify-center mx-auto">
+              <div className="w-12 h-12 rounded-2xl bg-[#E8F0EC] text-[#5F8D7A] flex items-center justify-center mx-auto border border-[#C7DBCF]">
                 <DollarSign className="w-6 h-6" />
               </div>
               <h3 className="font-serif text-base font-bold text-[#1E293B]">
@@ -611,7 +611,7 @@ export default function PatientDetail() {
                     setEditingPayment(null)
                     setIsPaymentModalOpen(true)
                   }}
-                  className="bg-[#2F4858] hover:bg-[#243743] text-white rounded-xl text-xs"
+                  className="bg-[#5F8D7A] hover:bg-[#4E7263] text-white rounded-xl text-xs"
                 >
                   <Plus className="w-3.5 h-3.5 mr-1" />
                   Registrar primeiro pagamento
@@ -627,7 +627,7 @@ export default function PatientDetail() {
                 >
                   <div className="flex items-start sm:items-center gap-3.5">
                     <div className="w-12 text-center shrink-0 py-2 bg-[#F8FAFC] rounded-xl border border-[#E2E8F0]">
-                      <span className="block font-mono text-xs font-bold text-[#2F4858]">
+                      <span className="block font-mono text-xs font-bold text-[#5F8D7A]">
                         {p.date ? formatDatePtBr(p.date).slice(0, 5) : '-'}
                       </span>
                       <span className="block text-[10px] text-[#64748B]">
@@ -646,7 +646,7 @@ export default function PatientDetail() {
                         </span>
                       </div>
                       <p className="text-xs text-[#64748B] mt-1 flex items-center gap-2">
-                        <span className="font-medium text-[#2F4858]">
+                        <span className="font-medium text-[#5F8D7A]">
                           {p.appointment_type || 'Sessão'}
                         </span>
                         {p.description && <span>• {p.description}</span>}
@@ -662,7 +662,7 @@ export default function PatientDetail() {
                         setEditingPayment(p)
                         setIsPaymentModalOpen(true)
                       }}
-                      className="text-xs text-[#2F4858] hover:text-[#243743] hover:bg-[#EAEFF2] rounded-xl h-8 px-2.5"
+                      className="text-xs text-[#5F8D7A] hover:text-[#4E7263] hover:bg-[#E8F0EC] rounded-xl h-8 px-2.5"
                     >
                       <Edit2 className="w-3.5 h-3.5 mr-1" />
                       Editar
@@ -764,7 +764,7 @@ export default function PatientDetail() {
               {/* Contato de emergência */}
               <div className="p-4 bg-[#F8FAFC] rounded-2xl border border-[#E2E8F0] space-y-2">
                 <div className="flex items-center gap-2 text-xs font-semibold text-[#1E293B] uppercase tracking-wider">
-                  <AlertCircle className="w-4 h-4 text-[#2F4858]" />
+                  <AlertCircle className="w-4 h-4 text-[#5F8D7A]" />
                   <span>Contato de Emergência</span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">

@@ -128,10 +128,10 @@ export default function Index() {
   return (
     <div className="space-y-8 animate-fade-in">
       {/* Header Greeting */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-gradient-to-r from-[#EAEFF2]/70 via-white to-white p-6 sm:p-8 rounded-3xl border border-[#E2E8F0] shadow-xs">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-gradient-to-r from-[#E8F0EC]/80 via-white to-white p-6 sm:p-8 rounded-3xl border border-[#E2E8F0] shadow-xs">
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#E2E8F0] text-xs font-semibold text-[#2F4858] shadow-xs">
-            <Sparkles className="w-3.5 h-3.5 text-[#2F4858]" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#C7DBCF] text-xs font-semibold text-[#5F8D7A] shadow-xs">
+            <Sparkles className="w-3.5 h-3.5 text-[#5F8D7A]" />
             <span>Consultório Clínico Ativo</span>
           </div>
           <h1 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1E293B] tracking-tight">
@@ -153,7 +153,7 @@ export default function Index() {
           </Button>
           <Button
             onClick={() => setIsConsultationModalOpen(true)}
-            className="rounded-xl bg-[#2F4858] hover:bg-[#243743] text-white font-medium shadow-xs"
+            className="rounded-xl bg-[#5F8D7A] hover:bg-[#4E7263] text-white font-medium shadow-xs"
           >
             <Calendar className="w-4 h-4 mr-1.5" />
             Agendar atendimento
@@ -173,11 +173,11 @@ export default function Index() {
               <h3 className="mt-1 text-2xl sm:text-3xl font-serif font-bold text-[#1E293B]">
                 {isLoading ? '...' : activePatientsCount}
               </h3>
-              <p className="mt-1 text-xs text-[#2F4858] font-medium">
+              <p className="mt-1 text-xs text-[#5F8D7A] font-medium">
                 {patients.length} pacientes totais no cadastro
               </p>
             </div>
-            <div className="w-12 h-12 rounded-2xl bg-[#EAEFF2] text-[#2F4858] flex items-center justify-center shrink-0">
+            <div className="w-12 h-12 rounded-2xl bg-[#E8F0EC] text-[#5F8D7A] flex items-center justify-center shrink-0 border border-[#C7DBCF]">
               <Users className="w-6 h-6" />
             </div>
           </CardContent>
@@ -217,7 +217,7 @@ export default function Index() {
               </h3>
               <p className="mt-1 text-xs text-[#64748B]">De segunda a domingo</p>
             </div>
-            <div className="w-12 h-12 rounded-2xl bg-[#EAEFF2] text-[#2F4858] flex items-center justify-center shrink-0">
+            <div className="w-12 h-12 rounded-2xl bg-[#FAEDE7] text-[#C97B5A] flex items-center justify-center shrink-0 border border-[#F1D0C5]">
               <CalendarCheck className="w-6 h-6" />
             </div>
           </CardContent>
@@ -250,14 +250,14 @@ export default function Index() {
         <div className="lg:col-span-2 space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <div className="w-2.5 h-2.5 rounded-full bg-[#2F4858]" />
+              <div className="w-2.5 h-2.5 rounded-full bg-[#5F8D7A]" />
               <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#1E293B]">
                 Agenda de Hoje
               </h2>
             </div>
             <Link
               to="/agenda"
-              className="text-xs font-semibold text-[#2F4858] hover:text-[#243743] flex items-center gap-1 group"
+              className="text-xs font-semibold text-[#5F8D7A] hover:text-[#4E7263] flex items-center gap-1 group"
             >
               <span>Ver agenda completa</span>
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
@@ -267,7 +267,7 @@ export default function Index() {
           <div className="bg-white rounded-2xl border border-[#E2E8F0] divide-y divide-[#E2E8F0]/80 overflow-hidden shadow-xs">
             {todayAppointments.length === 0 ? (
               <div className="p-8 text-center space-y-3">
-                <div className="w-12 h-12 rounded-2xl bg-[#EAEFF2] text-[#2F4858] flex items-center justify-center mx-auto">
+                <div className="w-12 h-12 rounded-2xl bg-[#E8F0EC] text-[#5F8D7A] flex items-center justify-center mx-auto border border-[#C7DBCF]">
                   <Calendar className="w-6 h-6" />
                 </div>
                 <h3 className="font-serif text-base font-semibold text-[#1E293B]">
@@ -281,7 +281,7 @@ export default function Index() {
                   <Button
                     onClick={() => setIsConsultationModalOpen(true)}
                     size="sm"
-                    className="bg-[#2F4858] hover:bg-[#243743] text-white rounded-xl text-xs"
+                    className="bg-[#5F8D7A] hover:bg-[#4E7263] text-white rounded-xl text-xs"
                   >
                     <Plus className="w-3.5 h-3.5 mr-1" />
                     Agendar para hoje
@@ -299,7 +299,7 @@ export default function Index() {
                   >
                     <div className="flex items-center gap-3.5">
                       <div className="w-14 text-center shrink-0 py-1 bg-[#F8FAFC] rounded-xl border border-[#E2E8F0]">
-                        <span className="block font-mono text-base font-bold text-[#2F4858]">
+                        <span className="block font-mono text-base font-bold text-[#5F8D7A]">
                           {appt.start_time}
                         </span>
                         <span className="block text-[10px] text-[#64748B]">
@@ -310,7 +310,7 @@ export default function Index() {
                       <div className="min-w-0">
                         <Link
                           to={appt.patient ? `/pacientes/${appt.patient}` : '#'}
-                          className="font-semibold text-sm sm:text-base text-[#1E293B] hover:text-[#2F4858] flex items-center gap-1.5 transition-colors"
+                          className="font-semibold text-sm sm:text-base text-[#1E293B] hover:text-[#5F8D7A] flex items-center gap-1.5 transition-colors"
                         >
                           <span>{patientName}</span>
                           <ChevronRight className="w-3.5 h-3.5 text-[#64748B] opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -321,8 +321,8 @@ export default function Index() {
                               <Video className="w-3 h-3" /> Online
                             </span>
                           ) : appt.type === 'mixed' ? (
-                            <span className="inline-flex items-center gap-1 text-[#2F4858] font-medium">
-                              <Layers className="w-3 h-3 text-[#2F4858]" /> Mista
+                            <span className="inline-flex items-center gap-1 text-[#5F8D7A] font-medium">
+                              <Layers className="w-3 h-3 text-[#5F8D7A]" /> Mista
                               (Presencial/Online)
                             </span>
                           ) : (
@@ -332,7 +332,7 @@ export default function Index() {
                             <>
                               <span>•</span>
                               <span className="flex items-center gap-1 font-mono text-[11px]">
-                                <Phone className="w-3 h-3 text-[#2F4858]" />
+                                <Phone className="w-3 h-3 text-[#5F8D7A]" />
                                 {patientPhone}
                               </span>
                             </>
@@ -348,7 +348,7 @@ export default function Index() {
                           variant="ghost"
                           size="sm"
                           onClick={() => navigate(`/pacientes/${appt.patient}`)}
-                          className="text-xs text-[#2F4858] hover:text-[#243743] hover:bg-[#EAEFF2]"
+                          className="text-xs text-[#5F8D7A] hover:text-[#4E7263] hover:bg-[#E8F0EC]"
                         >
                           Ver ficha
                         </Button>
@@ -389,7 +389,7 @@ export default function Index() {
                         <div>
                           <p className="text-sm font-semibold text-[#1E293B]">{patientName}</p>
                           <p className="text-xs text-[#64748B] flex items-center gap-1.5">
-                            <Clock className="w-3 h-3 text-[#2F4858]" />
+                            <Clock className="w-3 h-3 text-[#5F8D7A]" />
                             {dateFormatted} •{' '}
                             {appt.type === 'online'
                               ? 'Online'
@@ -414,7 +414,7 @@ export default function Index() {
             <h2 className="font-serif text-xl font-bold text-[#1E293B]">Pacientes Recentes</h2>
             <Link
               to="/pacientes"
-              className="text-xs font-semibold text-[#2F4858] hover:text-[#243743]"
+              className="text-xs font-semibold text-[#5F8D7A] hover:text-[#4E7263]"
             >
               Ver todos →
             </Link>

@@ -144,7 +144,7 @@ export default function Agenda() {
     setIsModalOpen(true)
   }
 
-  // Visual appearance per status (CLIAP: esmeralda sucesso, âmbar atenção, slate agendada)
+  // Visual appearance per status (esmeralda sucesso, âmbar atenção, slate cancelada, sálvia/âmbar agendada)
   const getApptStyle = (status: string) => {
     switch (status) {
       case 'completed':
@@ -155,8 +155,8 @@ export default function Agenda() {
         return 'bg-amber-50 border-amber-300 text-amber-900'
       case 'scheduled':
       default:
-        // Agendada/pendente: âmbar suave de atenção clínica
-        return 'bg-amber-50/70 border-amber-200 text-amber-950'
+        // Agendada/pendente: sálvia suave de atenção acolhedora
+        return 'bg-[#E8F0EC]/80 border-[#C7DBCF] text-[#2D453B]'
     }
   }
 
@@ -260,7 +260,7 @@ export default function Agenda() {
               })
               setIsModalOpen(true)
             }}
-            className="bg-[#2F4858] hover:bg-[#243743] text-white rounded-xl text-xs sm:text-sm font-medium h-9 sm:h-10 shadow-xs shrink-0"
+            className="bg-[#5F8D7A] hover:bg-[#4E7263] text-white rounded-xl text-xs sm:text-sm font-medium h-9 sm:h-10 shadow-xs shrink-0"
           >
             <Plus className="w-4 h-4 mr-1.5" />
             Nova consulta
@@ -270,7 +270,7 @@ export default function Agenda() {
 
       {isLoading ? (
         <div className="p-16 text-center text-sm text-[#64748B] flex flex-col items-center gap-3">
-          <Loader2 className="w-6 h-6 animate-spin text-[#2F4858]" />
+          <Loader2 className="w-6 h-6 animate-spin text-[#5F8D7A]" />
           <span>Carregando agenda clínica...</span>
         </div>
       ) : viewMode === 'day' ? (
@@ -298,7 +298,7 @@ export default function Agenda() {
                     {apptsInHour.length === 0 ? (
                       <div
                         onClick={() => openNewForSlot(format(selectedDate, 'yyyy-MM-dd'), hour)}
-                        className="h-10 rounded-xl border border-dashed border-transparent hover:border-[#2F4858]/40 hover:bg-[#EAEFF2]/40 flex items-center px-4 text-xs text-transparent group-hover:text-[#2F4858] cursor-pointer transition-all"
+                        className="h-10 rounded-xl border border-dashed border-transparent hover:border-[#5F8D7A]/40 hover:bg-[#E8F0EC]/40 flex items-center px-4 text-xs text-transparent group-hover:text-[#5F8D7A] cursor-pointer transition-all"
                       >
                         <Plus className="w-3.5 h-3.5 mr-1.5" />
                         <span>Agendar neste horário ({hour})</span>
@@ -339,8 +339,8 @@ export default function Agenda() {
                                         <Video className="w-3 h-3" /> Online
                                       </span>
                                     ) : appt.type === 'mixed' ? (
-                                      <span className="inline-flex items-center gap-1 text-[#2F4858] font-medium">
-                                        <Layers className="w-3 h-3 text-[#2F4858]" /> Mista
+                                      <span className="inline-flex items-center gap-1 text-[#5F8D7A] font-medium">
+                                        <Layers className="w-3 h-3 text-[#5F8D7A]" /> Mista
                                       </span>
                                     ) : (
                                       <span>Presencial</span>
@@ -389,9 +389,9 @@ export default function Agenda() {
                     }}
                     className={`p-3 rounded-2xl text-center cursor-pointer transition-all ${
                       isSelected
-                        ? 'bg-[#2F4858] text-white shadow-xs'
+                        ? 'bg-[#5F8D7A] text-white shadow-xs'
                         : isDayToday
-                          ? 'bg-[#EAEFF2] text-[#2F4858]'
+                          ? 'bg-[#E8F0EC] text-[#5F8D7A]'
                           : 'hover:bg-[#F8FAFC] text-[#1E293B]'
                     }`}
                   >
@@ -422,7 +422,7 @@ export default function Agenda() {
                       return (
                         <div
                           key={dayStr + hour}
-                          className="relative rounded-xl border border-[#E2E8F0]/60 hover:border-[#2F4858]/40 p-1.5 transition-colors group bg-[#F8FAFC]/50"
+                          className="relative rounded-xl border border-[#E2E8F0]/60 hover:border-[#5F8D7A]/40 p-1.5 transition-colors group bg-[#F8FAFC]/50"
                         >
                           <span className="text-[10px] text-[#64748B]/70 font-mono block">
                             {hour}
@@ -431,7 +431,7 @@ export default function Agenda() {
                           {apptsInCell.length === 0 ? (
                             <button
                               onClick={() => openNewForSlot(dayStr, hour)}
-                              className="w-full h-8 mt-1 rounded-lg hover:bg-[#EAEFF2]/60 text-[10px] text-transparent group-hover:text-[#2F4858] flex items-center justify-center transition-colors"
+                              className="w-full h-8 mt-1 rounded-lg hover:bg-[#E8F0EC]/60 text-[10px] text-transparent group-hover:text-[#5F8D7A] flex items-center justify-center transition-colors"
                             >
                               <Plus className="w-3 h-3" />
                             </button>
