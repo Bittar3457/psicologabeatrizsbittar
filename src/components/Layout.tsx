@@ -75,7 +75,7 @@ export default function Layout() {
   // Get current page title
   const getPageTitle = () => {
     const current = location.pathname
-    if (current === '/') return 'Visão Geral'
+    if (current === '/') return 'Início'
     if (current.startsWith('/pacientes/') && current !== '/pacientes')
       return 'Prontuário do Paciente'
     if (current.startsWith('/pacientes')) return 'Gestão de Pacientes'
