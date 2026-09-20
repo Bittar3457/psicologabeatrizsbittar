@@ -183,14 +183,14 @@ export default function Settings() {
       <Card className="rounded-3xl border-[#E2E8F0] bg-white shadow-xs">
         <CardContent className="p-6 sm:p-8 space-y-6">
           <div className="flex items-center gap-2.5 pb-4 border-b border-[#E2E8F0]">
-            <User className="w-5 h-5 text-[#2F4858]" />
+            <User className="w-5 h-5 text-[#5F8D7A]" />
             <h2 className="font-serif text-lg font-bold text-[#1E293B]">Perfil da Profissional</h2>
           </div>
 
           <form onSubmit={handleProfileSubmit} className="space-y-5">
             {/* Avatar upload */}
             <div className="flex items-center gap-5">
-              <div className="w-16 h-16 rounded-2xl bg-[#EAEFF2] border border-[#C5D3DC] text-[#2F4858] flex items-center justify-center font-bold text-xl overflow-hidden shrink-0">
+              <div className="w-16 h-16 rounded-2xl bg-[#E8F0EC] border border-[#C7DBCF] text-[#5F8D7A] flex items-center justify-center font-bold text-xl overflow-hidden shrink-0">
                 {avatarPreview ? (
                   <img
                     src={avatarPreview}
@@ -212,9 +212,9 @@ export default function Settings() {
               <div>
                 <Label
                   htmlFor="avatar-file"
-                  className="cursor-pointer inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] hover:bg-[#EAEFF2] text-xs font-semibold text-[#1E293B] transition-colors"
+                  className="cursor-pointer inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] hover:bg-[#E8F0EC] text-xs font-semibold text-[#1E293B] transition-colors"
                 >
-                  <Upload className="w-3.5 h-3.5 text-[#2F4858]" />
+                  <Upload className="w-3.5 h-3.5 text-[#5F8D7A]" />
                   <span>Escolher foto de perfil</span>
                 </Label>
                 <input
@@ -246,7 +246,7 @@ export default function Settings() {
             <Button
               type="submit"
               disabled={isUpdatingProfile}
-              className="bg-[#2F4858] hover:bg-[#243743] text-white rounded-xl text-xs sm:text-sm font-medium"
+              className="bg-[#5F8D7A] hover:bg-[#4E7263] text-white rounded-xl text-xs sm:text-sm font-medium"
             >
               {isUpdatingProfile ? (
                 <>
@@ -265,7 +265,7 @@ export default function Settings() {
       <Card className="rounded-3xl border-[#E2E8F0] bg-white shadow-xs">
         <CardContent className="p-6 sm:p-8 space-y-6">
           <div className="flex items-center gap-2.5 pb-4 border-b border-[#E2E8F0]">
-            <Sliders className="w-5 h-5 text-[#2F4858]" />
+            <Sliders className="w-5 h-5 text-[#5F8D7A]" />
             <div>
               <h2 className="font-serif text-lg font-bold text-[#1E293B]">
                 Preferências da Prática Clínica
@@ -349,7 +349,7 @@ export default function Settings() {
 
             <Button
               type="submit"
-              className="bg-[#2F4858] hover:bg-[#243743] text-white rounded-xl text-xs sm:text-sm font-medium"
+              className="bg-[#5F8D7A] hover:bg-[#4E7263] text-white rounded-xl text-xs sm:text-sm font-medium"
             >
               {isPrefsSaved ? (
                 <>
@@ -368,7 +368,7 @@ export default function Settings() {
       <Card className="rounded-3xl border-[#E2E8F0] bg-white shadow-xs">
         <CardContent className="p-6 sm:p-8 space-y-6">
           <div className="flex items-center gap-2.5 pb-4 border-b border-[#E2E8F0]">
-            <Mail className="w-5 h-5 text-[#2F4858]" />
+            <Mail className="w-5 h-5 text-[#5F8D7A]" />
             <div>
               <h2 className="font-serif text-lg font-bold text-[#1E293B]">
                 Alterar E-mail de Acesso
@@ -411,7 +411,7 @@ export default function Settings() {
                 type="submit"
                 disabled={isRequestingEmail}
                 variant="outline"
-                className="border-[#2F4858] text-[#2F4858] hover:bg-[#EAEFF2] rounded-xl text-xs font-medium"
+                className="border-[#5F8D7A] text-[#5F8D7A] hover:bg-[#E8F0EC] rounded-xl text-xs font-medium"
               >
                 {isRequestingEmail ? (
                   <>
@@ -431,7 +431,7 @@ export default function Settings() {
       <Card className="rounded-3xl border-[#E2E8F0] bg-white shadow-xs">
         <CardContent className="p-6 sm:p-8 space-y-6">
           <div className="flex items-center gap-2.5 pb-4 border-b border-[#E2E8F0]">
-            <Lock className="w-5 h-5 text-[#2F4858]" />
+            <Lock className="w-5 h-5 text-[#5F8D7A]" />
             <h2 className="font-serif text-lg font-bold text-[#1E293B]">
               Alterar Senha de Segurança
             </h2>
@@ -487,7 +487,7 @@ export default function Settings() {
               type="submit"
               disabled={isUpdatingPassword}
               variant="outline"
-              className="border-[#2F4858] text-[#2F4858] hover:bg-[#EAEFF2] rounded-xl text-xs font-medium"
+              className="border-[#5F8D7A] text-[#5F8D7A] hover:bg-[#E8F0EC] rounded-xl text-xs font-medium"
             >
               {isUpdatingPassword ? (
                 <>

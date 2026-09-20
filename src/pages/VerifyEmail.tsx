@@ -44,10 +44,10 @@ export default function VerifyEmail() {
     <div className="min-h-screen bg-[#F8FAFC] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
-          <div className="relative w-14 h-14 rounded-2xl bg-[#2F4858] shadow-md flex items-center justify-center text-white font-serif text-2xl select-none">
+          <div className="relative w-14 h-14 rounded-2xl bg-[#5F8D7A] shadow-md flex items-center justify-center text-white font-serif text-2xl select-none">
             <span>B</span>
             <span className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-[#C97B5A] ring-2 ring-white" />
-            <span className="absolute -bottom-0.5 -left-0.5 w-2.5 h-2.5 rounded-full bg-[#5F8D7A] ring-2 ring-white" />
+            <span className="absolute -bottom-0.5 -left-0.5 w-2.5 h-2.5 rounded-full bg-[#4E7263] ring-2 ring-white" />
           </div>
         </div>
         <h2 className="mt-4 text-center text-2xl font-serif text-[#1E293B] tracking-tight">
@@ -59,7 +59,7 @@ export default function VerifyEmail() {
         <div className="bg-white py-8 px-6 shadow-sm rounded-2xl border border-[#E2E8F0] sm:px-10 text-center">
           {status === 'verifying' && (
             <div className="space-y-4">
-              <Loader2 className="w-10 h-10 animate-spin text-[#2F4858] mx-auto" />
+              <Loader2 className="w-10 h-10 animate-spin text-[#5F8D7A] mx-auto" />
               <h3 className="text-lg font-serif text-[#1E293B]">Confirmando seu e-mail...</h3>
               <p className="text-sm text-[#64748B]">
                 Aguarde alguns segundos enquanto validamos suas credenciais.
@@ -78,7 +78,7 @@ export default function VerifyEmail() {
               </p>
               <div className="pt-4">
                 <Link to="/login">
-                  <Button className="w-full bg-[#2F4858] hover:bg-[#243743] text-white">
+                  <Button className="w-full bg-[#5F8D7A] hover:bg-[#4E7263] text-white">
                     Ir para Login
                   </Button>
                 </Link>

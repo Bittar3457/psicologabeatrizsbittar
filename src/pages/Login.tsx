@@ -54,10 +54,10 @@ export default function Login() {
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
           {/* Monograma oficial B com acentos orgânicos Terracota e Sálvia */}
-          <div className="relative w-16 h-16 rounded-2xl bg-[#2F4858] shadow-md flex items-center justify-center text-white font-serif text-3xl tracking-tight select-none">
+          <div className="relative w-16 h-16 rounded-2xl bg-[#5F8D7A] shadow-md flex items-center justify-center text-white font-serif text-3xl tracking-tight select-none">
             <span>B</span>
             <span className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-[#C97B5A] ring-2 ring-white" />
-            <span className="absolute -bottom-0.5 -left-0.5 w-3 h-3 rounded-full bg-[#5F8D7A] ring-2 ring-white" />
+            <span className="absolute -bottom-0.5 -left-0.5 w-3 h-3 rounded-full bg-[#4E7263] ring-2 ring-white" />
           </div>
         </div>
         <h2 className="mt-4 text-center text-3xl font-serif text-[#1E293B] tracking-tight">
@@ -89,7 +89,7 @@ export default function Login() {
                   placeholder="seu.email@exemplo.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="pl-10 h-11 border-[#E2E8F0] focus-visible:ring-[#2F4858]"
+                  className="pl-10 h-11 border-[#E2E8F0] focus-visible:ring-[#5F8D7A]"
                 />
                 <Mail className="w-4 h-4 text-[#64748B] absolute left-3 top-3.5" />
               </div>
@@ -102,7 +102,7 @@ export default function Login() {
                 </Label>
                 <Link
                   to="/forgot-password"
-                  className="text-xs font-medium text-[#2F4858] hover:text-[#243743]"
+                  className="text-xs font-medium text-[#5F8D7A] hover:text-[#4E7263]"
                 >
                   Esqueceu a senha?
                 </Link>
@@ -117,7 +117,7 @@ export default function Login() {
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="pl-10 h-11 border-[#E2E8F0] focus-visible:ring-[#2F4858]"
+                  className="pl-10 h-11 border-[#E2E8F0] focus-visible:ring-[#5F8D7A]"
                 />
                 <Lock className="w-4 h-4 text-[#64748B] absolute left-3 top-3.5" />
               </div>
@@ -127,7 +127,7 @@ export default function Login() {
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full h-11 bg-[#2F4858] hover:bg-[#243743] text-white rounded-xl text-sm font-medium transition-colors shadow-xs"
+                className="w-full h-11 bg-[#5F8D7A] hover:bg-[#4E7263] text-white rounded-xl text-sm font-medium transition-colors shadow-xs"
               >
                 {isSubmitting ? (
                   <>
@@ -146,7 +146,7 @@ export default function Login() {
             <button
               type="button"
               onClick={fillQuickAccess}
-              className="text-xs text-[#64748B] hover:text-[#2F4858] inline-flex items-center gap-1.5 transition-colors underline"
+              className="text-xs text-[#64748B] hover:text-[#5F8D7A] inline-flex items-center gap-1.5 transition-colors underline"
             >
               <HeartHandshake className="w-3.5 h-3.5" />
               Preencher dados de acesso inicial (robertobittar98@gmail.com)

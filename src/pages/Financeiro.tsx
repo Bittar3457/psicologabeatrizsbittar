@@ -397,8 +397,8 @@ export default function Financeiro() {
       {/* Top Banner & Month Selector */}
       <div className="bg-white rounded-3xl border border-[#E2E8F0] p-6 sm:p-8 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EAEFF2] border border-[#C5D3DC] text-xs font-semibold text-[#2F4858]">
-            <DollarSign className="w-3.5 h-3.5 text-[#2F4858]" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E8F0EC] border border-[#C7DBCF] text-xs font-semibold text-[#5F8D7A]">
+            <DollarSign className="w-3.5 h-3.5 text-[#5F8D7A]" />
             <span>Módulo de Gestão Financeira</span>
           </div>
           <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E293B]">
@@ -417,14 +417,14 @@ export default function Financeiro() {
               variant="ghost"
               size="icon"
               onClick={handlePrevMonth}
-              className="h-8 w-8 text-[#2F4858] hover:bg-white rounded-xl"
+              className="h-8 w-8 text-[#5F8D7A] hover:bg-white rounded-xl"
               title="Mês anterior"
             >
               <ChevronLeft className="w-4 h-4" />
             </Button>
             <button
               onClick={handleCurrentMonth}
-              className="px-3 text-xs sm:text-sm font-semibold text-[#1E293B] hover:text-[#2F4858] transition-colors"
+              className="px-3 text-xs sm:text-sm font-semibold text-[#1E293B] hover:text-[#5F8D7A] transition-colors"
               title="Voltar para o mês atual"
             >
               {formattedMonthLabel}
@@ -433,7 +433,7 @@ export default function Financeiro() {
               variant="ghost"
               size="icon"
               onClick={handleNextMonth}
-              className="h-8 w-8 text-[#2F4858] hover:bg-white rounded-xl"
+              className="h-8 w-8 text-[#5F8D7A] hover:bg-white rounded-xl"
               title="Próximo mês"
             >
               <ChevronRight className="w-4 h-4" />
@@ -445,7 +445,7 @@ export default function Financeiro() {
               setEditingPayment(null)
               setIsPaymentModalOpen(true)
             }}
-            className="rounded-xl bg-[#2F4858] hover:bg-[#243743] text-white text-xs sm:text-sm font-medium shadow-xs"
+            className="rounded-xl bg-[#5F8D7A] hover:bg-[#4E7263] text-white text-xs sm:text-sm font-medium shadow-xs"
           >
             <Plus className="w-4 h-4 mr-1.5" />
             Novo lançamento
@@ -503,7 +503,7 @@ export default function Financeiro() {
           </CardContent>
         </Card>
 
-        {/* Card 3: Atendimentos Pagos - Azul ardósia principal CLIAP */}
+        {/* Card 3: Atendimentos Pagos - Verde-sálvia original */}
         <Card className="rounded-2xl border-[#E2E8F0] bg-white shadow-xs hover:shadow-sm transition-all">
           <CardContent className="p-5 flex items-center justify-between">
             <div className="space-y-1">
@@ -513,11 +513,11 @@ export default function Financeiro() {
               <h3 className="text-2xl sm:text-3xl font-serif font-bold text-[#1E293B]">
                 {isLoading ? '...' : paidCount}
               </h3>
-              <p className="text-xs text-[#2F4858] font-medium">
+              <p className="text-xs text-[#5F8D7A] font-medium">
                 Em {formattedMonthLabel.toLowerCase()}
               </p>
             </div>
-            <div className="w-12 h-12 rounded-2xl bg-[#EAEFF2] text-[#2F4858] flex items-center justify-center shrink-0 border border-[#C5D3DC]">
+            <div className="w-12 h-12 rounded-2xl bg-[#E8F0EC] text-[#5F8D7A] flex items-center justify-center shrink-0 border border-[#C7DBCF]">
               <CalendarDays className="w-6 h-6" />
             </div>
           </CardContent>
@@ -548,13 +548,13 @@ export default function Financeiro() {
           <TabsList className="bg-white border border-[#E2E8F0] p-1 rounded-2xl h-12 flex gap-1 self-start shadow-xs">
             <TabsTrigger
               value="transactions"
-              className="rounded-xl data-[state=active]:bg-[#2F4858] data-[state=active]:text-white data-[state=active]:shadow-xs text-xs sm:text-sm font-medium px-4"
+              className="rounded-xl data-[state=active]:bg-[#5F8D7A] data-[state=active]:text-white data-[state=active]:shadow-xs text-xs sm:text-sm font-medium px-4"
             >
               Lançamentos do Mês ({filteredTablePayments.length})
             </TabsTrigger>
             <TabsTrigger
               value="report"
-              className="rounded-xl data-[state=active]:bg-[#2F4858] data-[state=active]:text-white data-[state=active]:shadow-xs text-xs sm:text-sm font-medium px-4"
+              className="rounded-xl data-[state=active]:bg-[#5F8D7A] data-[state=active]:text-white data-[state=active]:shadow-xs text-xs sm:text-sm font-medium px-4"
             >
               Relatório Mensal de Atendimentos
             </TabsTrigger>
@@ -565,7 +565,7 @@ export default function Financeiro() {
             onClick={handleExportCSV}
             className="rounded-xl border-[#E2E8F0] bg-white text-[#1E293B] hover:bg-[#F8FAFC] text-xs sm:text-sm self-start sm:self-auto shadow-xs"
           >
-            <Download className="w-3.5 h-3.5 mr-1.5 text-[#2F4858]" />
+            <Download className="w-3.5 h-3.5 mr-1.5 text-[#5F8D7A]" />
             Exportar CSV ({formattedMonthLabel})
           </Button>
         </div>
@@ -657,7 +657,7 @@ export default function Financeiro() {
           <div className="bg-white rounded-2xl border border-[#E2E8F0] overflow-hidden shadow-xs">
             {filteredTablePayments.length === 0 ? (
               <div className="p-12 text-center space-y-3">
-                <div className="w-12 h-12 rounded-2xl bg-[#EAEFF2] text-[#2F4858] flex items-center justify-center mx-auto">
+                <div className="w-12 h-12 rounded-2xl bg-[#E8F0EC] text-[#5F8D7A] flex items-center justify-center mx-auto border border-[#C7DBCF]">
                   <DollarSign className="w-6 h-6" />
                 </div>
                 <h3 className="font-serif text-base font-bold text-[#1E293B]">
@@ -673,7 +673,7 @@ export default function Financeiro() {
                       setEditingPayment(null)
                       setIsPaymentModalOpen(true)
                     }}
-                    className="bg-[#2F4858] hover:bg-[#243743] text-white rounded-xl text-xs"
+                    className="bg-[#5F8D7A] hover:bg-[#4E7263] text-white rounded-xl text-xs"
                   >
                     <Plus className="w-3.5 h-3.5 mr-1" />
                     Registrar novo pagamento
@@ -708,7 +708,7 @@ export default function Financeiro() {
                           <td className="py-3.5 px-4 sm:px-6">
                             <div className="flex items-center gap-2.5">
                               <PatientAvatar name={patientName} size="sm" />
-                              <span className="font-semibold text-[#1E293B] hover:text-[#2F4858] transition-colors">
+                              <span className="font-semibold text-[#1E293B] hover:text-[#5F8D7A] transition-colors">
                                 {patientName}
                               </span>
                             </div>
@@ -716,7 +716,7 @@ export default function Financeiro() {
 
                           {/* Tipo / Descrição */}
                           <td className="py-3.5 px-4 sm:px-6 max-w-xs truncate">
-                            <span className="inline-block px-2 py-0.5 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] text-[11px] font-medium text-[#2F4858] mr-1.5">
+                            <span className="inline-block px-2 py-0.5 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] text-[11px] font-medium text-[#5F8D7A] mr-1.5">
                               {p.appointment_type || 'Sessão'}
                             </span>
                             {p.description && (
@@ -731,8 +731,8 @@ export default function Financeiro() {
 
                           {/* Forma de Pagamento */}
                           <td className="py-3.5 px-4 sm:px-6 whitespace-nowrap">
-                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-[#EAEFF2] text-[#2F4858] text-xs font-medium border border-[#C5D3DC]">
-                              <CreditCard className="w-3 h-3 text-[#2F4858]" />
+                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-[#E8F0EC] text-[#5F8D7A] text-xs font-medium border border-[#C7DBCF]">
+                              <CreditCard className="w-3 h-3 text-[#5F8D7A]" />
                               {PAYMENT_METHOD_LABELS[p.payment_method] || p.payment_method}
                             </span>
                           </td>
@@ -757,7 +757,7 @@ export default function Financeiro() {
                                   setEditingPayment(p)
                                   setIsPaymentModalOpen(true)
                                 }}
-                                className="h-8 w-8 text-[#64748B] hover:text-[#2F4858] hover:bg-[#EAEFF2] rounded-xl"
+                                className="h-8 w-8 text-[#64748B] hover:text-[#5F8D7A] hover:bg-[#E8F0EC] rounded-xl"
                                 title="Editar lançamento"
                               >
                                 <Edit2 className="w-3.5 h-3.5" />
@@ -856,7 +856,7 @@ export default function Financeiro() {
                   <h4 className="text-2xl font-serif font-bold text-[#1E293B]">
                     {attendanceStats.scheduled}
                   </h4>
-                  <Clock className="w-5 h-5 text-[#2F4858]" />
+                  <Clock className="w-5 h-5 text-[#5F8D7A]" />
                 </div>
                 <p className="text-[11px] text-[#64748B]">Consultas a serem atendidas</p>
               </div>
@@ -869,9 +869,9 @@ export default function Financeiro() {
             <div className="bg-white rounded-3xl border border-[#E2E8F0] p-6 sm:p-8 shadow-xs space-y-6">
               <div className="flex items-center justify-between border-b border-[#E2E8F0] pb-4">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-xl bg-[#EAEFF2] text-[#2F4858] flex items-center justify-center">
-                    <PieChart className="w-4 h-4 text-[#2F4858]" />
-                  </div>
+                  <div className="w-8 h-8 rounded-xl bg-[#E8F0EC] text-[#5F8D7A] flex items-center justify-center border border-[#C7DBCF]">
+                    <PieChart className="w-4 h-4 text-[#5F8D7A]" />
+                  </div>{' '}
                   <div>
                     <h3 className="font-serif text-lg font-bold text-[#1E293B]">
                       Receitas por Forma de Pagamento
@@ -906,10 +906,10 @@ export default function Financeiro() {
                         </div>
                       </div>
 
-                      {/* Barra proporcional visual com paleta CLIAP */}
+                      {/* Barra proporcional visual com paleta original verde-sálvia */}
                       <div className="w-full bg-[#F1F5F9] rounded-full h-2.5 overflow-hidden">
                         <div
-                          className="h-full rounded-full transition-all duration-500 bg-[#2F4858]"
+                          className="h-full rounded-full transition-all duration-500 bg-[#5F8D7A]"
                           style={{ width: `${Math.max(item.percentage, 4)}%` }}
                         />
                       </div>

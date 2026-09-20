@@ -38,10 +38,10 @@ export default function ForgotPassword() {
     <div className="min-h-screen bg-[#F8FAFC] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
-          <div className="relative w-14 h-14 rounded-2xl bg-[#2F4858] shadow-md flex items-center justify-center text-white font-serif text-2xl select-none">
+          <div className="relative w-14 h-14 rounded-2xl bg-[#5F8D7A] shadow-md flex items-center justify-center text-white font-serif text-2xl select-none">
             <span>B</span>
             <span className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-[#C97B5A] ring-2 ring-white" />
-            <span className="absolute -bottom-0.5 -left-0.5 w-2.5 h-2.5 rounded-full bg-[#5F8D7A] ring-2 ring-white" />
+            <span className="absolute -bottom-0.5 -left-0.5 w-2.5 h-2.5 rounded-full bg-[#4E7263] ring-2 ring-white" />
           </div>
         </div>
         <h2 className="mt-4 text-center text-2xl font-serif text-[#1E293B] tracking-tight">
@@ -94,7 +94,7 @@ export default function ForgotPassword() {
                     placeholder="seu.email@exemplo.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="pl-10 h-11 border-[#E2E8F0] focus-visible:ring-[#2F4858]"
+                    className="pl-10 h-11 border-[#E2E8F0] focus-visible:ring-[#5F8D7A]"
                   />
                   <Mail className="w-4 h-4 text-[#64748B] absolute left-3 top-3.5" />
                 </div>
@@ -104,7 +104,7 @@ export default function ForgotPassword() {
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full h-11 bg-[#2F4858] hover:bg-[#243743] text-white rounded-xl text-sm font-medium transition-colors"
+                  className="w-full h-11 bg-[#5F8D7A] hover:bg-[#4E7263] text-white rounded-xl text-sm font-medium transition-colors"
                 >
                   {isSubmitting ? (
                     <>
@@ -120,7 +120,7 @@ export default function ForgotPassword() {
               <div className="pt-2 text-center">
                 <Link
                   to="/login"
-                  className="inline-flex items-center gap-1.5 text-xs text-[#64748B] hover:text-[#2F4858]"
+                  className="inline-flex items-center gap-1.5 text-xs text-[#64748B] hover:text-[#5F8D7A]"
                 >
                   <ArrowLeft className="w-3.5 h-3.5" />
                   Voltar para tela de login

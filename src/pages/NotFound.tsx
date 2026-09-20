@@ -12,7 +12,7 @@ const NotFound = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#F8FAFC] p-6 text-[#1E293B]">
       <div className="text-center max-w-md bg-white p-8 rounded-3xl border border-[#E2E8F0] shadow-xs space-y-4">
-        <div className="w-16 h-16 rounded-2xl bg-[#EAEFF2] text-[#2F4858] flex items-center justify-center mx-auto font-serif text-3xl font-bold">
+        <div className="w-16 h-16 rounded-2xl bg-[#E8F0EC] text-[#5F8D7A] flex items-center justify-center mx-auto font-serif text-3xl font-bold border border-[#C7DBCF]">
           404
         </div>
         <h1 className="text-2xl font-serif font-bold text-[#1E293B]">Página não encontrada</h1>
@@ -22,7 +22,7 @@ const NotFound = () => {
         <div className="pt-2">
           <a
             href="/"
-            className="inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-[#2F4858] hover:bg-[#243743] text-white text-sm font-medium transition-colors shadow-xs"
+            className="inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-[#5F8D7A] hover:bg-[#4E7263] text-white text-sm font-medium transition-colors shadow-xs"
           >
             Voltar ao Início
           </a>
