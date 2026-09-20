@@ -18,8 +18,20 @@ export interface PatientRecord extends RecordModel {
   updated: string
 }
 
-export type ConsultationType = 'presential' | 'online'
+export type ConsultationType = 'presential' | 'online' | 'mixed'
 export type ConsultationStatus = 'scheduled' | 'completed' | 'cancelled' | 'no_show'
+
+export const CONSULTATION_TYPE_LABELS: Record<ConsultationType, string> = {
+  presential: 'Presencial',
+  online: 'Online',
+  mixed: 'Mista',
+}
+
+export const CONSULTATION_TYPE_DESCRIPTIONS: Record<ConsultationType, string> = {
+  presential: 'Presencial (Consultório)',
+  online: 'Online (Teleconsulta)',
+  mixed: 'Mista (Híbrido presencial/online)',
+}
 
 export interface SessionRecord extends RecordModel {
   patient: string

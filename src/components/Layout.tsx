@@ -16,6 +16,7 @@ import {
   Menu,
   Clock,
   Video,
+  Layers,
   User,
   ShieldCheck,
 } from 'lucide-react'
@@ -277,6 +278,10 @@ export default function Layout() {
                             {appt.type === 'online' ? (
                               <span className="inline-flex items-center gap-1 text-sky-600">
                                 <Video className="w-3 h-3" /> Online
+                              </span>
+                            ) : appt.type === 'mixed' ? (
+                              <span className="inline-flex items-center gap-1 text-[#2F4858] font-medium">
+                                <Layers className="w-3 h-3 text-[#2F4858]" /> Mista
                               </span>
                             ) : (
                               <span>Presencial</span>

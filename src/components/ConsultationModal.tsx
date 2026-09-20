@@ -190,7 +190,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
           <DialogDescription className="text-sm text-[#64748B]">
             {recordToEdit
               ? 'Atualize os dados do atendimento ou registre anotações da sessão.'
-              : 'Agende um novo atendimento presencial ou online.'}
+              : 'Agende um novo atendimento presencial, online ou de modalidade mista.'}
           </DialogDescription>
         </DialogHeader>
 
@@ -279,6 +279,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
                 <SelectContent>
                   <SelectItem value="presential">Presencial (Consultório)</SelectItem>
                   <SelectItem value="online">Online (Teleconsulta)</SelectItem>
+                  <SelectItem value="mixed">Mista (Híbrido presencial/online)</SelectItem>
                 </SelectContent>
               </Select>
             </div>

@@ -12,6 +12,7 @@ import {
   Plus,
   Calendar as CalendarIcon,
   Video,
+  Layers,
   CheckCircle2,
   AlertTriangle,
   XCircle,
@@ -337,6 +338,10 @@ export default function Agenda() {
                                       <span className="inline-flex items-center gap-1 text-sky-600 font-medium">
                                         <Video className="w-3 h-3" /> Online
                                       </span>
+                                    ) : appt.type === 'mixed' ? (
+                                      <span className="inline-flex items-center gap-1 text-[#2F4858] font-medium">
+                                        <Layers className="w-3 h-3 text-[#2F4858]" /> Mista
+                                      </span>
                                     ) : (
                                       <span>Presencial</span>
                                     )}
@@ -446,6 +451,7 @@ export default function Agenda() {
                                     <div className="text-[10px] font-normal opacity-80 flex items-center gap-1">
                                       <span>{appt.start_time}</span>
                                       {appt.type === 'online' && <span>• Web</span>}
+                                      {appt.type === 'mixed' && <span>• Mista</span>}
                                     </div>
                                   </div>
                                 )

@@ -391,7 +391,8 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
                   {patientAppointments.map((a) => (
                     <SelectItem key={a.id} value={a.id}>
                       {formatDatePtBr(a.date)} às {a.start_time} (
-                      {a.type === 'online' ? 'Online' : 'Presencial'})
+                      {a.type === 'online' ? 'Online' : a.type === 'mixed' ? 'Mista' : 'Presencial'}
+                      )
                     </SelectItem>
                   ))}
                 </SelectContent>

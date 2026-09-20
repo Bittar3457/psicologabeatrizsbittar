@@ -341,6 +341,7 @@ export default function Settings() {
                   <SelectContent>
                     <SelectItem value="presential">Presencial (Consultório)</SelectItem>
                     <SelectItem value="online">Online (Teleconsulta)</SelectItem>
+                    <SelectItem value="mixed">Mista (Presencial e Online alternados)</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

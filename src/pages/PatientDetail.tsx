@@ -38,6 +38,7 @@ import {
   AlertTriangle,
   Loader2,
   Video,
+  Layers,
   UserCheck,
   DollarSign,
   CreditCard,
@@ -409,6 +410,10 @@ export default function PatientDetail() {
                             <span className="inline-flex items-center gap-1 text-sky-600">
                               <Video className="w-3 h-3" /> Online
                             </span>
+                          ) : sess.type === 'mixed' ? (
+                            <span className="inline-flex items-center gap-1 text-[#2F4858] font-medium">
+                              <Layers className="w-3 h-3 text-[#2F4858]" /> Modalidade Mista
+                            </span>
                           ) : (
                             <span>Presencial no consultório</span>
                           )}
@@ -505,6 +510,10 @@ export default function PatientDetail() {
                         {appt.type === 'online' ? (
                           <span className="inline-flex items-center gap-1 text-sky-600 font-medium">
                             <Video className="w-3.5 h-3.5" /> Atendimento Online
+                          </span>
+                        ) : appt.type === 'mixed' ? (
+                          <span className="inline-flex items-center gap-1 text-[#2F4858] font-medium">
+                            <Layers className="w-3.5 h-3.5 text-[#2F4858]" /> Atendimento Misto
                           </span>
                         ) : (
                           <span>Atendimento Presencial</span>

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-20T13:10:36.643Z",
+  "generatedAt": "2026-09-20T13:14:53.243Z",
   "collections": [
     {
       "name": "users",
@@ -180,7 +180,7 @@
           "type": "select",
           "required": true,
           "system": false,
-          "selectValues": ["presential", "online"]
+          "selectValues": ["presential", "online", "mixed"]
         },
         {
           "name": "status",
@@ -257,7 +257,7 @@
           "type": "select",
           "required": true,
           "system": false,
-          "selectValues": ["presential", "online"]
+          "selectValues": ["presential", "online", "mixed"]
         },
         {
           "name": "status",

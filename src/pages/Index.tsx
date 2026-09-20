@@ -18,6 +18,7 @@ import {
   ArrowRight,
   Plus,
   Video,
+  Layers,
   Clock,
   ChevronRight,
   Sparkles,
@@ -319,6 +320,11 @@ export default function Index() {
                             <span className="inline-flex items-center gap-1 text-sky-600 font-medium">
                               <Video className="w-3 h-3" /> Online
                             </span>
+                          ) : appt.type === 'mixed' ? (
+                            <span className="inline-flex items-center gap-1 text-[#2F4858] font-medium">
+                              <Layers className="w-3 h-3 text-[#2F4858]" /> Mista
+                              (Presencial/Online)
+                            </span>
                           ) : (
                             <span>Presencial no consultório</span>
                           )}
@@ -384,7 +390,12 @@ export default function Index() {
                           <p className="text-sm font-semibold text-[#1E293B]">{patientName}</p>
                           <p className="text-xs text-[#64748B] flex items-center gap-1.5">
                             <Clock className="w-3 h-3 text-[#2F4858]" />
-                            {dateFormatted} • {appt.type === 'online' ? 'Online' : 'Presencial'}
+                            {dateFormatted} •{' '}
+                            {appt.type === 'online'
+                              ? 'Online'
+                              : appt.type === 'mixed'
+                                ? 'Mista'
+                                : 'Presencial'}
                           </p>
                         </div>
                       </div>
