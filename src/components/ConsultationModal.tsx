@@ -178,16 +178,16 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl border-[#E5E0D8]">
+      <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl border-[#E2E8F0]">
         <DialogHeader>
-          <DialogTitle className="font-serif text-2xl text-[#2D3A34]">
+          <DialogTitle className="font-serif text-2xl text-[#1E293B]">
             {recordToEdit
               ? isSessionRecord
                 ? 'Editar Sessão Clínica'
                 : 'Editar Consulta Agendada'
               : 'Nova Consulta'}
           </DialogTitle>
-          <DialogDescription className="text-sm text-[#6B7A72]">
+          <DialogDescription className="text-sm text-[#64748B]">
             {recordToEdit
               ? 'Atualize os dados do atendimento ou registre anotações da sessão.'
               : 'Agende um novo atendimento presencial ou online.'}
@@ -197,15 +197,15 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
         <form onSubmit={handleSubmit} className="space-y-4 pt-2">
           {/* Paciente */}
           <div className="space-y-1.5">
-            <Label className="text-xs font-semibold text-[#2D3A34]">Paciente *</Label>
+            <Label className="text-xs font-semibold text-[#1E293B]">Paciente *</Label>
             {patientsList.length === 0 ? (
-              <p className="text-xs text-amber-600">
+              <p className="text-xs text-amber-700">
                 Nenhum paciente cadastrado. Cadastre um paciente primeiro.
               </p>
             ) : (
               <Select value={patientId} onValueChange={setPatientId}>
                 <SelectTrigger
-                  className={`border-[#E5E0D8] ${errors.patient ? 'border-red-500' : ''}`}
+                  className={`border-[#E2E8F0] ${errors.patient ? 'border-red-500' : ''}`}
                 >
                   <SelectValue placeholder="Selecione o paciente" />
                 </SelectTrigger>
@@ -224,7 +224,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
           {/* Data e Horário */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <Label htmlFor="c_date" className="text-xs font-semibold text-[#2D3A34]">
+              <Label htmlFor="c_date" className="text-xs font-semibold text-[#1E293B]">
                 Data *
               </Label>
               <Input
@@ -232,13 +232,13 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className={`border-[#E5E0D8] ${errors.date ? 'border-red-500' : ''}`}
+                className={`border-[#E2E8F0] ${errors.date ? 'border-red-500' : ''}`}
               />
               {errors.date && <p className="text-xs text-red-500">{errors.date}</p>}
             </div>
 
             <div className="space-y-1.5">
-              <Label htmlFor="c_time" className="text-xs font-semibold text-[#2D3A34]">
+              <Label htmlFor="c_time" className="text-xs font-semibold text-[#1E293B]">
                 Horário de início (HH:MM) *
               </Label>
               <Input
@@ -246,7 +246,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
                 type="time"
                 value={startTime}
                 onChange={(e) => setStartTime(e.target.value)}
-                className={`border-[#E5E0D8] ${errors.start_time ? 'border-red-500' : ''}`}
+                className={`border-[#E2E8F0] ${errors.start_time ? 'border-red-500' : ''}`}
               />
               {errors.start_time && <p className="text-xs text-red-500">{errors.start_time}</p>}
             </div>
@@ -255,7 +255,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
           {/* Duração e Modalidade */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <Label htmlFor="c_duration" className="text-xs font-semibold text-[#2D3A34]">
+              <Label htmlFor="c_duration" className="text-xs font-semibold text-[#1E293B]">
                 Duração (minutos)
               </Label>
               <Input
@@ -266,14 +266,14 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
                 step={5}
                 value={duration}
                 onChange={(e) => setDuration(Number(e.target.value))}
-                className="border-[#E5E0D8]"
+                className="border-[#E2E8F0]"
               />
             </div>
 
             <div className="space-y-1.5">
-              <Label className="text-xs font-semibold text-[#2D3A34]">Modalidade</Label>
+              <Label className="text-xs font-semibold text-[#1E293B]">Modalidade</Label>
               <Select value={type} onValueChange={(val: ConsultationType) => setType(val)}>
-                <SelectTrigger className="border-[#E5E0D8]">
+                <SelectTrigger className="border-[#E2E8F0]">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -286,9 +286,9 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
 
           {/* Status da consulta */}
           <div className="space-y-1.5">
-            <Label className="text-xs font-semibold text-[#2D3A34]">Status do atendimento</Label>
+            <Label className="text-xs font-semibold text-[#1E293B]">Status do atendimento</Label>
             <Select value={status} onValueChange={(val: ConsultationStatus) => setStatus(val)}>
-              <SelectTrigger className="border-[#E5E0D8]">
+              <SelectTrigger className="border-[#E2E8F0]">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -302,7 +302,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
 
           {/* Anotações da sessão */}
           <div className="space-y-1.5">
-            <Label htmlFor="c_notes" className="text-xs font-semibold text-[#2D3A34]">
+            <Label htmlFor="c_notes" className="text-xs font-semibold text-[#1E293B]">
               Anotações clínicas e observações
             </Label>
             <Textarea
@@ -311,24 +311,24 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="Evolução clínica, temas trabalhados, reflexões, tarefas acordadas..."
-              className="border-[#E5E0D8] resize-none"
+              className="border-[#E2E8F0] resize-none"
             />
           </div>
 
-          <DialogFooter className="pt-4 border-t border-[#E5E0D8] flex sm:justify-end gap-2">
+          <DialogFooter className="pt-4 border-t border-[#E2E8F0] flex sm:justify-end gap-2">
             <Button
               type="button"
               variant="outline"
               onClick={onClose}
               disabled={isSubmitting}
-              className="border-[#E5E0D8]"
+              className="border-[#E2E8F0]"
             >
               Cancelar
             </Button>
             <Button
               type="submit"
               disabled={isSubmitting || patientsList.length === 0}
-              className="bg-[#5F8D7A] hover:bg-[#4E7263] text-white"
+              className="bg-[#2F4858] hover:bg-[#243743] text-white"
             >
               {isSubmitting ? (
                 <>

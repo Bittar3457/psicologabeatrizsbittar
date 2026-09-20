@@ -50,32 +50,35 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#F8FAFC] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
-          <div className="w-16 h-16 rounded-2xl bg-[#5F8D7A] shadow-md flex items-center justify-center text-white font-serif text-3xl tracking-tight">
-            B
+          {/* Monograma oficial B com acentos orgânicos Terracota e Sálvia */}
+          <div className="relative w-16 h-16 rounded-2xl bg-[#2F4858] shadow-md flex items-center justify-center text-white font-serif text-3xl tracking-tight select-none">
+            <span>B</span>
+            <span className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-[#C97B5A] ring-2 ring-white" />
+            <span className="absolute -bottom-0.5 -left-0.5 w-3 h-3 rounded-full bg-[#5F8D7A] ring-2 ring-white" />
           </div>
         </div>
-        <h2 className="mt-4 text-center text-3xl font-serif text-[#2D3A34] tracking-tight">
+        <h2 className="mt-4 text-center text-3xl font-serif text-[#1E293B] tracking-tight">
           Agenda da Psicóloga
         </h2>
-        <p className="mt-2 text-center text-sm text-[#6B7A72]">
+        <p className="mt-2 text-center text-sm text-[#64748B]">
           Gestão clínica privada • Beatriz Souza Bittar
         </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4 sm:px-0">
-        <div className="bg-white py-8 px-6 shadow-sm rounded-2xl border border-[#E5E0D8] sm:px-10">
+        <div className="bg-white py-8 px-6 shadow-sm rounded-2xl border border-[#E2E8F0] sm:px-10">
           <form className="space-y-5" onSubmit={handleSubmit}>
             {errorMessage && (
-              <div className="p-3 text-sm rounded-xl bg-red-50 text-[#C2453D] border border-red-200">
+              <div className="p-3 text-sm rounded-xl bg-red-50 text-[#DC2626] border border-red-200">
                 {errorMessage}
               </div>
             )}
 
             <div>
-              <Label htmlFor="email" className="text-sm font-medium text-[#2D3A34]">
+              <Label htmlFor="email" className="text-sm font-medium text-[#1E293B]">
                 E-mail
               </Label>
               <div className="mt-1 relative">
@@ -88,20 +91,20 @@ export default function Login() {
                   placeholder="seu.email@exemplo.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="pl-10 h-11 border-[#E5E0D8] focus-visible:ring-[#5F8D7A]"
+                  className="pl-10 h-11 border-[#E2E8F0] focus-visible:ring-[#2F4858]"
                 />
-                <Mail className="w-4 h-4 text-[#6B7A72] absolute left-3 top-3.5" />
+                <Mail className="w-4 h-4 text-[#64748B] absolute left-3 top-3.5" />
               </div>
             </div>
 
             <div>
               <div className="flex items-center justify-between">
-                <Label htmlFor="password" className="text-sm font-medium text-[#2D3A34]">
+                <Label htmlFor="password" className="text-sm font-medium text-[#1E293B]">
                   Senha
                 </Label>
                 <Link
                   to="/forgot-password"
-                  className="text-xs font-medium text-[#5F8D7A] hover:text-[#4E7263]"
+                  className="text-xs font-medium text-[#2F4858] hover:text-[#243743]"
                 >
                   Esqueceu a senha?
                 </Link>
@@ -116,9 +119,9 @@ export default function Login() {
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="pl-10 h-11 border-[#E5E0D8] focus-visible:ring-[#5F8D7A]"
+                  className="pl-10 h-11 border-[#E2E8F0] focus-visible:ring-[#2F4858]"
                 />
-                <Lock className="w-4 h-4 text-[#6B7A72] absolute left-3 top-3.5" />
+                <Lock className="w-4 h-4 text-[#64748B] absolute left-3 top-3.5" />
               </div>
             </div>
 
@@ -126,7 +129,7 @@ export default function Login() {
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full h-11 bg-[#5F8D7A] hover:bg-[#4E7263] text-white rounded-xl text-sm font-medium transition-colors shadow-sm"
+                className="w-full h-11 bg-[#2F4858] hover:bg-[#243743] text-white rounded-xl text-sm font-medium transition-colors shadow-xs"
               >
                 {isSubmitting ? (
                   <>
@@ -141,11 +144,11 @@ export default function Login() {
           </form>
 
           {/* Quick helper for instant test credentials */}
-          <div className="mt-6 pt-6 border-t border-[#E5E0D8]/60 text-center">
+          <div className="mt-6 pt-6 border-t border-[#E2E8F0]/80 text-center">
             <button
               type="button"
               onClick={fillQuickAccess}
-              className="text-xs text-[#6B7A72] hover:text-[#5F8D7A] inline-flex items-center gap-1.5 transition-colors underline"
+              className="text-xs text-[#64748B] hover:text-[#2F4858] inline-flex items-center gap-1.5 transition-colors underline"
             >
               <HeartHandshake className="w-3.5 h-3.5" />
               Preencher dados de acesso inicial (robertobittar98@gmail.com)
@@ -153,7 +156,7 @@ export default function Login() {
           </div>
         </div>
 
-        <p className="mt-6 text-center text-xs text-[#6B7A72]">
+        <p className="mt-6 text-center text-xs text-[#64748B]">
           Acesso seguro e confidencial em conformidade com o sigilo profissional de psicologia.
         </p>
       </div>

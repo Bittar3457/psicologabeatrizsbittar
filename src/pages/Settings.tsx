@@ -171,26 +171,26 @@ export default function Settings() {
   return (
     <div className="space-y-8 max-w-4xl animate-fade-in pb-12">
       <div>
-        <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#2D3A34]">
+        <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E293B]">
           Configurações da Clínica
         </h1>
-        <p className="text-sm text-[#6B7A72]">
+        <p className="text-sm text-[#64748B]">
           Gerencie seu perfil profissional, segurança de acesso e preferências da agenda
         </p>
       </div>
 
       {/* 1. SEÇÃO PERFIL */}
-      <Card className="rounded-3xl border-[#E5E0D8] bg-white shadow-xs">
+      <Card className="rounded-3xl border-[#E2E8F0] bg-white shadow-xs">
         <CardContent className="p-6 sm:p-8 space-y-6">
-          <div className="flex items-center gap-2.5 pb-4 border-b border-[#E5E0D8]">
-            <User className="w-5 h-5 text-[#5F8D7A]" />
-            <h2 className="font-serif text-lg font-bold text-[#2D3A34]">Perfil da Profissional</h2>
+          <div className="flex items-center gap-2.5 pb-4 border-b border-[#E2E8F0]">
+            <User className="w-5 h-5 text-[#2F4858]" />
+            <h2 className="font-serif text-lg font-bold text-[#1E293B]">Perfil da Profissional</h2>
           </div>
 
           <form onSubmit={handleProfileSubmit} className="space-y-5">
             {/* Avatar upload */}
             <div className="flex items-center gap-5">
-              <div className="w-16 h-16 rounded-2xl bg-[#E8F0EC] border border-[#C7DBCF] text-[#3D594D] flex items-center justify-center font-bold text-xl overflow-hidden shrink-0">
+              <div className="w-16 h-16 rounded-2xl bg-[#EAEFF2] border border-[#C5D3DC] text-[#2F4858] flex items-center justify-center font-bold text-xl overflow-hidden shrink-0">
                 {avatarPreview ? (
                   <img
                     src={avatarPreview}
@@ -212,9 +212,9 @@ export default function Settings() {
               <div>
                 <Label
                   htmlFor="avatar-file"
-                  className="cursor-pointer inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-[#E5E0D8] bg-[#FAF7F2] hover:bg-[#E8F0EC] text-xs font-semibold text-[#2D3A34] transition-colors"
+                  className="cursor-pointer inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] hover:bg-[#EAEFF2] text-xs font-semibold text-[#1E293B] transition-colors"
                 >
-                  <Upload className="w-3.5 h-3.5 text-[#5F8D7A]" />
+                  <Upload className="w-3.5 h-3.5 text-[#2F4858]" />
                   <span>Escolher foto de perfil</span>
                 </Label>
                 <input
@@ -224,14 +224,14 @@ export default function Settings() {
                   onChange={handleAvatarChange}
                   className="hidden"
                 />
-                <p className="text-[11px] text-[#6B7A72] mt-1">
+                <p className="text-[11px] text-[#64748B] mt-1">
                   Formatos recomendados: JPG ou PNG (máx. 2MB).
                 </p>
               </div>
             </div>
 
             <div>
-              <Label htmlFor="prof_name" className="text-xs font-semibold text-[#2D3A34]">
+              <Label htmlFor="prof_name" className="text-xs font-semibold text-[#1E293B]">
                 Nome de exibição completo
               </Label>
               <Input
@@ -239,14 +239,14 @@ export default function Settings() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Beatriz Souza Bittar"
-                className="mt-1 h-11 border-[#E5E0D8] max-w-md"
+                className="mt-1 h-11 border-[#E2E8F0] max-w-md"
               />
             </div>
 
             <Button
               type="submit"
               disabled={isUpdatingProfile}
-              className="bg-[#5F8D7A] hover:bg-[#4E7263] text-white rounded-xl text-xs sm:text-sm font-medium"
+              className="bg-[#2F4858] hover:bg-[#243743] text-white rounded-xl text-xs sm:text-sm font-medium"
             >
               {isUpdatingProfile ? (
                 <>
@@ -262,15 +262,15 @@ export default function Settings() {
       </Card>
 
       {/* 2. SEÇÃO PREFERÊNCIAS DA AGENDA */}
-      <Card className="rounded-3xl border-[#E5E0D8] bg-white shadow-xs">
+      <Card className="rounded-3xl border-[#E2E8F0] bg-white shadow-xs">
         <CardContent className="p-6 sm:p-8 space-y-6">
-          <div className="flex items-center gap-2.5 pb-4 border-b border-[#E5E0D8]">
-            <Sliders className="w-5 h-5 text-[#5F8D7A]" />
+          <div className="flex items-center gap-2.5 pb-4 border-b border-[#E2E8F0]">
+            <Sliders className="w-5 h-5 text-[#2F4858]" />
             <div>
-              <h2 className="font-serif text-lg font-bold text-[#2D3A34]">
+              <h2 className="font-serif text-lg font-bold text-[#1E293B]">
                 Preferências da Prática Clínica
               </h2>
-              <p className="text-xs text-[#6B7A72]">
+              <p className="text-xs text-[#64748B]">
                 Parâmetros aplicados como padrão ao agendar novas consultas
               </p>
             </div>
@@ -279,7 +279,7 @@ export default function Settings() {
           <form onSubmit={handleSavePreferences} className="space-y-5">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
-                <Label htmlFor="p_start" className="text-xs font-semibold text-[#2D3A34]">
+                <Label htmlFor="p_start" className="text-xs font-semibold text-[#1E293B]">
                   Horário de início do expediente
                 </Label>
                 <Input
@@ -287,12 +287,12 @@ export default function Settings() {
                   type="time"
                   value={preferences.workStart}
                   onChange={(e) => setPreferences({ ...preferences, workStart: e.target.value })}
-                  className="mt-1 border-[#E5E0D8]"
+                  className="mt-1 border-[#E2E8F0]"
                 />
               </div>
 
               <div>
-                <Label htmlFor="p_end" className="text-xs font-semibold text-[#2D3A34]">
+                <Label htmlFor="p_end" className="text-xs font-semibold text-[#1E293B]">
                   Horário de encerramento do expediente
                 </Label>
                 <Input
@@ -300,14 +300,14 @@ export default function Settings() {
                   type="time"
                   value={preferences.workEnd}
                   onChange={(e) => setPreferences({ ...preferences, workEnd: e.target.value })}
-                  className="mt-1 border-[#E5E0D8]"
+                  className="mt-1 border-[#E2E8F0]"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
-                <Label htmlFor="p_duration" className="text-xs font-semibold text-[#2D3A34]">
+                <Label htmlFor="p_duration" className="text-xs font-semibold text-[#1E293B]">
                   Duração padrão da sessão (minutos)
                 </Label>
                 <Input
@@ -323,19 +323,19 @@ export default function Settings() {
                       defaultDuration: Number(e.target.value),
                     })
                   }
-                  className="mt-1 border-[#E5E0D8]"
+                  className="mt-1 border-[#E2E8F0]"
                 />
               </div>
 
               <div>
-                <Label className="text-xs font-semibold text-[#2D3A34]">Modalidade padrão</Label>
+                <Label className="text-xs font-semibold text-[#1E293B]">Modalidade padrão</Label>
                 <Select
                   value={preferences.defaultType}
                   onValueChange={(val: ConsultationType) =>
                     setPreferences({ ...preferences, defaultType: val })
                   }
                 >
-                  <SelectTrigger className="mt-1 border-[#E5E0D8]">
+                  <SelectTrigger className="mt-1 border-[#E2E8F0]">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -348,7 +348,7 @@ export default function Settings() {
 
             <Button
               type="submit"
-              className="bg-[#5F8D7A] hover:bg-[#4E7263] text-white rounded-xl text-xs sm:text-sm font-medium"
+              className="bg-[#2F4858] hover:bg-[#243743] text-white rounded-xl text-xs sm:text-sm font-medium"
             >
               {isPrefsSaved ? (
                 <>
@@ -364,16 +364,16 @@ export default function Settings() {
       </Card>
 
       {/* 3. SEÇÃO ALTERAR E-MAIL */}
-      <Card className="rounded-3xl border-[#E5E0D8] bg-white shadow-xs">
+      <Card className="rounded-3xl border-[#E2E8F0] bg-white shadow-xs">
         <CardContent className="p-6 sm:p-8 space-y-6">
-          <div className="flex items-center gap-2.5 pb-4 border-b border-[#E5E0D8]">
-            <Mail className="w-5 h-5 text-[#5F8D7A]" />
+          <div className="flex items-center gap-2.5 pb-4 border-b border-[#E2E8F0]">
+            <Mail className="w-5 h-5 text-[#2F4858]" />
             <div>
-              <h2 className="font-serif text-lg font-bold text-[#2D3A34]">
+              <h2 className="font-serif text-lg font-bold text-[#1E293B]">
                 Alterar E-mail de Acesso
               </h2>
-              <p className="text-xs text-[#6B7A72]">
-                E-mail atual da conta: <strong className="text-[#2D3A34]">{user?.email}</strong>
+              <p className="text-xs text-[#64748B]">
+                E-mail atual da conta: <strong className="text-[#1E293B]">{user?.email}</strong>
               </p>
             </div>
           </div>
@@ -392,7 +392,7 @@ export default function Settings() {
           ) : (
             <form onSubmit={handleEmailSubmit} className="space-y-4 max-w-md">
               <div>
-                <Label htmlFor="new_email" className="text-xs font-semibold text-[#2D3A34]">
+                <Label htmlFor="new_email" className="text-xs font-semibold text-[#1E293B]">
                   Novo endereço de e-mail
                 </Label>
                 <Input
@@ -401,7 +401,7 @@ export default function Settings() {
                   value={newEmail}
                   onChange={(e) => setNewEmail(e.target.value)}
                   placeholder="novo.email@exemplo.com.br"
-                  className="mt-1 border-[#E5E0D8]"
+                  className="mt-1 border-[#E2E8F0]"
                   required
                 />
               </div>
@@ -410,7 +410,7 @@ export default function Settings() {
                 type="submit"
                 disabled={isRequestingEmail}
                 variant="outline"
-                className="border-[#5F8D7A] text-[#5F8D7A] hover:bg-[#E8F0EC] rounded-xl text-xs font-medium"
+                className="border-[#2F4858] text-[#2F4858] hover:bg-[#EAEFF2] rounded-xl text-xs font-medium"
               >
                 {isRequestingEmail ? (
                   <>
@@ -427,18 +427,18 @@ export default function Settings() {
       </Card>
 
       {/* 4. SEÇÃO ALTERAR SENHA */}
-      <Card className="rounded-3xl border-[#E5E0D8] bg-white shadow-xs">
+      <Card className="rounded-3xl border-[#E2E8F0] bg-white shadow-xs">
         <CardContent className="p-6 sm:p-8 space-y-6">
-          <div className="flex items-center gap-2.5 pb-4 border-b border-[#E5E0D8]">
-            <Lock className="w-5 h-5 text-[#5F8D7A]" />
-            <h2 className="font-serif text-lg font-bold text-[#2D3A34]">
+          <div className="flex items-center gap-2.5 pb-4 border-b border-[#E2E8F0]">
+            <Lock className="w-5 h-5 text-[#2F4858]" />
+            <h2 className="font-serif text-lg font-bold text-[#1E293B]">
               Alterar Senha de Segurança
             </h2>
           </div>
 
           <form onSubmit={handlePasswordSubmit} className="space-y-4 max-w-md">
             <div>
-              <Label htmlFor="old_pwd" className="text-xs font-semibold text-[#2D3A34]">
+              <Label htmlFor="old_pwd" className="text-xs font-semibold text-[#1E293B]">
                 Senha atual
               </Label>
               <Input
@@ -447,13 +447,13 @@ export default function Settings() {
                 value={oldPassword}
                 onChange={(e) => setOldPassword(e.target.value)}
                 placeholder="••••••••"
-                className="mt-1 border-[#E5E0D8]"
+                className="mt-1 border-[#E2E8F0]"
                 required
               />
             </div>
 
             <div>
-              <Label htmlFor="new_pwd" className="text-xs font-semibold text-[#2D3A34]">
+              <Label htmlFor="new_pwd" className="text-xs font-semibold text-[#1E293B]">
                 Nova senha (mínimo 8 caracteres)
               </Label>
               <Input
@@ -462,13 +462,13 @@ export default function Settings() {
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 placeholder="••••••••"
-                className="mt-1 border-[#E5E0D8]"
+                className="mt-1 border-[#E2E8F0]"
                 required
               />
             </div>
 
             <div>
-              <Label htmlFor="conf_pwd" className="text-xs font-semibold text-[#2D3A34]">
+              <Label htmlFor="conf_pwd" className="text-xs font-semibold text-[#1E293B]">
                 Confirmar nova senha
               </Label>
               <Input
@@ -477,7 +477,7 @@ export default function Settings() {
                 value={confirmNewPassword}
                 onChange={(e) => setConfirmNewPassword(e.target.value)}
                 placeholder="••••••••"
-                className="mt-1 border-[#E5E0D8]"
+                className="mt-1 border-[#E2E8F0]"
                 required
               />
             </div>
@@ -486,7 +486,7 @@ export default function Settings() {
               type="submit"
               disabled={isUpdatingPassword}
               variant="outline"
-              className="border-[#5F8D7A] text-[#5F8D7A] hover:bg-[#E8F0EC] rounded-xl text-xs font-medium"
+              className="border-[#2F4858] text-[#2F4858] hover:bg-[#EAEFF2] rounded-xl text-xs font-medium"
             >
               {isUpdatingPassword ? (
                 <>
@@ -501,7 +501,7 @@ export default function Settings() {
         </CardContent>
       </Card>
 
-      {/* 5. ZONA DE DADOS SENSÍVEIS E PRIVACIDADE */}
+      {/* 5. ZONA DE DADOS SENSÍVEIS E PRIVACIDADE com acento sálvia pontual */}
       <Card className="rounded-3xl border border-[#C7DBCF] bg-[#E8F0EC]/60 shadow-xs">
         <CardContent className="p-6 sm:p-8 space-y-3">
           <div className="flex items-center gap-2.5 text-[#3D594D]">

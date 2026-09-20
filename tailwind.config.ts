@@ -75,7 +75,21 @@ export default {
           border: 'hsl(var(--sidebar-border))',
           ring: 'hsl(var(--sidebar-ring))',
         },
-        // Clinical palette custom aliases
+        // CLIAP palette: Deep Slate Blue as primary, Terracotta and Sage as organic accents
+        slateBlue: {
+          DEFAULT: '#2F4858',
+          hover: '#243743',
+          light: '#EAEFF2',
+          50: '#F5F7F9',
+          100: '#EAEFF2',
+          200: '#C5D3DC',
+          500: '#3D5A6C',
+          600: '#2F4858',
+          700: '#243743',
+          800: '#1B2932',
+          900: '#121C22',
+        },
+        // Organic accents (used in logo/monogram & specific accents only)
         salvia: {
           DEFAULT: '#5F8D7A',
           hover: '#4E7263',
@@ -85,8 +99,6 @@ export default {
           200: '#C7DBCF',
           500: '#5F8D7A',
           600: '#4E7263',
-          700: '#3D594D',
-          800: '#2D4037',
         },
         terracota: {
           DEFAULT: '#C97B5A',
@@ -95,15 +107,16 @@ export default {
           500: '#C97B5A',
           600: '#B46647',
         },
+        // Clinical base & semantic colors
         clinica: {
-          bg: '#FAF7F2',
+          bg: '#F8FAFC',
           surface: '#FFFFFF',
-          text: '#2D3A34',
-          secondary: '#6B7A72',
-          border: '#E5E0D8',
-          success: '#3E8E5A',
-          warning: '#D99A3B',
-          error: '#C2453D',
+          text: '#1E293B',
+          secondary: '#64748B',
+          border: '#E2E8F0',
+          success: '#059669', // Verde-esmeralda
+          warning: '#D97706', // Âmbar
+          error: '#DC2626',
         },
         chart: {
           1: 'hsl(var(--chart-1))',

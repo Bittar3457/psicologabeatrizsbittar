@@ -1,12 +1,18 @@
 import React from 'react'
 
 const PALETTE = [
-  { bg: 'bg-[#E8F0EC]', text: 'text-[#3D594D]', border: 'border-[#C7DBCF]' },
+  // CLIAP: Azul-ardósia clínico suave
+  { bg: 'bg-[#EAEFF2]', text: 'text-[#2F4858]', border: 'border-[#C5D3DC]' },
+  // Acento terracota clínico suave
   { bg: 'bg-[#FAEDE7]', text: 'text-[#B46647]', border: 'border-[#F1D0C5]' },
-  { bg: 'bg-[#EFF6FF]', text: 'text-[#1E40AF]', border: 'border-[#BFDBFE]' },
-  { bg: 'bg-[#FEF3C7]', text: 'text-[#92400E]', border: 'border-[#FDE68A]' },
-  { bg: 'bg-[#F3E8FF]', text: 'text-[#6B21A8]', border: 'border-[#E9D5FF]' },
-  { bg: 'bg-[#ECFDF5]', text: 'text-[#065F46]', border: 'border-[#A7F3D0]' },
+  // Acento sálvia clínico suave
+  { bg: 'bg-[#E8F0EC]', text: 'text-[#3D594D]', border: 'border-[#C7DBCF]' },
+  // Slate neutro refinado
+  { bg: 'bg-slate-100', text: 'text-slate-800', border: 'border-slate-300' },
+  // Âmbar clínico muito suave
+  { bg: 'bg-amber-50', text: 'text-amber-900', border: 'border-amber-200' },
+  // Esmeralda suave
+  { bg: 'bg-emerald-50', text: 'text-emerald-900', border: 'border-emerald-200' },
 ]
 
 export function getInitials(name: string): string {
@@ -62,46 +68,53 @@ export const StatusBadge: React.FC<{
   className?: string
 }> = ({ status, className = '' }) => {
   const map: Record<string, { label: string; bg: string; text: string; dot: string }> = {
+    // Sucesso: Verde-esmeralda
     active: {
       label: 'Ativo',
       bg: 'bg-emerald-50',
       text: 'text-emerald-800 border-emerald-200',
       dot: 'bg-emerald-600',
     },
+    // Neutro / Inativo: Slate
     inactive: {
       label: 'Inativo',
       bg: 'bg-slate-100',
       text: 'text-slate-700 border-slate-200',
       dot: 'bg-slate-400',
     },
+    // Atenção: Âmbar
     waitlist: {
       label: 'Lista de espera',
       bg: 'bg-amber-50',
-      text: 'text-amber-800 border-amber-200',
+      text: 'text-amber-900 border-amber-200',
       dot: 'bg-amber-500',
     },
+    // Agendada / Pendente: Âmbar clínico ("atenção" conforme solicitação)
     scheduled: {
       label: 'Agendada',
-      bg: 'bg-[#E8F0EC]',
-      text: 'text-[#3D594D] border-[#C7DBCF]',
-      dot: 'bg-[#5F8D7A]',
+      bg: 'bg-amber-50',
+      text: 'text-amber-900 border-amber-200',
+      dot: 'bg-amber-500',
     },
+    // Sucesso: Verde-esmeralda
     completed: {
       label: 'Concluída',
       bg: 'bg-emerald-50',
       text: 'text-emerald-800 border-emerald-200',
       dot: 'bg-emerald-600',
     },
+    // Cancelada: Rose
     cancelled: {
       label: 'Cancelada',
       bg: 'bg-rose-50',
       text: 'text-rose-800 border-rose-200',
-      dot: 'bg-rose-600',
+      dot: 'bg-rose-500',
     },
+    // Atenção: Âmbar
     no_show: {
       label: 'Não compareceu',
       bg: 'bg-amber-50',
-      text: 'text-amber-800 border-amber-200',
+      text: 'text-amber-900 border-amber-200',
       dot: 'bg-amber-500',
     },
   }

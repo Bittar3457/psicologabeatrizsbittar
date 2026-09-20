@@ -90,23 +90,32 @@ export default function Layout() {
     .join('')
 
   const sidebarContent = (
-    <div className="flex flex-col h-full bg-[#FAF7F2] border-r border-[#E5E0D8]">
-      {/* Brand / Logo */}
-      <div className="p-6 pb-5 flex items-center gap-3.5 border-b border-[#E5E0D8]/60">
-        <div className="w-11 h-11 rounded-2xl bg-[#5F8D7A] shadow-sm flex items-center justify-center text-white font-serif text-2xl font-bold tracking-tight select-none">
-          B
+    <div className="flex flex-col h-full bg-white border-r border-[#E2E8F0]">
+      {/* Brand / Logo com Monograma B e acentos orgânicos Terracota (#C97B5A) e Verde-sálvia (#5F8D7A) */}
+      <div className="p-6 pb-5 flex items-center gap-3.5 border-b border-[#E2E8F0]/80">
+        <div className="relative w-11 h-11 rounded-2xl bg-[#2F4858] shadow-sm flex items-center justify-center text-white font-serif text-2xl font-bold tracking-tight select-none">
+          <span>B</span>
+          {/* Acentos orgânicos CLIAP: terracota e sálvia no monograma */}
+          <span
+            className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-[#C97B5A] ring-2 ring-white"
+            title="Acento Terracota CLIAP"
+          />
+          <span
+            className="absolute -bottom-0.5 -left-0.5 w-2.5 h-2.5 rounded-full bg-[#5F8D7A] ring-2 ring-white"
+            title="Acento Sálvia CLIAP"
+          />
         </div>
         <div>
-          <h1 className="font-serif text-lg font-bold text-[#2D3A34] leading-tight">
+          <h1 className="font-serif text-lg font-bold text-[#1E293B] leading-tight">
             Agenda da Psicóloga
           </h1>
-          <p className="text-xs text-[#6B7A72] font-medium">Beatriz Souza Bittar</p>
+          <p className="text-xs text-[#64748B] font-medium">Beatriz Souza Bittar</p>
         </div>
       </div>
 
       {/* Navigation */}
       <nav className="flex-1 px-4 py-6 space-y-1.5 overflow-y-auto">
-        <div className="px-3 pb-2 text-[11px] font-semibold tracking-wider text-[#6B7A72] uppercase">
+        <div className="px-3 pb-2 text-[11px] font-semibold tracking-wider text-[#64748B] uppercase">
           Menu Principal
         </div>
         {navItems.map((item) => {
@@ -121,39 +130,39 @@ export default function Layout() {
               onClick={() => setMobileOpen(false)}
               className={`flex items-center gap-3.5 px-3.5 py-3 rounded-xl text-sm font-medium transition-all duration-200 group ${
                 isActive
-                  ? 'bg-[#E8F0EC] text-[#3D594D] shadow-sm font-semibold'
-                  : 'text-[#6B7A72] hover:bg-white/70 hover:text-[#2D3A34]'
+                  ? 'bg-[#EAEFF2] text-[#2F4858] shadow-xs font-semibold'
+                  : 'text-[#64748B] hover:bg-[#F8FAFC] hover:text-[#1E293B]'
               }`}
             >
               <Icon
                 className={`w-5 h-5 transition-colors ${
-                  isActive ? 'text-[#5F8D7A]' : 'text-[#6B7A72] group-hover:text-[#2D3A34]'
+                  isActive ? 'text-[#2F4858]' : 'text-[#64748B] group-hover:text-[#1E293B]'
                 }`}
               />
               <span>{item.label}</span>
-              {isActive && <div className="ml-auto w-1.5 h-4 rounded-full bg-[#5F8D7A]" />}
+              {isActive && <div className="ml-auto w-1.5 h-4 rounded-full bg-[#2F4858]" />}
             </NavLink>
           )
         })}
       </nav>
 
       {/* Bottom User Card */}
-      <div className="p-4 border-t border-[#E5E0D8] bg-white/50 m-3 rounded-2xl">
+      <div className="p-4 border-t border-[#E2E8F0] bg-[#F8FAFC] m-3 rounded-2xl">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-[#5F8D7A]/15 text-[#3D594D] flex items-center justify-center font-semibold text-sm border border-[#5F8D7A]/20">
+          <div className="w-10 h-10 rounded-xl bg-[#2F4858]/10 text-[#2F4858] flex items-center justify-center font-semibold text-sm border border-[#2F4858]/20">
             {userInitials || 'B'}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-xs font-semibold text-[#2D3A34] truncate">{userDisplayName}</p>
-            <p className="text-[11px] text-[#6B7A72] truncate flex items-center gap-1">
-              <ShieldCheck className="w-3 h-3 text-[#5F8D7A]" />
+            <p className="text-xs font-semibold text-[#1E293B] truncate">{userDisplayName}</p>
+            <p className="text-[11px] text-[#64748B] truncate flex items-center gap-1">
+              <ShieldCheck className="w-3 h-3 text-[#2F4858]" />
               Psicóloga Clínica
             </p>
           </div>
           <button
             onClick={logout}
             title="Sair da conta"
-            className="p-2 text-[#6B7A72] hover:text-[#C2453D] hover:bg-red-50 rounded-lg transition-colors"
+            className="p-2 text-[#64748B] hover:text-[#DC2626] hover:bg-red-50 rounded-lg transition-colors"
           >
             <LogOut className="w-4 h-4" />
           </button>
@@ -163,7 +172,7 @@ export default function Layout() {
   )
 
   return (
-    <div className="min-h-screen flex bg-[#FAF7F2] text-[#2D3A34]">
+    <div className="min-h-screen flex bg-[#F8FAFC] text-[#1E293B]">
       {/* Desktop Sidebar (fixed 260px) */}
       <aside className="hidden md:flex md:w-[260px] md:flex-col md:fixed md:inset-y-0 z-30">
         {sidebarContent}
@@ -171,7 +180,7 @@ export default function Layout() {
 
       {/* Mobile Drawer (Sheet) */}
       <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-        <SheetContent side="left" className="p-0 w-[270px] border-r border-[#E5E0D8]">
+        <SheetContent side="left" className="p-0 w-[270px] border-r border-[#E2E8F0]">
           {sidebarContent}
         </SheetContent>
       </Sheet>
@@ -179,16 +188,16 @@ export default function Layout() {
       {/* Main Content Area */}
       <div className="md:pl-[260px] flex flex-col flex-1 min-w-0">
         {/* Top Header */}
-        <header className="sticky top-0 z-20 h-16 bg-[#FAF7F2]/90 backdrop-blur-md border-b border-[#E5E0D8] px-4 sm:px-8 flex items-center justify-between">
+        <header className="sticky top-0 z-20 h-16 bg-white/90 backdrop-blur-md border-b border-[#E2E8F0] px-4 sm:px-8 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <button
               onClick={() => setMobileOpen(true)}
-              className="md:hidden p-2 text-[#2D3A34] hover:bg-black/5 rounded-lg"
+              className="md:hidden p-2 text-[#1E293B] hover:bg-black/5 rounded-lg"
               aria-label="Abrir menu"
             >
               <Menu className="w-5 h-5" />
             </button>
-            <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#2D3A34]">
+            <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#1E293B]">
               {getPageTitle()}
             </h2>
           </div>
@@ -197,7 +206,7 @@ export default function Layout() {
             {/* Quick Action: New Consultation */}
             <Button
               onClick={() => setIsConsultationModalOpen(true)}
-              className="bg-[#5F8D7A] hover:bg-[#4E7263] text-white rounded-xl text-xs sm:text-sm font-medium h-9 sm:h-10 px-3 sm:px-4 shadow-sm"
+              className="bg-[#2F4858] hover:bg-[#243743] text-white rounded-xl text-xs sm:text-sm font-medium h-9 sm:h-10 px-3 sm:px-4 shadow-xs"
             >
               <Plus className="w-4 h-4 mr-1 sm:mr-1.5" />
               <span>Nova consulta</span>
@@ -209,7 +218,7 @@ export default function Layout() {
                 <Button
                   variant="outline"
                   size="icon"
-                  className="relative h-9 w-9 sm:h-10 sm:w-10 rounded-xl border-[#E5E0D8] bg-white text-[#2D3A34] hover:bg-[#FAF7F2]"
+                  className="relative h-9 w-9 sm:h-10 sm:w-10 rounded-xl border-[#E2E8F0] bg-white text-[#1E293B] hover:bg-[#F8FAFC]"
                   aria-label="Notificações de hoje"
                 >
                   <Bell className="w-4 h-4" />
@@ -221,24 +230,24 @@ export default function Layout() {
                 </Button>
               </PopoverTrigger>
               <PopoverContent
-                className="w-80 p-0 border-[#E5E0D8] rounded-2xl shadow-lg"
+                className="w-80 p-0 border-[#E2E8F0] rounded-2xl shadow-lg"
                 align="end"
               >
-                <div className="p-4 border-b border-[#E5E0D8] flex items-center justify-between bg-[#FAF7F2] rounded-t-2xl">
+                <div className="p-4 border-b border-[#E2E8F0] flex items-center justify-between bg-[#F8FAFC] rounded-t-2xl">
                   <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-[#5F8D7A]" />
-                    <span className="font-serif text-sm font-bold text-[#2D3A34]">
+                    <Clock className="w-4 h-4 text-[#2F4858]" />
+                    <span className="font-serif text-sm font-bold text-[#1E293B]">
                       Consultas de Hoje
                     </span>
                   </div>
-                  <span className="text-[11px] font-medium text-[#6B7A72]">
+                  <span className="text-[11px] font-medium text-[#64748B]">
                     {format(new Date(), 'dd/MM')}
                   </span>
                 </div>
 
-                <div className="p-3 max-h-80 overflow-y-auto divide-y divide-[#E5E0D8]/60">
+                <div className="p-3 max-h-80 overflow-y-auto divide-y divide-[#E2E8F0]/60">
                   {todayAppointments.length === 0 ? (
-                    <div className="py-6 text-center text-xs text-[#6B7A72]">
+                    <div className="py-6 text-center text-xs text-[#64748B]">
                       Nenhuma consulta agendada para hoje.
                     </div>
                   ) : (
@@ -250,20 +259,20 @@ export default function Layout() {
                           onClick={() => {
                             if (appt.patient) navigate(`/pacientes/${appt.patient}`)
                           }}
-                          className="py-2.5 px-2 hover:bg-[#FAF7F2] rounded-lg cursor-pointer transition-colors"
+                          className="py-2.5 px-2 hover:bg-[#F8FAFC] rounded-lg cursor-pointer transition-colors"
                         >
                           <div className="flex items-center justify-between text-xs">
-                            <span className="font-semibold text-[#2D3A34] flex items-center gap-1.5">
-                              <User className="w-3.5 h-3.5 text-[#5F8D7A]" />
+                            <span className="font-semibold text-[#1E293B] flex items-center gap-1.5">
+                              <User className="w-3.5 h-3.5 text-[#2F4858]" />
                               {patientName}
                             </span>
-                            <span className="font-mono font-medium text-[#5F8D7A]">
+                            <span className="font-mono font-medium text-[#2F4858]">
                               {appt.start_time}
                             </span>
                           </div>
-                          <div className="mt-1 flex items-center gap-2 text-[11px] text-[#6B7A72]">
+                          <div className="mt-1 flex items-center gap-2 text-[11px] text-[#64748B]">
                             {appt.type === 'online' ? (
-                              <span className="inline-flex items-center gap-1 text-blue-600">
+                              <span className="inline-flex items-center gap-1 text-sky-600">
                                 <Video className="w-3 h-3" /> Online
                               </span>
                             ) : (
@@ -278,10 +287,10 @@ export default function Layout() {
                   )}
                 </div>
 
-                <div className="p-2 border-t border-[#E5E0D8] bg-[#FAF7F2]/50 text-center rounded-b-2xl">
+                <div className="p-2 border-t border-[#E2E8F0] bg-[#F8FAFC]/50 text-center rounded-b-2xl">
                   <NavLink
                     to="/agenda"
-                    className="text-xs font-semibold text-[#5F8D7A] hover:text-[#4E7263]"
+                    className="text-xs font-semibold text-[#2F4858] hover:text-[#243743]"
                   >
                     Ver agenda completa →
                   </NavLink>

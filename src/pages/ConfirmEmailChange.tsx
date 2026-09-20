@@ -53,36 +53,38 @@ export default function ConfirmEmailChange() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#F8FAFC] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
-          <div className="w-14 h-14 rounded-2xl bg-[#5F8D7A] shadow-md flex items-center justify-center text-white font-serif text-2xl">
-            B
+          <div className="relative w-14 h-14 rounded-2xl bg-[#2F4858] shadow-md flex items-center justify-center text-white font-serif text-2xl select-none">
+            <span>B</span>
+            <span className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-[#C97B5A] ring-2 ring-white" />
+            <span className="absolute -bottom-0.5 -left-0.5 w-2.5 h-2.5 rounded-full bg-[#5F8D7A] ring-2 ring-white" />
           </div>
         </div>
-        <h2 className="mt-4 text-center text-2xl font-serif text-[#2D3A34] tracking-tight">
+        <h2 className="mt-4 text-center text-2xl font-serif text-[#1E293B] tracking-tight">
           Confirmar Alteração de E-mail
         </h2>
-        <p className="mt-2 text-center text-sm text-[#6B7A72]">
+        <p className="mt-2 text-center text-sm text-[#64748B]">
           Confirme sua senha para finalizar a atualização cadastral
         </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4 sm:px-0">
-        <div className="bg-white py-8 px-6 shadow-sm rounded-2xl border border-[#E5E0D8] sm:px-10">
+        <div className="bg-white py-8 px-6 shadow-sm rounded-2xl border border-[#E2E8F0] sm:px-10">
           {!token ? (
             <div className="text-center space-y-4">
-              <div className="w-12 h-12 bg-amber-50 text-[#D99A3B] rounded-full flex items-center justify-center mx-auto">
+              <div className="w-12 h-12 bg-amber-50 text-[#D97706] rounded-full flex items-center justify-center mx-auto">
                 <AlertTriangle className="w-6 h-6" />
               </div>
-              <h3 className="text-lg font-serif text-[#2D3A34]">Link incompleto</h3>
-              <p className="text-sm text-[#6B7A72]">
+              <h3 className="text-lg font-serif text-[#1E293B]">Link incompleto</h3>
+              <p className="text-sm text-[#64748B]">
                 O token de confirmação não foi localizado na URL. Por favor, acesse o link enviado
                 para o seu novo endereço de e-mail.
               </p>
               <div className="pt-2">
                 <Link to="/login">
-                  <Button variant="outline" className="w-full border-[#E5E0D8]">
+                  <Button variant="outline" className="w-full border-[#E2E8F0]">
                     Ir para Login
                   </Button>
                 </Link>
@@ -90,18 +92,18 @@ export default function ConfirmEmailChange() {
             </div>
           ) : isSuccess ? (
             <div className="text-center space-y-4">
-              <div className="w-12 h-12 bg-green-50 text-[#3E8E5A] rounded-full flex items-center justify-center mx-auto">
+              <div className="w-12 h-12 bg-emerald-50 text-[#059669] rounded-full flex items-center justify-center mx-auto">
                 <CheckCircle2 className="w-6 h-6" />
               </div>
-              <h3 className="text-lg font-serif text-[#2D3A34]">E-mail atualizado!</h3>
-              <p className="text-sm text-[#6B7A72]">
+              <h3 className="text-lg font-serif text-[#1E293B]">E-mail atualizado!</h3>
+              <p className="text-sm text-[#64748B]">
                 Sua conta foi atualizada com sucesso. Por segurança, realize login com seu novo
                 e-mail.
               </p>
               <div className="pt-4">
                 <Button
                   onClick={() => navigate('/login')}
-                  className="w-full bg-[#5F8D7A] hover:bg-[#4E7263] text-white"
+                  className="w-full bg-[#2F4858] hover:bg-[#243743] text-white"
                 >
                   Entrar com novo e-mail
                 </Button>
@@ -110,13 +112,13 @@ export default function ConfirmEmailChange() {
           ) : (
             <form className="space-y-5" onSubmit={handleSubmit}>
               {errorMessage && (
-                <div className="p-3 text-sm rounded-xl bg-red-50 text-[#C2453D] border border-red-200">
+                <div className="p-3 text-sm rounded-xl bg-red-50 text-[#DC2626] border border-red-200">
                   {errorMessage}
                 </div>
               )}
 
               <div>
-                <Label htmlFor="password" className="text-sm font-medium text-[#2D3A34]">
+                <Label htmlFor="password" className="text-sm font-medium text-[#1E293B]">
                   Senha atual da sua conta
                 </Label>
                 <div className="mt-1 relative">
@@ -128,9 +130,9 @@ export default function ConfirmEmailChange() {
                     placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="pl-10 h-11 border-[#E5E0D8] focus-visible:ring-[#5F8D7A]"
+                    className="pl-10 h-11 border-[#E2E8F0] focus-visible:ring-[#2F4858]"
                   />
-                  <Lock className="w-4 h-4 text-[#6B7A72] absolute left-3 top-3.5" />
+                  <Lock className="w-4 h-4 text-[#64748B] absolute left-3 top-3.5" />
                 </div>
               </div>
 
@@ -138,7 +140,7 @@ export default function ConfirmEmailChange() {
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full h-11 bg-[#5F8D7A] hover:bg-[#4E7263] text-white rounded-xl text-sm font-medium transition-colors"
+                  className="w-full h-11 bg-[#2F4858] hover:bg-[#243743] text-white rounded-xl text-sm font-medium transition-colors"
                 >
                   {isSubmitting ? (
                     <>

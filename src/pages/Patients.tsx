@@ -130,21 +130,21 @@ export default function Patients() {
       {/* Header with Title, Search and Create button */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#2D3A34]">Pacientes</h1>
-          <p className="text-sm text-[#6B7A72]">
+          <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E293B]">Pacientes</h1>
+          <p className="text-sm text-[#64748B]">
             Ficha cadastral completa, histórico de sessões e contatos clínicos
           </p>
         </div>
 
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
           <div className="relative flex-1 sm:w-72">
-            <Search className="w-4 h-4 text-[#6B7A72] absolute left-3 top-3" />
+            <Search className="w-4 h-4 text-[#64748B] absolute left-3 top-3" />
             <Input
               type="text"
               placeholder="Buscar por nome, telefone ou e-mail..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-9 h-10 border-[#E5E0D8] bg-white rounded-xl text-sm"
+              className="pl-9 h-10 border-[#E2E8F0] bg-white rounded-xl text-sm"
             />
           </div>
 
@@ -153,7 +153,7 @@ export default function Patients() {
               setPatientToEdit(null)
               setIsModalOpen(true)
             }}
-            className="bg-[#5F8D7A] hover:bg-[#4E7263] text-white rounded-xl h-10 shadow-sm shrink-0 font-medium"
+            className="bg-[#2F4858] hover:bg-[#243743] text-white rounded-xl h-10 shadow-xs shrink-0 font-medium"
           >
             <Plus className="w-4 h-4 mr-1.5" />
             Novo paciente
@@ -167,8 +167,8 @@ export default function Patients() {
           onClick={() => setStatusFilter('all')}
           className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
             statusFilter === 'all'
-              ? 'bg-[#5F8D7A] text-white shadow-xs'
-              : 'bg-white text-[#6B7A72] border border-[#E5E0D8] hover:bg-[#FAF7F2]'
+              ? 'bg-[#2F4858] text-white shadow-xs'
+              : 'bg-white text-[#64748B] border border-[#E2E8F0] hover:bg-[#F8FAFC]'
           }`}
         >
           Todos ({counts.all})
@@ -178,8 +178,8 @@ export default function Patients() {
           onClick={() => setStatusFilter('active')}
           className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
             statusFilter === 'active'
-              ? 'bg-[#3E8E5A] text-white shadow-xs'
-              : 'bg-white text-[#6B7A72] border border-[#E5E0D8] hover:bg-[#FAF7F2]'
+              ? 'bg-[#059669] text-white shadow-xs'
+              : 'bg-white text-[#64748B] border border-[#E2E8F0] hover:bg-[#F8FAFC]'
           }`}
         >
           Ativos ({counts.active})
@@ -189,8 +189,8 @@ export default function Patients() {
           onClick={() => setStatusFilter('waitlist')}
           className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
             statusFilter === 'waitlist'
-              ? 'bg-[#D99A3B] text-white shadow-xs'
-              : 'bg-white text-[#6B7A72] border border-[#E5E0D8] hover:bg-[#FAF7F2]'
+              ? 'bg-[#D97706] text-white shadow-xs'
+              : 'bg-white text-[#64748B] border border-[#E2E8F0] hover:bg-[#F8FAFC]'
           }`}
         >
           Lista de espera ({counts.waitlist})
@@ -201,7 +201,7 @@ export default function Patients() {
           className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
             statusFilter === 'inactive'
               ? 'bg-slate-600 text-white shadow-xs'
-              : 'bg-white text-[#6B7A72] border border-[#E5E0D8] hover:bg-[#FAF7F2]'
+              : 'bg-white text-[#64748B] border border-[#E2E8F0] hover:bg-[#F8FAFC]'
           }`}
         >
           Inativos ({counts.inactive})
@@ -210,21 +210,21 @@ export default function Patients() {
 
       {/* Patients Grid */}
       {isLoading ? (
-        <div className="p-12 text-center text-sm text-[#6B7A72] flex flex-col items-center gap-3">
-          <Loader2 className="w-6 h-6 animate-spin text-[#5F8D7A]" />
+        <div className="p-12 text-center text-sm text-[#64748B] flex flex-col items-center gap-3">
+          <Loader2 className="w-6 h-6 animate-spin text-[#2F4858]" />
           <span>Carregando lista de pacientes...</span>
         </div>
       ) : filteredPatients.length === 0 ? (
-        <div className="p-12 bg-white rounded-2xl border border-[#E5E0D8] text-center space-y-3">
-          <div className="w-12 h-12 rounded-2xl bg-[#E8F0EC] text-[#5F8D7A] flex items-center justify-center mx-auto">
+        <div className="p-12 bg-white rounded-2xl border border-[#E2E8F0] text-center space-y-3">
+          <div className="w-12 h-12 rounded-2xl bg-[#EAEFF2] text-[#2F4858] flex items-center justify-center mx-auto">
             <UserX className="w-6 h-6" />
           </div>
-          <h3 className="font-serif text-lg font-bold text-[#2D3A34]">
+          <h3 className="font-serif text-lg font-bold text-[#1E293B]">
             {searchQuery || statusFilter !== 'all'
               ? 'Nenhum paciente encontrado com esses filtros'
               : 'Nenhum paciente cadastrado ainda'}
           </h3>
-          <p className="text-xs sm:text-sm text-[#6B7A72] max-w-md mx-auto">
+          <p className="text-xs sm:text-sm text-[#64748B] max-w-md mx-auto">
             {searchQuery || statusFilter !== 'all'
               ? 'Tente ajustar sua busca ou limpar os filtros para visualizar outros registros.'
               : 'Cadastre seus primeiros pacientes para começar o gerenciamento dos prontuários e agendamento de consultas.'}
@@ -237,7 +237,7 @@ export default function Patients() {
                   setSearchQuery('')
                   setStatusFilter('all')
                 }}
-                className="rounded-xl border-[#E5E0D8] text-xs"
+                className="rounded-xl border-[#E2E8F0] text-xs"
               >
                 Limpar filtros
               </Button>
@@ -247,7 +247,7 @@ export default function Patients() {
                   setPatientToEdit(null)
                   setIsModalOpen(true)
                 }}
-                className="bg-[#5F8D7A] hover:bg-[#4E7263] text-white rounded-xl text-xs"
+                className="bg-[#2F4858] hover:bg-[#243743] text-white rounded-xl text-xs"
               >
                 <Plus className="w-4 h-4 mr-1.5" />
                 Cadastrar primeiro paciente
@@ -262,7 +262,7 @@ export default function Patients() {
               <div
                 key={patient.id}
                 onClick={() => navigate(`/pacientes/${patient.id}`)}
-                className="bg-white rounded-2xl border border-[#E5E0D8] p-5 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer flex flex-col justify-between group"
+                className="bg-white rounded-2xl border border-[#E2E8F0] p-5 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer flex flex-col justify-between group"
               >
                 <div>
                   {/* Top: Avatar + Name + Action Dropdown */}
@@ -270,10 +270,10 @@ export default function Patients() {
                     <div className="flex items-center gap-3 min-w-0">
                       <PatientAvatar name={patient.full_name} size="md" />
                       <div className="min-w-0">
-                        <h3 className="font-semibold text-base text-[#2D3A34] truncate group-hover:text-[#5F8D7A] transition-colors">
+                        <h3 className="font-semibold text-base text-[#1E293B] truncate group-hover:text-[#2F4858] transition-colors">
                           {patient.full_name}
                         </h3>
-                        <p className="text-xs text-[#6B7A72] truncate">
+                        <p className="text-xs text-[#64748B] truncate">
                           {patient.occupation || 'Profissão não informada'}
                         </p>
                       </div>
@@ -285,12 +285,12 @@ export default function Patients() {
                           <Button
                             variant="ghost"
                             size="icon"
-                            className="h-8 w-8 text-[#6B7A72] hover:text-[#2D3A34] rounded-lg"
+                            className="h-8 w-8 text-[#64748B] hover:text-[#1E293B] rounded-lg"
                           >
                             <MoreVertical className="w-4 h-4" />
                           </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="border-[#E5E0D8] rounded-xl">
+                        <DropdownMenuContent align="end" className="border-[#E2E8F0] rounded-xl">
                           <DropdownMenuItem
                             onClick={() => {
                               setPatientToEdit(patient)
@@ -303,7 +303,7 @@ export default function Patients() {
                           </DropdownMenuItem>
                           <DropdownMenuItem
                             onClick={() => setPatientToDelete(patient)}
-                            className="text-xs text-[#C2453D] focus:text-[#C2453D] focus:bg-red-50 cursor-pointer gap-2"
+                            className="text-xs text-[#DC2626] focus:text-[#DC2626] focus:bg-red-50 cursor-pointer gap-2"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                             Excluir paciente
@@ -314,28 +314,28 @@ export default function Patients() {
                   </div>
 
                   {/* Contact infos */}
-                  <div className="mt-4 space-y-2 text-xs text-[#6B7A72]">
+                  <div className="mt-4 space-y-2 text-xs text-[#64748B]">
                     <div className="flex items-center gap-2">
-                      <Phone className="w-3.5 h-3.5 text-[#5F8D7A]" />
-                      <span className="font-mono text-[#2D3A34] font-medium">{patient.phone}</span>
+                      <Phone className="w-3.5 h-3.5 text-[#2F4858]" />
+                      <span className="font-mono text-[#1E293B] font-medium">{patient.phone}</span>
                     </div>
                     {patient.email && (
                       <div className="flex items-center gap-2 truncate">
-                        <Mail className="w-3.5 h-3.5 text-[#5F8D7A] shrink-0" />
+                        <Mail className="w-3.5 h-3.5 text-[#2F4858] shrink-0" />
                         <span className="truncate">{patient.email}</span>
                       </div>
                     )}
                     <div className="flex items-center gap-2">
-                      <Calendar className="w-3.5 h-3.5 text-[#5F8D7A]" />
+                      <Calendar className="w-3.5 h-3.5 text-[#2F4858]" />
                       <span>Cadastrado em {formatDatePtBr(patient.created)}</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Bottom status and click indicator */}
-                <div className="mt-5 pt-3 border-t border-[#E5E0D8]/60 flex items-center justify-between">
+                <div className="mt-5 pt-3 border-t border-[#E2E8F0]/80 flex items-center justify-between">
                   <StatusBadge status={patient.status} />
-                  <span className="text-[11px] font-medium text-[#5F8D7A] group-hover:underline">
+                  <span className="text-[11px] font-medium text-[#2F4858] group-hover:underline">
                     Ver prontuário →
                   </span>
                 </div>
@@ -361,30 +361,30 @@ export default function Patients() {
         open={!!patientToDelete}
         onOpenChange={(open) => !open && setPatientToDelete(null)}
       >
-        <AlertDialogContent className="rounded-2xl border-[#E5E0D8]">
+        <AlertDialogContent className="rounded-2xl border-[#E2E8F0]">
           <AlertDialogHeader>
-            <AlertDialogTitle className="font-serif text-xl text-[#2D3A34]">
+            <AlertDialogTitle className="font-serif text-xl text-[#1E293B]">
               Confirmar exclusão de paciente
             </AlertDialogTitle>
-            <AlertDialogDescription className="text-sm text-[#6B7A72] space-y-2">
+            <AlertDialogDescription className="text-sm text-[#64748B] space-y-2">
               <p>
                 Tem certeza de que deseja excluir o cadastro de{' '}
-                <strong className="text-[#2D3A34]">{patientToDelete?.full_name}</strong>?
+                <strong className="text-[#1E293B]">{patientToDelete?.full_name}</strong>?
               </p>
-              <p className="p-3 bg-red-50 text-[#C2453D] rounded-xl text-xs border border-red-200">
+              <p className="p-3 bg-red-50 text-[#DC2626] rounded-xl text-xs border border-red-200">
                 Atenção: Todas as consultas agendadas, sessões clínicas realizadas e anotações
                 vinculadas a este paciente também serão removidas permanentemente.
               </p>
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className="gap-2">
-            <AlertDialogCancel disabled={isDeleting} className="border-[#E5E0D8] rounded-xl">
+            <AlertDialogCancel disabled={isDeleting} className="border-[#E2E8F0] rounded-xl">
               Cancelar
             </AlertDialogCancel>
             <AlertDialogAction
               onClick={handleDelete}
               disabled={isDeleting}
-              className="bg-[#C2453D] hover:bg-red-700 text-white rounded-xl"
+              className="bg-[#DC2626] hover:bg-red-700 text-white rounded-xl"
             >
               {isDeleting ? 'Excluindo...' : 'Sim, excluir paciente'}
             </AlertDialogAction>

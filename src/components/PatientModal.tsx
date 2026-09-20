@@ -137,12 +137,12 @@ export const PatientModal: React.FC<PatientModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl border-[#E5E0D8]">
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl border-[#E2E8F0]">
         <DialogHeader>
-          <DialogTitle className="font-serif text-2xl text-[#2D3A34]">
+          <DialogTitle className="font-serif text-2xl text-[#1E293B]">
             {patientToEdit ? 'Editar Dados do Paciente' : 'Novo Paciente'}
           </DialogTitle>
-          <DialogDescription className="text-sm text-[#6B7A72]">
+          <DialogDescription className="text-sm text-[#64748B]">
             {patientToEdit
               ? 'Atualize as informações de contato e prontuário do paciente.'
               : 'Preencha a ficha cadastral do novo paciente para a prática clínica.'}
@@ -153,7 +153,7 @@ export const PatientModal: React.FC<PatientModalProps> = ({
           {/* Nome e Nascimento */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="sm:col-span-2 space-y-1.5">
-              <Label htmlFor="full_name" className="text-xs font-semibold text-[#2D3A34]">
+              <Label htmlFor="full_name" className="text-xs font-semibold text-[#1E293B]">
                 Nome completo *
               </Label>
               <Input
@@ -161,13 +161,13 @@ export const PatientModal: React.FC<PatientModalProps> = ({
                 value={formData.full_name}
                 onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
                 placeholder="Ex: Mariana Alves Costa"
-                className={`border-[#E5E0D8] ${errors.full_name ? 'border-red-500' : ''}`}
+                className={`border-[#E2E8F0] ${errors.full_name ? 'border-red-500' : ''}`}
               />
               {errors.full_name && <p className="text-xs text-red-500">{errors.full_name}</p>}
             </div>
 
             <div className="space-y-1.5">
-              <Label htmlFor="birth_date" className="text-xs font-semibold text-[#2D3A34]">
+              <Label htmlFor="birth_date" className="text-xs font-semibold text-[#1E293B]">
                 Data de nascimento
               </Label>
               <Input
@@ -175,7 +175,7 @@ export const PatientModal: React.FC<PatientModalProps> = ({
                 type="date"
                 value={formData.birth_date}
                 onChange={(e) => setFormData({ ...formData, birth_date: e.target.value })}
-                className="border-[#E5E0D8]"
+                className="border-[#E2E8F0]"
               />
             </div>
           </div>
@@ -183,7 +183,7 @@ export const PatientModal: React.FC<PatientModalProps> = ({
           {/* Telefone e E-mail */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <Label htmlFor="phone" className="text-xs font-semibold text-[#2D3A34]">
+              <Label htmlFor="phone" className="text-xs font-semibold text-[#1E293B]">
                 Telefone / WhatsApp *
               </Label>
               <Input
@@ -191,13 +191,13 @@ export const PatientModal: React.FC<PatientModalProps> = ({
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 placeholder="(11) 98765-4321"
-                className={`border-[#E5E0D8] ${errors.phone ? 'border-red-500' : ''}`}
+                className={`border-[#E2E8F0] ${errors.phone ? 'border-red-500' : ''}`}
               />
               {errors.phone && <p className="text-xs text-red-500">{errors.phone}</p>}
             </div>
 
             <div className="space-y-1.5">
-              <Label htmlFor="email" className="text-xs font-semibold text-[#2D3A34]">
+              <Label htmlFor="email" className="text-xs font-semibold text-[#1E293B]">
                 E-mail
               </Label>
               <Input
@@ -206,7 +206,7 @@ export const PatientModal: React.FC<PatientModalProps> = ({
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 placeholder="paciente@exemplo.com.br"
-                className={`border-[#E5E0D8] ${errors.email ? 'border-red-500' : ''}`}
+                className={`border-[#E2E8F0] ${errors.email ? 'border-red-500' : ''}`}
               />
               {errors.email && <p className="text-xs text-red-500">{errors.email}</p>}
             </div>
@@ -215,7 +215,7 @@ export const PatientModal: React.FC<PatientModalProps> = ({
           {/* Endereço e Profissão */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <Label htmlFor="address" className="text-xs font-semibold text-[#2D3A34]">
+              <Label htmlFor="address" className="text-xs font-semibold text-[#1E293B]">
                 Endereço residencial / Cidade
               </Label>
               <Input
@@ -223,12 +223,12 @@ export const PatientModal: React.FC<PatientModalProps> = ({
                 value={formData.address}
                 onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                 placeholder="Rua, número, bairro e cidade"
-                className="border-[#E5E0D8]"
+                className="border-[#E2E8F0]"
               />
             </div>
 
             <div className="space-y-1.5">
-              <Label htmlFor="occupation" className="text-xs font-semibold text-[#2D3A34]">
+              <Label htmlFor="occupation" className="text-xs font-semibold text-[#1E293B]">
                 Profissão / Ocupação
               </Label>
               <Input
@@ -236,19 +236,19 @@ export const PatientModal: React.FC<PatientModalProps> = ({
                 value={formData.occupation}
                 onChange={(e) => setFormData({ ...formData, occupation: e.target.value })}
                 placeholder="Ex: Arquiteta, Estudante..."
-                className="border-[#E5E0D8]"
+                className="border-[#E2E8F0]"
               />
             </div>
           </div>
 
           {/* Contato de emergência */}
-          <div className="p-3 bg-[#FAF7F2] rounded-xl border border-[#E5E0D8] space-y-3">
-            <p className="text-xs font-semibold text-[#2D3A34] uppercase tracking-wider">
+          <div className="p-3 bg-[#F8FAFC] rounded-xl border border-[#E2E8F0] space-y-3">
+            <p className="text-xs font-semibold text-[#1E293B] uppercase tracking-wider">
               Contato de Emergência
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="space-y-1">
-                <Label htmlFor="emergency_contact" className="text-xs text-[#6B7A72]">
+                <Label htmlFor="emergency_contact" className="text-xs text-[#64748B]">
                   Nome do contato e parentesco
                 </Label>
                 <Input
@@ -256,11 +256,11 @@ export const PatientModal: React.FC<PatientModalProps> = ({
                   value={formData.emergency_contact}
                   onChange={(e) => setFormData({ ...formData, emergency_contact: e.target.value })}
                   placeholder="Ex: Carlos Costa (Esposo)"
-                  className="bg-white border-[#E5E0D8]"
+                  className="bg-white border-[#E2E8F0]"
                 />
               </div>
               <div className="space-y-1">
-                <Label htmlFor="emergency_phone" className="text-xs text-[#6B7A72]">
+                <Label htmlFor="emergency_phone" className="text-xs text-[#64748B]">
                   Telefone de emergência
                 </Label>
                 <Input
@@ -268,7 +268,7 @@ export const PatientModal: React.FC<PatientModalProps> = ({
                   value={formData.emergency_phone}
                   onChange={(e) => setFormData({ ...formData, emergency_phone: e.target.value })}
                   placeholder="(11) 98111-2233"
-                  className="bg-white border-[#E5E0D8]"
+                  className="bg-white border-[#E2E8F0]"
                 />
               </div>
             </div>
@@ -277,7 +277,7 @@ export const PatientModal: React.FC<PatientModalProps> = ({
           {/* Indicação e Status */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <Label htmlFor="referred_by" className="text-xs font-semibold text-[#2D3A34]">
+              <Label htmlFor="referred_by" className="text-xs font-semibold text-[#1E293B]">
                 Indicado por
               </Label>
               <Input
@@ -285,19 +285,19 @@ export const PatientModal: React.FC<PatientModalProps> = ({
                 value={formData.referred_by}
                 onChange={(e) => setFormData({ ...formData, referred_by: e.target.value })}
                 placeholder="Ex: Dra. Helena Queiroz, Busca espontânea..."
-                className="border-[#E5E0D8]"
+                className="border-[#E2E8F0]"
               />
             </div>
 
             <div className="space-y-1.5">
-              <Label htmlFor="status" className="text-xs font-semibold text-[#2D3A34]">
+              <Label htmlFor="status" className="text-xs font-semibold text-[#1E293B]">
                 Status do paciente
               </Label>
               <Select
                 value={formData.status}
                 onValueChange={(val: PatientStatus) => setFormData({ ...formData, status: val })}
               >
-                <SelectTrigger className="border-[#E5E0D8]">
+                <SelectTrigger className="border-[#E2E8F0]">
                   <SelectValue placeholder="Selecione o status" />
                 </SelectTrigger>
                 <SelectContent>
@@ -311,7 +311,7 @@ export const PatientModal: React.FC<PatientModalProps> = ({
 
           {/* Anotações gerais */}
           <div className="space-y-1.5">
-            <Label htmlFor="notes" className="text-xs font-semibold text-[#2D3A34]">
+            <Label htmlFor="notes" className="text-xs font-semibold text-[#1E293B]">
               Observações iniciais e queixa principal
             </Label>
             <Textarea
@@ -320,24 +320,24 @@ export const PatientModal: React.FC<PatientModalProps> = ({
               value={formData.notes}
               onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
               placeholder="Anotações confidenciais sobre a demanda inicial do paciente, histórico relevante, etc."
-              className="border-[#E5E0D8] resize-none"
+              className="border-[#E2E8F0] resize-none"
             />
           </div>
 
-          <DialogFooter className="pt-4 border-t border-[#E5E0D8] flex sm:justify-end gap-2">
+          <DialogFooter className="pt-4 border-t border-[#E2E8F0] flex sm:justify-end gap-2">
             <Button
               type="button"
               variant="outline"
               onClick={onClose}
               disabled={isSubmitting}
-              className="border-[#E5E0D8]"
+              className="border-[#E2E8F0]"
             >
               Cancelar
             </Button>
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="bg-[#5F8D7A] hover:bg-[#4E7263] text-white"
+              className="bg-[#2F4858] hover:bg-[#243743] text-white"
             >
               {isSubmitting ? (
                 <>

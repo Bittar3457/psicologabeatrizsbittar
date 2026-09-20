@@ -127,16 +127,16 @@ export default function Index() {
   return (
     <div className="space-y-8 animate-fade-in">
       {/* Header Greeting */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-gradient-to-r from-[#E8F0EC]/80 via-white to-white p-6 sm:p-8 rounded-3xl border border-[#E5E0D8]/80 shadow-sm">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-gradient-to-r from-[#EAEFF2]/70 via-white to-white p-6 sm:p-8 rounded-3xl border border-[#E2E8F0] shadow-xs">
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/90 border border-[#E5E0D8] text-xs font-semibold text-[#5F8D7A] shadow-xs">
-            <Sparkles className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#E2E8F0] text-xs font-semibold text-[#2F4858] shadow-xs">
+            <Sparkles className="w-3.5 h-3.5 text-[#2F4858]" />
             <span>Consultório Clínico Ativo</span>
           </div>
-          <h1 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#2D3A34] tracking-tight">
+          <h1 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1E293B] tracking-tight">
             Bem-vinda, Beatriz
           </h1>
-          <p className="text-sm sm:text-base text-[#6B7A72]">
+          <p className="text-sm sm:text-base text-[#64748B]">
             {capitalizedToday} • Que o seu dia de atendimentos seja sereno e produtivo.
           </p>
         </div>
@@ -145,14 +145,14 @@ export default function Index() {
           <Button
             onClick={() => setIsPatientModalOpen(true)}
             variant="outline"
-            className="rounded-xl border-[#E5E0D8] bg-white text-[#2D3A34] hover:bg-[#FAF7F2] font-medium"
+            className="rounded-xl border-[#E2E8F0] bg-white text-[#1E293B] hover:bg-[#F8FAFC] font-medium"
           >
             <Plus className="w-4 h-4 mr-1.5" />
             Novo paciente
           </Button>
           <Button
             onClick={() => setIsConsultationModalOpen(true)}
-            className="rounded-xl bg-[#5F8D7A] hover:bg-[#4E7263] text-white font-medium shadow-sm"
+            className="rounded-xl bg-[#2F4858] hover:bg-[#243743] text-white font-medium shadow-xs"
           >
             <Calendar className="w-4 h-4 mr-1.5" />
             Agendar atendimento
@@ -162,81 +162,81 @@ export default function Index() {
 
       {/* 4 Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-        {/* Card 1 */}
-        <Card className="rounded-2xl border-[#E5E0D8] bg-white shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+        {/* Card 1: Pacientes ativos */}
+        <Card className="rounded-2xl border-[#E2E8F0] bg-white shadow-xs hover:shadow-sm hover:-translate-y-0.5 transition-all duration-200">
           <CardContent className="p-5 flex items-center justify-between">
             <div>
-              <p className="text-xs font-medium uppercase tracking-wider text-[#6B7A72]">
+              <p className="text-xs font-medium uppercase tracking-wider text-[#64748B]">
                 Pacientes ativos
               </p>
-              <h3 className="mt-1 text-2xl sm:text-3xl font-serif font-bold text-[#2D3A34]">
+              <h3 className="mt-1 text-2xl sm:text-3xl font-serif font-bold text-[#1E293B]">
                 {isLoading ? '...' : activePatientsCount}
               </h3>
-              <p className="mt-1 text-xs text-[#5F8D7A] font-medium">
+              <p className="mt-1 text-xs text-[#2F4858] font-medium">
                 {patients.length} pacientes totais no cadastro
               </p>
             </div>
-            <div className="w-12 h-12 rounded-2xl bg-[#E8F0EC] text-[#5F8D7A] flex items-center justify-center shrink-0">
+            <div className="w-12 h-12 rounded-2xl bg-[#EAEFF2] text-[#2F4858] flex items-center justify-center shrink-0">
               <Users className="w-6 h-6" />
             </div>
           </CardContent>
         </Card>
 
-        {/* Card 2 */}
-        <Card className="rounded-2xl border-[#E5E0D8] bg-white shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+        {/* Card 2: Consultas hoje (Acento pontual âmbar/atenção) */}
+        <Card className="rounded-2xl border-[#E2E8F0] bg-white shadow-xs hover:shadow-sm hover:-translate-y-0.5 transition-all duration-200">
           <CardContent className="p-5 flex items-center justify-between">
             <div>
-              <p className="text-xs font-medium uppercase tracking-wider text-[#6B7A72]">
+              <p className="text-xs font-medium uppercase tracking-wider text-[#64748B]">
                 Consultas hoje
               </p>
-              <h3 className="mt-1 text-2xl sm:text-3xl font-serif font-bold text-[#2D3A34]">
+              <h3 className="mt-1 text-2xl sm:text-3xl font-serif font-bold text-[#1E293B]">
                 {isLoading ? '...' : todayAppointments.length}
               </h3>
-              <p className="mt-1 text-xs text-[#6B7A72]">
+              <p className="mt-1 text-xs text-[#64748B]">
                 {todayAppointments.length === 0
                   ? 'Nenhum horário marcado'
                   : 'Atendimentos programados'}
               </p>
             </div>
-            <div className="w-12 h-12 rounded-2xl bg-[#FAEDE7] text-[#C97B5A] flex items-center justify-center shrink-0">
+            <div className="w-12 h-12 rounded-2xl bg-amber-50 text-[#D97706] flex items-center justify-center shrink-0">
               <Calendar className="w-6 h-6" />
             </div>
           </CardContent>
         </Card>
 
-        {/* Card 3 */}
-        <Card className="rounded-2xl border-[#E5E0D8] bg-white shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+        {/* Card 3: Consultas esta semana (Azul-ardósia clínico) */}
+        <Card className="rounded-2xl border-[#E2E8F0] bg-white shadow-xs hover:shadow-sm hover:-translate-y-0.5 transition-all duration-200">
           <CardContent className="p-5 flex items-center justify-between">
             <div>
-              <p className="text-xs font-medium uppercase tracking-wider text-[#6B7A72]">
+              <p className="text-xs font-medium uppercase tracking-wider text-[#64748B]">
                 Consultas esta semana
               </p>
-              <h3 className="mt-1 text-2xl sm:text-3xl font-serif font-bold text-[#2D3A34]">
+              <h3 className="mt-1 text-2xl sm:text-3xl font-serif font-bold text-[#1E293B]">
                 {isLoading ? '...' : thisWeekAppointmentsCount}
               </h3>
-              <p className="mt-1 text-xs text-[#6B7A72]">De segunda a domingo</p>
+              <p className="mt-1 text-xs text-[#64748B]">De segunda a domingo</p>
             </div>
-            <div className="w-12 h-12 rounded-2xl bg-[#EFF6FF] text-[#1E40AF] flex items-center justify-center shrink-0">
+            <div className="w-12 h-12 rounded-2xl bg-[#EAEFF2] text-[#2F4858] flex items-center justify-center shrink-0">
               <CalendarCheck className="w-6 h-6" />
             </div>
           </CardContent>
         </Card>
 
-        {/* Card 4 */}
-        <Card className="rounded-2xl border-[#E5E0D8] bg-white shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+        {/* Card 4: Taxa de comparecimento (Verde-esmeralda sucesso) */}
+        <Card className="rounded-2xl border-[#E2E8F0] bg-white shadow-xs hover:shadow-sm hover:-translate-y-0.5 transition-all duration-200">
           <CardContent className="p-5 flex items-center justify-between">
             <div>
-              <p className="text-xs font-medium uppercase tracking-wider text-[#6B7A72]">
+              <p className="text-xs font-medium uppercase tracking-wider text-[#64748B]">
                 Taxa de comparecimento
               </p>
-              <h3 className="mt-1 text-2xl sm:text-3xl font-serif font-bold text-[#2D3A34]">
+              <h3 className="mt-1 text-2xl sm:text-3xl font-serif font-bold text-[#1E293B]">
                 {isLoading ? '...' : `${attendanceRate}%`}
               </h3>
-              <p className="mt-1 text-xs text-[#3E8E5A] font-medium">
+              <p className="mt-1 text-xs text-[#059669] font-medium">
                 Alta adesão ao processo terapêutico
               </p>
             </div>
-            <div className="w-12 h-12 rounded-2xl bg-[#ECFDF5] text-[#065F46] flex items-center justify-center shrink-0">
+            <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-[#059669] flex items-center justify-center shrink-0">
               <TrendingUp className="w-6 h-6" />
             </div>
           </CardContent>
@@ -249,30 +249,30 @@ export default function Index() {
         <div className="lg:col-span-2 space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <div className="w-2.5 h-2.5 rounded-full bg-[#5F8D7A]" />
-              <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#2D3A34]">
+              <div className="w-2.5 h-2.5 rounded-full bg-[#2F4858]" />
+              <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#1E293B]">
                 Agenda de Hoje
               </h2>
             </div>
             <Link
               to="/agenda"
-              className="text-xs font-semibold text-[#5F8D7A] hover:text-[#4E7263] flex items-center gap-1 group"
+              className="text-xs font-semibold text-[#2F4858] hover:text-[#243743] flex items-center gap-1 group"
             >
               <span>Ver agenda completa</span>
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </Link>
           </div>
 
-          <div className="bg-white rounded-2xl border border-[#E5E0D8] divide-y divide-[#E5E0D8]/60 overflow-hidden shadow-xs">
+          <div className="bg-white rounded-2xl border border-[#E2E8F0] divide-y divide-[#E2E8F0]/80 overflow-hidden shadow-xs">
             {todayAppointments.length === 0 ? (
               <div className="p-8 text-center space-y-3">
-                <div className="w-12 h-12 rounded-2xl bg-[#E8F0EC] text-[#5F8D7A] flex items-center justify-center mx-auto">
+                <div className="w-12 h-12 rounded-2xl bg-[#EAEFF2] text-[#2F4858] flex items-center justify-center mx-auto">
                   <Calendar className="w-6 h-6" />
                 </div>
-                <h3 className="font-serif text-base font-semibold text-[#2D3A34]">
+                <h3 className="font-serif text-base font-semibold text-[#1E293B]">
                   Nenhuma consulta agendada para hoje
                 </h3>
-                <p className="text-xs text-[#6B7A72] max-w-sm mx-auto">
+                <p className="text-xs text-[#64748B] max-w-sm mx-auto">
                   Aproveite o intervalo para organizar prontuários e anotações, ou agende um novo
                   atendimento.
                 </p>
@@ -280,7 +280,7 @@ export default function Index() {
                   <Button
                     onClick={() => setIsConsultationModalOpen(true)}
                     size="sm"
-                    className="bg-[#5F8D7A] hover:bg-[#4E7263] text-white rounded-xl text-xs"
+                    className="bg-[#2F4858] hover:bg-[#243743] text-white rounded-xl text-xs"
                   >
                     <Plus className="w-3.5 h-3.5 mr-1" />
                     Agendar para hoje
@@ -294,14 +294,14 @@ export default function Index() {
                 return (
                   <div
                     key={appt.id}
-                    className="p-4 sm:p-5 hover:bg-[#FAF7F2]/60 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-3 group"
+                    className="p-4 sm:p-5 hover:bg-[#F8FAFC] transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-3 group"
                   >
                     <div className="flex items-center gap-3.5">
-                      <div className="w-14 text-center shrink-0 py-1 bg-[#FAF7F2] rounded-xl border border-[#E5E0D8]/60">
-                        <span className="block font-mono text-base font-bold text-[#5F8D7A]">
+                      <div className="w-14 text-center shrink-0 py-1 bg-[#F8FAFC] rounded-xl border border-[#E2E8F0]">
+                        <span className="block font-mono text-base font-bold text-[#2F4858]">
                           {appt.start_time}
                         </span>
-                        <span className="block text-[10px] text-[#6B7A72]">
+                        <span className="block text-[10px] text-[#64748B]">
                           {appt.duration_minutes || 50} min
                         </span>
                       </div>
@@ -309,14 +309,14 @@ export default function Index() {
                       <div className="min-w-0">
                         <Link
                           to={appt.patient ? `/pacientes/${appt.patient}` : '#'}
-                          className="font-semibold text-sm sm:text-base text-[#2D3A34] hover:text-[#5F8D7A] flex items-center gap-1.5 transition-colors"
+                          className="font-semibold text-sm sm:text-base text-[#1E293B] hover:text-[#2F4858] flex items-center gap-1.5 transition-colors"
                         >
                           <span>{patientName}</span>
-                          <ChevronRight className="w-3.5 h-3.5 text-[#6B7A72] opacity-0 group-hover:opacity-100 transition-opacity" />
+                          <ChevronRight className="w-3.5 h-3.5 text-[#64748B] opacity-0 group-hover:opacity-100 transition-opacity" />
                         </Link>
-                        <div className="mt-0.5 flex flex-wrap items-center gap-2 text-xs text-[#6B7A72]">
+                        <div className="mt-0.5 flex flex-wrap items-center gap-2 text-xs text-[#64748B]">
                           {appt.type === 'online' ? (
-                            <span className="inline-flex items-center gap-1 text-blue-600 font-medium">
+                            <span className="inline-flex items-center gap-1 text-sky-600 font-medium">
                               <Video className="w-3 h-3" /> Online
                             </span>
                           ) : (
@@ -326,7 +326,7 @@ export default function Index() {
                             <>
                               <span>•</span>
                               <span className="flex items-center gap-1 font-mono text-[11px]">
-                                <Phone className="w-3 h-3 text-[#5F8D7A]" />
+                                <Phone className="w-3 h-3 text-[#2F4858]" />
                                 {patientPhone}
                               </span>
                             </>
@@ -342,7 +342,7 @@ export default function Index() {
                           variant="ghost"
                           size="sm"
                           onClick={() => navigate(`/pacientes/${appt.patient}`)}
-                          className="text-xs text-[#5F8D7A] hover:text-[#4E7263] hover:bg-[#E8F0EC]"
+                          className="text-xs text-[#2F4858] hover:text-[#243743] hover:bg-[#EAEFF2]"
                         >
                           Ver ficha
                         </Button>
@@ -356,12 +356,12 @@ export default function Index() {
 
           {/* Próximas Consultas (7 dias) */}
           <div className="pt-4 space-y-4">
-            <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#2D3A34]">
+            <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#1E293B]">
               Próximos 7 Dias
             </h2>
-            <div className="bg-white rounded-2xl border border-[#E5E0D8] divide-y divide-[#E5E0D8]/60 overflow-hidden shadow-xs">
+            <div className="bg-white rounded-2xl border border-[#E2E8F0] divide-y divide-[#E2E8F0]/80 overflow-hidden shadow-xs">
               {upcoming7Days.length === 0 ? (
-                <div className="p-6 text-center text-xs text-[#6B7A72]">
+                <div className="p-6 text-center text-xs text-[#64748B]">
                   Nenhuma consulta agendada para os próximos 7 dias.
                 </div>
               ) : (
@@ -376,14 +376,14 @@ export default function Index() {
                       onClick={() => {
                         if (appt.patient) navigate(`/pacientes/${appt.patient}`)
                       }}
-                      className="p-3.5 sm:p-4 hover:bg-[#FAF7F2] cursor-pointer transition-colors flex items-center justify-between"
+                      className="p-3.5 sm:p-4 hover:bg-[#F8FAFC] cursor-pointer transition-colors flex items-center justify-between"
                     >
                       <div className="flex items-center gap-3">
                         <PatientAvatar name={patientName} size="sm" />
                         <div>
-                          <p className="text-sm font-semibold text-[#2D3A34]">{patientName}</p>
-                          <p className="text-xs text-[#6B7A72] flex items-center gap-1.5">
-                            <Clock className="w-3 h-3 text-[#5F8D7A]" />
+                          <p className="text-sm font-semibold text-[#1E293B]">{patientName}</p>
+                          <p className="text-xs text-[#64748B] flex items-center gap-1.5">
+                            <Clock className="w-3 h-3 text-[#2F4858]" />
                             {dateFormatted} • {appt.type === 'online' ? 'Online' : 'Presencial'}
                           </p>
                         </div>
@@ -400,18 +400,18 @@ export default function Index() {
         {/* Right Column (1 col): Pacientes Recentes */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="font-serif text-xl font-bold text-[#2D3A34]">Pacientes Recentes</h2>
+            <h2 className="font-serif text-xl font-bold text-[#1E293B]">Pacientes Recentes</h2>
             <Link
               to="/pacientes"
-              className="text-xs font-semibold text-[#5F8D7A] hover:text-[#4E7263]"
+              className="text-xs font-semibold text-[#2F4858] hover:text-[#243743]"
             >
               Ver todos →
             </Link>
           </div>
 
-          <div className="bg-white rounded-2xl border border-[#E5E0D8] divide-y divide-[#E5E0D8]/60 overflow-hidden shadow-xs">
+          <div className="bg-white rounded-2xl border border-[#E2E8F0] divide-y divide-[#E2E8F0]/80 overflow-hidden shadow-xs">
             {recentPatients.length === 0 ? (
-              <div className="p-6 text-center text-xs text-[#6B7A72]">
+              <div className="p-6 text-center text-xs text-[#64748B]">
                 Nenhum paciente cadastrado ainda.
               </div>
             ) : (
@@ -419,12 +419,12 @@ export default function Index() {
                 <Link
                   key={p.id}
                   to={`/pacientes/${p.id}`}
-                  className="p-4 hover:bg-[#FAF7F2] transition-colors flex items-center gap-3.5 block"
+                  className="p-4 hover:bg-[#F8FAFC] transition-colors flex items-center gap-3.5 block"
                 >
                   <PatientAvatar name={p.full_name} size="md" />
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-[#2D3A34] truncate">{p.full_name}</p>
-                    <p className="text-xs text-[#6B7A72] font-mono truncate">{p.phone}</p>
+                    <p className="text-sm font-semibold text-[#1E293B] truncate">{p.full_name}</p>
+                    <p className="text-xs text-[#64748B] font-mono truncate">{p.phone}</p>
                   </div>
                   <StatusBadge status={p.status} />
                 </Link>
@@ -432,7 +432,7 @@ export default function Index() {
             )}
           </div>
 
-          {/* Quick Notice Card: Confidentiality */}
+          {/* Quick Notice Card: Confidentiality com acento sálvia pontual */}
           <div className="p-4 bg-[#E8F0EC]/50 rounded-2xl border border-[#C7DBCF]/60 text-xs text-[#3D594D] space-y-1.5">
             <p className="font-semibold flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-[#5F8D7A]" />
