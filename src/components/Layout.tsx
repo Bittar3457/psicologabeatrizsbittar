@@ -8,6 +8,7 @@ import {
   LayoutDashboard,
   Users,
   CalendarDays,
+  Wallet,
   Settings,
   LogOut,
   Plus,
@@ -29,6 +30,7 @@ const navItems = [
   { path: '/', label: 'Início', icon: LayoutDashboard },
   { path: '/pacientes', label: 'Pacientes', icon: Users },
   { path: '/agenda', label: 'Agenda', icon: CalendarDays },
+  { path: '/financeiro', label: 'Financeiro', icon: Wallet },
   { path: '/configuracoes', label: 'Configurações', icon: Settings },
 ]
 
@@ -77,6 +79,7 @@ export default function Layout() {
       return 'Prontuário do Paciente'
     if (current.startsWith('/pacientes')) return 'Gestão de Pacientes'
     if (current.startsWith('/agenda')) return 'Agenda de Atendimentos'
+    if (current.startsWith('/financeiro')) return 'Controle Financeiro'
     if (current.startsWith('/configuracoes')) return 'Configurações da Clínica'
     return 'Agenda da Psicóloga'
   }

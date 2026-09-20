@@ -51,6 +51,49 @@ export interface AppointmentRecord extends RecordModel {
   }
 }
 
+export type PaymentMethod =
+  | 'pix'
+  | 'cash'
+  | 'credit_card'
+  | 'debit_card'
+  | 'bank_transfer'
+  | 'other'
+export type PaymentStatus = 'paid' | 'pending' | 'canceled'
+
+export interface PaymentRecord extends RecordModel {
+  patient: string
+  appointment?: string
+  session?: string
+  date: string
+  amount: number
+  payment_method: PaymentMethod
+  status: PaymentStatus
+  description?: string
+  appointment_type?: string
+  created: string
+  updated: string
+  expand?: {
+    patient?: PatientRecord
+    appointment?: AppointmentRecord
+    session?: SessionRecord
+  }
+}
+
+export const PAYMENT_METHOD_LABELS: Record<PaymentMethod, string> = {
+  pix: 'PIX',
+  cash: 'Dinheiro',
+  credit_card: 'Cartão de Crédito',
+  debit_card: 'Cartão de Débito',
+  bank_transfer: 'Transferência Bancária',
+  other: 'Outro',
+}
+
+export const PAYMENT_STATUS_LABELS: Record<PaymentStatus, string> = {
+  paid: 'Pago',
+  pending: 'Pendente',
+  canceled: 'Cancelado',
+}
+
 export interface ClinicalPreferences {
   workStart: string // e.g. "08:00"
   workEnd: string // e.g. "19:00"

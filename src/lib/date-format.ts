@@ -38,3 +38,24 @@ export function formatPhone(phone: string): string {
 export function cleanPhoneForTel(phone: string): string {
   return phone.replace(/\D/g, '')
 }
+
+export function formatCurrencyBRL(value: number | undefined | null): string {
+  if (value === undefined || value === null || isNaN(value)) return 'R$ 0,00'
+  return new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  }).format(value)
+}
+
+export function parseCurrencyInput(value: string): number {
+  const digits = value.replace(/\D/g, '')
+  if (!digits) return 0
+  return Number(digits) / 100
+}
+
+export function formatCurrencyDigits(cents: number): string {
+  return cents.toLocaleString('pt-BR', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })
+}

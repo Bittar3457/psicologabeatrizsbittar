@@ -3,15 +3,19 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { patientsService } from '@/services/patients'
 import { sessionsService } from '@/services/sessions'
 import { appointmentsService } from '@/services/appointments'
+import { paymentsService } from '@/services/payments'
 import {
   PatientRecord,
   SessionRecord,
   AppointmentRecord,
+  PaymentRecord,
   ConsultationStatus,
+  PAYMENT_METHOD_LABELS,
 } from '@/types/clinical'
-import { PatientAvatar, StatusBadge } from '@/components/PatientAvatar'
+import { PatientAvatar, StatusBadge, PaymentStatusBadge } from '@/components/PatientAvatar'
 import { PatientModal } from '@/components/PatientModal'
 import { ConsultationModal } from '@/components/ConsultationModal'
+import { PaymentModal } from '@/components/PaymentModal'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Card, CardContent } from '@/components/ui/card'
@@ -35,8 +39,11 @@ import {
   Loader2,
   Video,
   UserCheck,
+  DollarSign,
+  CreditCard,
+  TrendingUp,
 } from 'lucide-react'
-import { formatDatePtBr, cleanPhoneForTel } from '@/lib/date-format'
+import { formatDatePtBr, cleanPhoneForTel, formatCurrencyBRL } from '@/lib/date-format'
 
 export default function PatientDetail() {
   const { id } = useParams<{ id: string }>()
@@ -45,25 +52,30 @@ export default function PatientDetail() {
   const [patient, setPatient] = useState<PatientRecord | null>(null)
   const [sessions, setSessions] = useState<SessionRecord[]>([])
   const [appointments, setAppointments] = useState<AppointmentRecord[]>([])
+  const [payments, setPayments] = useState<PaymentRecord[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
   // Modals
   const [isEditPatientOpen, setIsEditPatientOpen] = useState(false)
   const [isConsultationModalOpen, setIsConsultationModalOpen] = useState(false)
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false)
+  const [editingPayment, setEditingPayment] = useState<PaymentRecord | null>(null)
   const [editingSession, setEditingSession] = useState<SessionRecord | null>(null)
   const [editingAppointment, setEditingAppointment] = useState<AppointmentRecord | null>(null)
 
   const loadPatientData = useCallback(async () => {
     if (!id) return
     try {
-      const [pt, sess, appts] = await Promise.all([
+      const [pt, sess, appts, pymts] = await Promise.all([
         patientsService.getById(id),
         sessionsService.listByPatient(id),
         appointmentsService.listByPatient(id),
+        paymentsService.listByPatient(id),
       ])
       setPatient(pt)
       setSessions(sess)
       setAppointments(appts)
+      setPayments(pymts)
     } catch {
       toast({
         variant: 'destructive',
@@ -86,6 +98,7 @@ export default function PatientDetail() {
   })
   useRealtime<SessionRecord>('sessions', () => loadPatientData())
   useRealtime<AppointmentRecord>('appointments', () => loadPatientData())
+  useRealtime<PaymentRecord>('payments', () => loadPatientData())
 
   const handleUpdateAppointmentStatus = async (
     appt: AppointmentRecord,
@@ -200,7 +213,18 @@ export default function PatientDetail() {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex items-center gap-3 self-stretch sm:self-auto justify-end">
+        <div className="flex flex-wrap items-center gap-2.5 self-stretch sm:self-auto justify-end">
+          <Button
+            variant="outline"
+            onClick={() => {
+              setEditingPayment(null)
+              setIsPaymentModalOpen(true)
+            }}
+            className="rounded-xl border-[#E2E8F0] text-[#2F4858] bg-[#EAEFF2]/70 hover:bg-[#EAEFF2] text-xs sm:text-sm font-medium"
+          >
+            <DollarSign className="w-3.5 h-3.5 mr-1 text-[#2F4858]" />
+            Registrar pagamento
+          </Button>
           <Button
             variant="outline"
             onClick={() => setIsEditPatientOpen(true)}
@@ -223,9 +247,80 @@ export default function PatientDetail() {
         </div>
       </div>
 
-      {/* Tabs: Histórico de Consultas, Próximas Consultas, Informações */}
+      {/* Resumo Financeiro Rápido do Paciente */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {/* Total Pago no Histórico */}
+        <Card className="rounded-2xl border-[#E2E8F0] bg-white shadow-xs">
+          <CardContent className="p-4 flex items-center justify-between">
+            <div className="space-y-0.5">
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-[#64748B]">
+                Total Pago no Histórico
+              </span>
+              <h4 className="text-xl font-serif font-bold text-emerald-700">
+                {formatCurrencyBRL(
+                  payments
+                    .filter((p) => p.status === 'paid')
+                    .reduce((acc, curr) => acc + (curr.amount || 0), 0),
+                )}
+              </h4>
+              <p className="text-[11px] text-[#64748B]">
+                {payments.filter((p) => p.status === 'paid').length} atendimento(s) quitado(s)
+              </p>
+            </div>
+            <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center border border-emerald-100">
+              <CheckCircle className="w-5 h-5" />
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Pagamentos Pendentes */}
+        <Card className="rounded-2xl border-[#E2E8F0] bg-white shadow-xs">
+          <CardContent className="p-4 flex items-center justify-between">
+            <div className="space-y-0.5">
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-[#64748B]">
+                Pagamentos Pendentes
+              </span>
+              <h4 className="text-xl font-serif font-bold text-amber-700">
+                {formatCurrencyBRL(
+                  payments
+                    .filter((p) => p.status === 'pending')
+                    .reduce((acc, curr) => acc + (curr.amount || 0), 0),
+                )}
+              </h4>
+              <p className="text-[11px] text-[#64748B]">
+                {payments.filter((p) => p.status === 'pending').length} lançamento(s) em aberto
+              </p>
+            </div>
+            <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center border border-amber-100">
+              <Clock className="w-5 h-5" />
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Total de Sessões Realizadas */}
+        <Card className="rounded-2xl border-[#E2E8F0] bg-white shadow-xs">
+          <CardContent className="p-4 flex items-center justify-between">
+            <div className="space-y-0.5">
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-[#64748B]">
+                Consultas Realizadas
+              </span>
+              <h4 className="text-xl font-serif font-bold text-[#1E293B]">
+                {sessions.filter((s) => s.status === 'completed').length}
+              </h4>
+              <p className="text-[11px] text-[#2F4858]">
+                Sessões clínicas registradas no prontuário
+              </p>
+            </div>
+            <div className="w-10 h-10 rounded-xl bg-[#EAEFF2] text-[#2F4858] flex items-center justify-center border border-[#C5D3DC]">
+              <FileText className="w-5 h-5" />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Tabs: Histórico de Consultas, Próximas Consultas, Financeiro, Informações */}
       <Tabs defaultValue="history" className="space-y-6">
-        <TabsList className="bg-white border border-[#E2E8F0] p-1 rounded-2xl h-12 flex gap-1">
+        <TabsList className="bg-white border border-[#E2E8F0] p-1 rounded-2xl h-12 flex flex-wrap gap-1">
           <TabsTrigger
             value="history"
             className="rounded-xl data-[state=active]:bg-[#2F4858] data-[state=active]:text-white data-[state=active]:shadow-xs text-xs sm:text-sm font-medium px-4"
@@ -237,6 +332,12 @@ export default function PatientDetail() {
             className="rounded-xl data-[state=active]:bg-[#2F4858] data-[state=active]:text-white data-[state=active]:shadow-xs text-xs sm:text-sm font-medium px-4"
           >
             Próximas consultas ({appointments.length})
+          </TabsTrigger>
+          <TabsTrigger
+            value="financial"
+            className="rounded-xl data-[state=active]:bg-[#2F4858] data-[state=active]:text-white data-[state=active]:shadow-xs text-xs sm:text-sm font-medium px-4"
+          >
+            Financeiro ({payments.length})
           </TabsTrigger>
           <TabsTrigger
             value="info"
@@ -460,7 +561,111 @@ export default function PatientDetail() {
           )}
         </TabsContent>
 
-        {/* TAB 3: Informações Cadastrais */}
+        {/* TAB 3: Histórico Financeiro do Paciente */}
+        <TabsContent value="financial" className="space-y-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="font-serif text-lg font-bold text-[#1E293B]">
+                Lançamentos Financeiros do Paciente
+              </h2>
+              <p className="text-xs text-[#64748B]">
+                Histórico de pagamentos de sessões e consultas deste paciente
+              </p>
+            </div>
+            <Button
+              onClick={() => {
+                setEditingPayment(null)
+                setIsPaymentModalOpen(true)
+              }}
+              size="sm"
+              className="bg-[#2F4858] hover:bg-[#243743] text-white rounded-xl text-xs"
+            >
+              <Plus className="w-3.5 h-3.5 mr-1" />
+              Novo pagamento
+            </Button>
+          </div>
+
+          {payments.length === 0 ? (
+            <div className="p-12 bg-white rounded-2xl border border-[#E2E8F0] text-center space-y-3">
+              <div className="w-12 h-12 rounded-2xl bg-[#EAEFF2] text-[#2F4858] flex items-center justify-center mx-auto">
+                <DollarSign className="w-6 h-6" />
+              </div>
+              <h3 className="font-serif text-base font-bold text-[#1E293B]">
+                Nenhum pagamento registrado para este paciente
+              </h3>
+              <p className="text-xs text-[#64748B] max-w-sm mx-auto">
+                Lance os pagamentos das consultas para manter o controle financeiro do atendimento.
+              </p>
+              <div className="pt-2">
+                <Button
+                  onClick={() => {
+                    setEditingPayment(null)
+                    setIsPaymentModalOpen(true)
+                  }}
+                  className="bg-[#2F4858] hover:bg-[#243743] text-white rounded-xl text-xs"
+                >
+                  <Plus className="w-3.5 h-3.5 mr-1" />
+                  Registrar primeiro pagamento
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <div className="bg-white rounded-2xl border border-[#E2E8F0] divide-y divide-[#E2E8F0]/80 overflow-hidden shadow-xs">
+              {payments.map((p) => (
+                <div
+                  key={p.id}
+                  className="p-4 sm:p-5 hover:bg-[#F8FAFC] transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-3 group"
+                >
+                  <div className="flex items-start sm:items-center gap-3.5">
+                    <div className="w-12 text-center shrink-0 py-2 bg-[#F8FAFC] rounded-xl border border-[#E2E8F0]">
+                      <span className="block font-mono text-xs font-bold text-[#2F4858]">
+                        {p.date ? formatDatePtBr(p.date).slice(0, 5) : '-'}
+                      </span>
+                      <span className="block text-[10px] text-[#64748B]">
+                        {p.date ? formatDatePtBr(p.date).slice(6) : ''}
+                      </span>
+                    </div>
+
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono font-bold text-sm text-[#1E293B]">
+                          {formatCurrencyBRL(p.amount)}
+                        </span>
+                        <PaymentStatusBadge status={p.status} />
+                        <span className="text-xs text-[#64748B] font-medium bg-[#F8FAFC] px-2 py-0.5 rounded-lg border border-[#E2E8F0]">
+                          {PAYMENT_METHOD_LABELS[p.payment_method] || p.payment_method}
+                        </span>
+                      </div>
+                      <p className="text-xs text-[#64748B] mt-1 flex items-center gap-2">
+                        <span className="font-medium text-[#2F4858]">
+                          {p.appointment_type || 'Sessão'}
+                        </span>
+                        {p.description && <span>• {p.description}</span>}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 self-end sm:self-center">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => {
+                        setEditingPayment(p)
+                        setIsPaymentModalOpen(true)
+                      }}
+                      className="text-xs text-[#2F4858] hover:text-[#243743] hover:bg-[#EAEFF2] rounded-xl h-8 px-2.5"
+                    >
+                      <Edit2 className="w-3.5 h-3.5 mr-1" />
+                      Editar
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </TabsContent>
+
+        {/* TAB 4: Informações Cadastrais */}
         <TabsContent value="info" className="space-y-4">
           <Card className="rounded-3xl border-[#E2E8F0] bg-white shadow-xs">
             <CardContent className="p-6 sm:p-8 space-y-6">
@@ -603,6 +808,19 @@ export default function PatientDetail() {
         initialPatientId={patient.id}
         recordToEdit={editingSession || editingAppointment}
         isSessionRecord={!!editingSession}
+        patientsList={[{ id: patient.id, full_name: patient.full_name }]}
+      />
+
+      {/* Payment Modal for Patient */}
+      <PaymentModal
+        isOpen={isPaymentModalOpen}
+        onClose={() => {
+          setIsPaymentModalOpen(false)
+          setEditingPayment(null)
+        }}
+        onSuccess={() => loadPatientData()}
+        initialPatientId={patient.id}
+        paymentToEdit={editingPayment}
         patientsList={[{ id: patient.id, full_name: patient.full_name }]}
       />
     </div>

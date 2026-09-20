@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-20T12:42:50.414Z",
+  "generatedAt": "2026-09-20T12:58:48.518Z",
   "collections": [
     {
       "name": "users",
@@ -291,6 +291,97 @@
         "CREATE INDEX idx_appointments_patient ON appointments (patient)",
         "CREATE INDEX idx_appointments_date ON appointments (date)",
         "CREATE INDEX idx_appointments_status ON appointments (status)"
+      ]
+    },
+    {
+      "name": "payments",
+      "type": "base",
+      "apiRules": {
+        "list": "@request.auth.id != \"\"",
+        "view": "@request.auth.id != \"\"",
+        "create": "@request.auth.id != \"\"",
+        "update": "@request.auth.id != \"\"",
+        "delete": "@request.auth.id != \"\""
+      },
+      "fields": [
+        {
+          "name": "patient",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "patients"
+        },
+        {
+          "name": "appointment",
+          "type": "relation",
+          "required": false,
+          "system": false,
+          "collectionRef": "appointments"
+        },
+        {
+          "name": "session",
+          "type": "relation",
+          "required": false,
+          "system": false,
+          "collectionRef": "sessions"
+        },
+        {
+          "name": "date",
+          "type": "date",
+          "required": true,
+          "system": false
+        },
+        {
+          "name": "amount",
+          "type": "number",
+          "required": true,
+          "system": false
+        },
+        {
+          "name": "payment_method",
+          "type": "select",
+          "required": true,
+          "system": false,
+          "selectValues": ["pix", "cash", "credit_card", "debit_card", "bank_transfer", "other"]
+        },
+        {
+          "name": "status",
+          "type": "select",
+          "required": true,
+          "system": false,
+          "selectValues": ["paid", "pending", "canceled"]
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "appointment_type",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "created",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate"]
+        },
+        {
+          "name": "updated",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate", "onUpdate"]
+        }
+      ],
+      "indexes": [
+        "CREATE INDEX idx_payments_patient ON payments (patient)",
+        "CREATE INDEX idx_payments_date ON payments (date)",
+        "CREATE INDEX idx_payments_status ON payments (status)"
       ]
     }
   ]

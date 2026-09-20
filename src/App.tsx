@@ -12,6 +12,7 @@ import Index from './pages/Index'
 import Patients from './pages/Patients'
 import PatientDetail from './pages/PatientDetail'
 import Agenda from './pages/Agenda'
+import Financeiro from './pages/Financeiro'
 import Settings from './pages/Settings'
 import Login from './pages/Login'
 import ForgotPassword from './pages/ForgotPassword'
@@ -48,6 +49,7 @@ const App = () => (
               <Route path="/pacientes" element={<Patients />} />
               <Route path="/pacientes/:id" element={<PatientDetail />} />
               <Route path="/agenda" element={<Agenda />} />
+              <Route path="/financeiro" element={<Financeiro />} />
               <Route path="/configuracoes" element={<Settings />} />
             </Route>
           </Route>
