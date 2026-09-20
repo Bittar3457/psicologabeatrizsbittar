@@ -61,11 +61,9 @@ export default function Login() {
           </div>
         </div>
         <h2 className="mt-4 text-center text-3xl font-serif text-[#1E293B] tracking-tight">
-          Agenda da Psicóloga
+          Beatriz Souza Bittar
         </h2>
-        <p className="mt-2 text-center text-sm text-[#64748B]">
-          Gestão clínica privada • Beatriz Souza Bittar
-        </p>
+        <p className="mt-1 text-center text-base font-medium text-[#64748B]">Psicóloga</p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4 sm:px-0">

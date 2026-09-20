@@ -81,7 +81,7 @@ export default function Layout() {
     if (current.startsWith('/agenda')) return 'Agenda de Atendimentos'
     if (current.startsWith('/financeiro')) return 'Controle Financeiro'
     if (current.startsWith('/configuracoes')) return 'Configurações da Clínica'
-    return 'Agenda da Psicóloga'
+    return 'Beatriz Souza Bittar'
   }
 
   const userDisplayName = user?.name || 'Beatriz Souza Bittar'
@@ -109,10 +109,10 @@ export default function Layout() {
           />
         </div>
         <div>
-          <h1 className="font-serif text-lg font-bold text-[#1E293B] leading-tight">
-            Agenda da Psicóloga
+          <h1 className="font-serif text-base font-bold text-[#1E293B] leading-tight">
+            Beatriz Souza Bittar
           </h1>
-          <p className="text-xs text-[#64748B] font-medium">Beatriz Souza Bittar</p>
+          <p className="text-xs text-[#64748B] font-medium mt-0.5">Psicóloga</p>
         </div>
       </div>
 
