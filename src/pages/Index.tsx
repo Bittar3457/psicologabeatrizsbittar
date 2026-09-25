@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback, useMemo } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '@/contexts/AuthContext'
 import { patientsService } from '@/services/patients'
 import { appointmentsService } from '@/services/appointments'
 import { sessionsService } from '@/services/sessions'
@@ -29,10 +30,12 @@ import { ptBR } from 'date-fns/locale'
 
 export default function Index() {
   const navigate = useNavigate()
+  const { user, getUserAvatarUrl } = useAuth()
   const [patients, setPatients] = useState<PatientRecord[]>([])
   const [appointments, setAppointments] = useState<AppointmentRecord[]>([])
   const [sessions, setSessions] = useState<SessionRecord[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [avatarLoadError, setAvatarLoadError] = useState(false)
 
   const [isConsultationModalOpen, setIsConsultationModalOpen] = useState(false)
   const [isPatientModalOpen, setIsPatientModalOpen] = useState(false)
@@ -66,6 +69,19 @@ export default function Index() {
   const todayIso = now.toISOString().slice(0, 10)
   const formattedToday = format(now, "EEEE, d 'de' MMMM 'de' yyyy", { locale: ptBR })
   const capitalizedToday = formattedToday.charAt(0).toUpperCase() + formattedToday.slice(1)
+
+  const hour = now.getHours()
+  const greeting = hour < 12 ? 'Bom dia' : hour < 18 ? 'Boa tarde' : 'Boa noite'
+  const userDisplayName = user?.name || 'Beatriz'
+  const firstName = userDisplayName.trim().split(' ')[0] || 'Beatriz'
+  const userAvatarUrl = getUserAvatarUrl(user)
+  const userInitials =
+    userDisplayName
+      .split(' ')
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((w) => w[0].toUpperCase())
+      .join('') || 'BS'
 
   // 1. Pacientes ativos
   const activePatientsCount = useMemo(() => {
@@ -128,18 +144,34 @@ export default function Index() {
   return (
     <div className="space-y-8 animate-fade-in">
       {/* Header Greeting */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-gradient-to-r from-[#E8F0EC]/80 via-white to-white p-6 sm:p-8 rounded-3xl border border-[#E2E8F0] shadow-xs">
-        <div className="space-y-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#C7DBCF] text-xs font-semibold text-[#5F8D7A] shadow-xs">
-            <Sparkles className="w-3.5 h-3.5 text-[#5F8D7A]" />
-            <span>Consultório Clínico Ativo</span>
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 bg-gradient-to-r from-[#E8F0EC]/80 via-white to-white p-6 sm:p-8 rounded-3xl border border-[#E2E8F0] shadow-xs">
+        <div className="flex items-start sm:items-center gap-4 sm:gap-5">
+          {/* Avatar da psicóloga */}
+          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#5F8D7A]/10 text-[#5F8D7A] flex items-center justify-center font-bold text-lg sm:text-xl border-2 border-white shadow-xs overflow-hidden shrink-0 ring-2 ring-[#C7DBCF]">
+            {userAvatarUrl && !avatarLoadError ? (
+              <img
+                src={userAvatarUrl}
+                alt={userDisplayName}
+                className="w-full h-full object-cover"
+                onError={() => setAvatarLoadError(true)}
+              />
+            ) : (
+              <span>{userInitials}</span>
+            )}
           </div>
-          <h1 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1E293B] tracking-tight">
-            Bem-vinda, Beatriz
-          </h1>
-          <p className="text-sm sm:text-base text-[#64748B]">
-            {capitalizedToday} • Que o seu dia de atendimentos seja sereno e produtivo.
-          </p>
+
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#C7DBCF] text-xs font-semibold text-[#5F8D7A] shadow-xs">
+              <Sparkles className="w-3.5 h-3.5 text-[#5F8D7A]" />
+              <span>Consultório Clínico Ativo</span>
+            </div>
+            <h1 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1E293B] tracking-tight">
+              {greeting}, {firstName}
+            </h1>
+            <p className="text-sm sm:text-base text-[#64748B]">
+              {capitalizedToday} • Que o seu dia de atendimentos seja sereno e produtivo.
+            </p>
+          </div>
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
