@@ -36,7 +36,7 @@ const navItems = [
 ]
 
 export default function Layout() {
-  const { user, logout } = useAuth()
+  const { user, getUserAvatarUrl, logout } = useAuth()
   const location = useLocation()
   const navigate = useNavigate()
 
@@ -86,12 +86,14 @@ export default function Layout() {
   }
 
   const userDisplayName = user?.name || 'Beatriz Souza Bittar'
-  const userInitials = userDisplayName
-    .split(' ')
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((w) => w[0].toUpperCase())
-    .join('')
+  const userAvatarUrl = getUserAvatarUrl(user)
+  const userInitials =
+    userDisplayName
+      .split(' ')
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((w) => w[0].toUpperCase())
+      .join('') || 'BS'
 
   const sidebarContent = (
     <div className="flex flex-col h-full bg-white border-r border-[#E2E8F0]">
@@ -152,8 +154,19 @@ export default function Layout() {
       {/* Bottom User Card */}
       <div className="p-4 border-t border-[#E2E8F0] bg-[#F8FAFC] m-3 rounded-2xl">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-[#5F8D7A]/10 text-[#5F8D7A] flex items-center justify-center font-semibold text-sm border border-[#5F8D7A]/20">
-            {userInitials || 'B'}
+          <div className="w-10 h-10 rounded-xl bg-[#5F8D7A]/10 text-[#5F8D7A] flex items-center justify-center font-semibold text-sm border border-[#5F8D7A]/20 overflow-hidden shrink-0">
+            {userAvatarUrl ? (
+              <img
+                src={userAvatarUrl}
+                alt={userDisplayName}
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  ;(e.target as HTMLElement).style.display = 'none'
+                }}
+              />
+            ) : (
+              <span>{userInitials}</span>
+            )}
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-xs font-semibold text-[#1E293B] truncate">{userDisplayName}</p>
@@ -165,7 +178,7 @@ export default function Layout() {
           <button
             onClick={logout}
             title="Sair da conta"
-            className="p-2 text-[#64748B] hover:text-[#DC2626] hover:bg-red-50 rounded-lg transition-colors"
+            className="p-2 text-[#64748B] hover:text-[#DC2626] hover:bg-red-50 rounded-lg transition-colors shrink-0"
           >
             <LogOut className="w-4 h-4" />
           </button>

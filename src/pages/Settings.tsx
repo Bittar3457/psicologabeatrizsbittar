@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useAuth } from '@/contexts/AuthContext'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -18,16 +18,43 @@ import {
   ClinicalPreferences,
   ConsultationType,
 } from '@/types/clinical'
-import { User, Mail, Lock, Sliders, Shield, Loader2, CheckCircle2, Upload } from 'lucide-react'
+import {
+  User,
+  Mail,
+  Lock,
+  Sliders,
+  Shield,
+  Loader2,
+  CheckCircle2,
+  Upload,
+  Trash2,
+} from 'lucide-react'
 
 export default function Settings() {
-  const { user, updateProfile, updatePassword, requestEmailChange } = useAuth()
+  const { user, getUserAvatarUrl, updateProfile, updatePassword, requestEmailChange } = useAuth()
 
   // 1. Profile State
   const [name, setName] = useState(user?.name || 'Beatriz Souza Bittar')
   const [avatarFile, setAvatarFile] = useState<File | null>(null)
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null)
+  const [removeAvatar, setRemoveAvatar] = useState(false)
   const [isUpdatingProfile, setIsUpdatingProfile] = useState(false)
+
+  // Sincronizar nome caso user seja carregado assincronamente
+  useEffect(() => {
+    if (user?.name) {
+      setName(user.name)
+    }
+  }, [user?.name])
+
+  // Limpar Object URL quando houver preview criado localmente
+  useEffect(() => {
+    return () => {
+      if (avatarPreview && avatarPreview.startsWith('blob:')) {
+        URL.revokeObjectURL(avatarPreview)
+      }
+    }
+  }, [avatarPreview])
 
   // 2. Email Change State
   const [newEmail, setNewEmail] = useState('')
@@ -44,13 +71,39 @@ export default function Settings() {
   const [preferences, setPreferences] = useState<ClinicalPreferences>(getClinicalPreferences())
   const [isPrefsSaved, setIsPrefsSaved] = useState(false)
 
+  // Determina a imagem exibida no momento
+  const savedAvatarUrl = getUserAvatarUrl(user)
+  const currentAvatarDisplay = removeAvatar ? null : avatarPreview || savedAvatarUrl
+
+  // Iniciais para fallback
+  const initials =
+    (name || user?.name || 'Beatriz Souza Bittar')
+      .split(' ')
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((n) => n[0].toUpperCase())
+      .join('') || 'BS'
+
   // Handle avatar select
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0]
+      if (avatarPreview && avatarPreview.startsWith('blob:')) {
+        URL.revokeObjectURL(avatarPreview)
+      }
       setAvatarFile(file)
       setAvatarPreview(URL.createObjectURL(file))
+      setRemoveAvatar(false)
     }
+  }
+
+  const handleRemoveAvatar = () => {
+    if (avatarPreview && avatarPreview.startsWith('blob:')) {
+      URL.revokeObjectURL(avatarPreview)
+    }
+    setAvatarFile(null)
+    setAvatarPreview(null)
+    setRemoveAvatar(true)
   }
 
   // Handle Profile Update
@@ -58,13 +111,28 @@ export default function Settings() {
     e.preventDefault()
     try {
       setIsUpdatingProfile(true)
-      await updateProfile({
+      const payload: { name: string; avatar?: File | null } = {
         name: name.trim(),
-        avatar: avatarFile,
-      })
+      }
+      if (removeAvatar) {
+        payload.avatar = null
+      } else if (avatarFile) {
+        payload.avatar = avatarFile
+      }
+
+      await updateProfile(payload)
+
+      // Limpar estados temporários de upload após sucesso para usar avatar persistido
+      if (avatarPreview && avatarPreview.startsWith('blob:')) {
+        URL.revokeObjectURL(avatarPreview)
+      }
+      setAvatarFile(null)
+      setAvatarPreview(null)
+      setRemoveAvatar(false)
+
       toast({
         title: 'Perfil atualizado',
-        description: 'Seus dados de exibição foram salvos com sucesso.',
+        description: 'Sua foto e dados de exibição foram salvos com sucesso.',
       })
     } catch (err: unknown) {
       toast({
@@ -191,41 +259,54 @@ export default function Settings() {
             {/* Avatar upload */}
             <div className="flex items-center gap-5">
               <div className="w-16 h-16 rounded-2xl bg-[#E8F0EC] border border-[#C7DBCF] text-[#5F8D7A] flex items-center justify-center font-bold text-xl overflow-hidden shrink-0">
-                {avatarPreview ? (
+                {currentAvatarDisplay ? (
                   <img
-                    src={avatarPreview}
-                    alt="Prévia do avatar"
+                    src={currentAvatarDisplay}
+                    alt="Foto de perfil de Beatriz Souza Bittar"
                     className="w-full h-full object-cover"
+                    onError={(e) => {
+                      // Fallback se URL falhar
+                      ;(e.target as HTMLElement).style.display = 'none'
+                    }}
                   />
                 ) : (
-                  <span>
-                    {(name || 'B')
-                      .split(' ')
-                      .slice(0, 2)
-                      .map((n) => n[0])
-                      .join('')
-                      .toUpperCase()}
-                  </span>
+                  <span>{initials}</span>
                 )}
               </div>
 
-              <div>
-                <Label
-                  htmlFor="avatar-file"
-                  className="cursor-pointer inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] hover:bg-[#E8F0EC] text-xs font-semibold text-[#1E293B] transition-colors"
-                >
-                  <Upload className="w-3.5 h-3.5 text-[#5F8D7A]" />
-                  <span>Escolher foto de perfil</span>
-                </Label>
-                <input
-                  id="avatar-file"
-                  type="file"
-                  accept="image/*"
-                  onChange={handleAvatarChange}
-                  className="hidden"
-                />
-                <p className="text-[11px] text-[#64748B] mt-1">
-                  Formatos recomendados: JPG ou PNG (máx. 2MB).
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <Label
+                    htmlFor="avatar-file"
+                    className="cursor-pointer inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] hover:bg-[#E8F0EC] text-xs font-semibold text-[#1E293B] transition-colors"
+                  >
+                    <Upload className="w-3.5 h-3.5 text-[#5F8D7A]" />
+                    <span>
+                      {currentAvatarDisplay ? 'Alterar foto de perfil' : 'Escolher foto de perfil'}
+                    </span>
+                  </Label>
+                  <input
+                    id="avatar-file"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleAvatarChange}
+                    className="hidden"
+                  />
+                  {currentAvatarDisplay && (
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      onClick={handleRemoveAvatar}
+                      className="h-8 px-2.5 text-xs text-rose-600 hover:text-rose-700 hover:bg-rose-50 rounded-xl"
+                    >
+                      <Trash2 className="w-3.5 h-3.5 mr-1" />
+                      Remover foto
+                    </Button>
+                  )}
+                </div>
+                <p className="text-[11px] text-[#64748B]">
+                  Formatos recomendados: JPG ou PNG (máx. 5MB). A foto fica salva no seu perfil.
                 </p>
               </div>
             </div>

@@ -13,6 +13,7 @@ interface AuthContextType {
   token: string | null
   isAuthenticated: boolean
   isLoading: boolean
+  getUserAvatarUrl: (userRecord?: AuthUser | null) => string | null
   login: (email: string, password: string) => Promise<void>
   logout: () => void
   refreshUser: () => Promise<void>
@@ -21,7 +22,7 @@ interface AuthContextType {
   confirmVerification: (token: string) => Promise<void>
   requestEmailChange: (newEmail: string) => Promise<void>
   confirmEmailChange: (token: string, password: string) => Promise<void>
-  updateProfile: (data: { name?: string; avatar?: File | null }) => Promise<void>
+  updateProfile: (data: { name?: string; avatar?: File | null }) => Promise<AuthUser>
   updatePassword: (
     oldPassword: string,
     newPassword: string,
@@ -113,7 +114,30 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     logout()
   }
 
-  const updateProfile = async (data: { name?: string; avatar?: File | null }) => {
+  const getUserAvatarUrl = useCallback(
+    (targetUser?: AuthUser | null): string | null => {
+      const record = targetUser !== undefined ? targetUser : user
+      if (
+        !record ||
+        !record.avatar ||
+        typeof record.avatar !== 'string' ||
+        record.avatar.trim() === ''
+      ) {
+        return null
+      }
+      try {
+        return pb.files.getURL(record, record.avatar)
+      } catch {
+        return null
+      }
+    },
+    [user],
+  )
+
+  const updateProfile = async (data: {
+    name?: string
+    avatar?: File | null
+  }): Promise<AuthUser> => {
     if (!pb.authStore.record?.id) throw new Error('Não autenticado')
     const formData = new FormData()
     if (data.name !== undefined) {
@@ -125,8 +149,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       formData.append('avatar', '')
     }
 
-    const updated = await pb.collection('users').update(pb.authStore.record.id, formData)
-    setUser(updated as AuthUser)
+    const updated = await pb.collection('users').update<AuthUser>(pb.authStore.record.id, formData)
+    // Atualiza authStore local para manter consistência total com pb.authStore.record
+    pb.authStore.save(pb.authStore.token, updated)
+    setUser(updated)
+    return updated
   }
 
   const updatePassword = async (
@@ -149,6 +176,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         token,
         isAuthenticated: !!user && pb.authStore.isValid,
         isLoading,
+        getUserAvatarUrl,
         login,
         logout,
         refreshUser,
