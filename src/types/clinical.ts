@@ -71,6 +71,12 @@ export type PaymentMethod =
   | 'bank_transfer'
   | 'other'
 export type PaymentStatus = 'paid' | 'pending' | 'canceled'
+export type BillingType = 'per_session' | 'monthly'
+
+export const BILLING_TYPE_LABELS: Record<BillingType, string> = {
+  per_session: 'Por consulta',
+  monthly: 'Mensal',
+}
 
 export interface PaymentRecord extends RecordModel {
   patient: string
@@ -82,6 +88,8 @@ export interface PaymentRecord extends RecordModel {
   status: PaymentStatus
   description?: string
   appointment_type?: string
+  billing_type?: BillingType
+  reference_month?: string // Formato "YYYY-MM" (ex: "2025-03")
   created: string
   updated: string
   expand?: {

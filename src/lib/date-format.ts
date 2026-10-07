@@ -59,3 +59,18 @@ export function formatCurrencyDigits(cents: number): string {
     maximumFractionDigits: 2,
   })
 }
+
+/**
+ * Formata um mês de referência no formato "YYYY-MM" para exibição em pt-BR (ex: "Março de 2025")
+ */
+export function formatReferenceMonthPtBr(refMonth?: string | null): string {
+  if (!refMonth) return ''
+  const parts = refMonth.split('-')
+  if (parts.length < 2) return refMonth
+  const year = parseInt(parts[0], 10)
+  const month = parseInt(parts[1], 10) - 1
+  if (isNaN(year) || isNaN(month)) return refMonth
+  const date = new Date(year, month, 1)
+  const label = format(date, "MMMM 'de' yyyy", { locale: ptBR })
+  return label.charAt(0).toUpperCase() + label.slice(1)
+}

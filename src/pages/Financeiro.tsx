@@ -13,7 +13,8 @@ import {
   PAYMENT_METHOD_LABELS,
 } from '@/types/clinical'
 import { PaymentModal } from '@/components/PaymentModal'
-import { PatientAvatar, PaymentStatusBadge } from '@/components/PatientAvatar'
+import { PatientAvatar, PaymentStatusBadge, BillingTypeBadge } from '@/components/PatientAvatar'
+import { BillingType } from '@/types/clinical'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent } from '@/components/ui/card'
@@ -85,11 +86,13 @@ export default function Financeiro() {
   // Filters
   const [patientFilter, setPatientFilter] = useState<string>('all')
   const [statusFilter, setStatusFilter] = useState<string>('all')
+  const [billingTypeFilter, setBillingTypeFilter] = useState<string>('all')
   const [methodFilter, setMethodFilter] = useState<string>('all')
   const [searchQuery, setSearchQuery] = useState<string>('')
 
   // Modals
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false)
+  const [initialBillingType, setInitialBillingType] = useState<BillingType>('per_session')
   const [editingPayment, setEditingPayment] = useState<PaymentRecord | null>(null)
   const [deletingPayment, setDeletingPayment] = useState<PaymentRecord | null>(null)
   const [isDeleting, setIsDeleting] = useState(false)
@@ -143,9 +146,18 @@ export default function Financeiro() {
     }
   }, [currentDate])
 
-  // Filter payments strictly for the current month
+  const currentMonthKey = useMemo(() => {
+    return format(currentDate, 'yyyy-MM')
+  }, [currentDate])
+
+  // Filter payments for the current month:
+  // - If payment has billing_type === 'monthly' and reference_month, match by reference_month.
+  // - Otherwise, match by payment date within monthInterval.
   const monthPayments = useMemo(() => {
     return payments.filter((p) => {
+      if (p.billing_type === 'monthly' && p.reference_month) {
+        return p.reference_month === currentMonthKey
+      }
       if (!p.date) return false
       try {
         const d = parseISO(p.date)
@@ -154,7 +166,7 @@ export default function Financeiro() {
         return false
       }
     })
-  }, [payments, monthInterval])
+  }, [payments, currentMonthKey, monthInterval])
 
   // Filter appointments for the current month
   const monthAppointments = useMemo(() => {
@@ -208,25 +220,35 @@ export default function Financeiro() {
     return totalPaid / paidCount
   }, [totalPaid, paidCount])
 
-  // Filtered payments for table view (applying patient, status, method, search)
+  // Filtered payments for table view (applying patient, status, method, billingType, search)
   const filteredTablePayments = useMemo(() => {
     return monthPayments.filter((p) => {
       if (patientFilter !== 'all' && p.patient !== patientFilter) return false
       if (statusFilter !== 'all' && p.status !== statusFilter) return false
       if (methodFilter !== 'all' && p.payment_method !== methodFilter) return false
+      if (billingTypeFilter !== 'all') {
+        const itemType = p.billing_type || 'per_session'
+        if (itemType !== billingTypeFilter) return false
+      }
 
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase()
         const patientName = p.expand?.patient?.full_name?.toLowerCase() || ''
         const desc = (p.description || '').toLowerCase()
         const type = (p.appointment_type || '').toLowerCase()
-        if (!patientName.includes(q) && !desc.includes(q) && !type.includes(q)) {
+        const refMonth = (p.reference_month || '').toLowerCase()
+        if (
+          !patientName.includes(q) &&
+          !desc.includes(q) &&
+          !type.includes(q) &&
+          !refMonth.includes(q)
+        ) {
           return false
         }
       }
       return true
     })
-  }, [monthPayments, patientFilter, statusFilter, methodFilter, searchQuery])
+  }, [monthPayments, patientFilter, statusFilter, methodFilter, billingTypeFilter, searchQuery])
 
   // MONTHLY REPORT AGGREGATES
   // Atendimentos realizados no mês (completed from appointments + completed from sessions, deduplicated or summed)
@@ -357,7 +379,9 @@ export default function Financeiro() {
     const headers = [
       'Data',
       'Paciente',
-      'Tipo',
+      'Tipo de Cobrança',
+      'Mês Referência',
+      'Tipo / Atendimento',
       'Valor (R$)',
       'Forma de Pagamento',
       'Status',
@@ -367,7 +391,9 @@ export default function Financeiro() {
     const rows = monthPayments.map((p) => [
       formatDatePtBr(p.date),
       `"${p.expand?.patient?.full_name || 'Paciente'}"`,
-      `"${p.appointment_type || 'Sessão'}"`,
+      p.billing_type === 'monthly' ? 'Mensal' : 'Por consulta',
+      p.reference_month || '-',
+      `"${p.appointment_type || (p.billing_type === 'monthly' ? 'Mensalidade' : 'Sessão')}"`,
       p.amount.toFixed(2).replace('.', ','),
       `"${PAYMENT_METHOD_LABELS[p.payment_method] || p.payment_method}"`,
       p.status === 'paid' ? 'Pago' : p.status === 'pending' ? 'Pendente' : 'Cancelado',
@@ -440,16 +466,32 @@ export default function Financeiro() {
             </Button>
           </div>
 
-          <Button
-            onClick={() => {
-              setEditingPayment(null)
-              setIsPaymentModalOpen(true)
-            }}
-            className="rounded-xl bg-[#5F8D7A] hover:bg-[#4E7263] text-white text-xs sm:text-sm font-medium shadow-xs"
-          >
-            <Plus className="w-4 h-4 mr-1.5" />
-            Novo lançamento
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              onClick={() => {
+                setEditingPayment(null)
+                setInitialBillingType('monthly')
+                setIsPaymentModalOpen(true)
+              }}
+              className="rounded-xl border-[#F1D0C5] text-[#C97B5A] bg-[#FAEDE7] hover:bg-[#FBE4DA] text-xs sm:text-sm font-medium shadow-xs"
+              title="Registrar fechamento mensal"
+            >
+              <Calendar className="w-4 h-4 mr-1.5 text-[#C97B5A]" />
+              Nova mensalidade
+            </Button>
+            <Button
+              onClick={() => {
+                setEditingPayment(null)
+                setInitialBillingType('per_session')
+                setIsPaymentModalOpen(true)
+              }}
+              className="rounded-xl bg-[#5F8D7A] hover:bg-[#4E7263] text-white text-xs sm:text-sm font-medium shadow-xs"
+            >
+              <Plus className="w-4 h-4 mr-1.5" />
+              Novo lançamento
+            </Button>
+          </div>
         </div>
       </div>
 
@@ -602,8 +644,22 @@ export default function Financeiro() {
               </Select>
             </div>
 
-            {/* Filtro por Status */}
+            {/* Filtro por Tipo de Cobrança (Todos / Por consulta / Mensal) */}
             <div className="w-full md:w-44">
+              <Select value={billingTypeFilter} onValueChange={setBillingTypeFilter}>
+                <SelectTrigger className="rounded-xl border-[#E2E8F0] text-xs sm:text-sm">
+                  <SelectValue placeholder="Cobrança" />
+                </SelectTrigger>
+                <SelectContent className="rounded-xl text-xs sm:text-sm">
+                  <SelectItem value="all">Todas as cobranças</SelectItem>
+                  <SelectItem value="per_session">Por consulta</SelectItem>
+                  <SelectItem value="monthly">Mensalidade</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Filtro por Status */}
+            <div className="w-full md:w-40">
               <Select value={statusFilter} onValueChange={setStatusFilter}>
                 <SelectTrigger className="rounded-xl border-[#E2E8F0] text-xs sm:text-sm">
                   <SelectValue placeholder="Status" />
@@ -636,6 +692,7 @@ export default function Financeiro() {
 
             {(patientFilter !== 'all' ||
               statusFilter !== 'all' ||
+              billingTypeFilter !== 'all' ||
               methodFilter !== 'all' ||
               searchQuery) && (
               <Button
@@ -643,6 +700,7 @@ export default function Financeiro() {
                 onClick={() => {
                   setPatientFilter('all')
                   setStatusFilter('all')
+                  setBillingTypeFilter('all')
                   setMethodFilter('all')
                   setSearchQuery('')
                 }}
@@ -687,7 +745,7 @@ export default function Financeiro() {
                     <tr>
                       <th className="py-3 px-4 sm:px-6">Data</th>
                       <th className="py-3 px-4 sm:px-6">Paciente</th>
-                      <th className="py-3 px-4 sm:px-6">Tipo / Descrição</th>
+                      <th className="py-3 px-4 sm:px-6">Cobrança</th>
                       <th className="py-3 px-4 sm:px-6">Forma</th>
                       <th className="py-3 px-4 sm:px-6">Valor</th>
                       <th className="py-3 px-4 sm:px-6">Status</th>
@@ -714,19 +772,29 @@ export default function Financeiro() {
                             </div>
                           </td>
 
-                          {/* Tipo / Descrição */}
-                          <td className="py-3.5 px-4 sm:px-6 max-w-xs truncate">
-                            <span className="inline-block px-2 py-0.5 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] text-[11px] font-medium text-[#5F8D7A] mr-1.5">
-                              {p.appointment_type || 'Sessão'}
-                            </span>
-                            {p.description && (
-                              <span
-                                className="text-xs text-[#64748B] truncate"
-                                title={p.description}
-                              >
-                                {p.description}
-                              </span>
-                            )}
+                          {/* Cobrança / Descrição */}
+                          <td className="py-3.5 px-4 sm:px-6 max-w-xs">
+                            <div className="flex flex-col items-start gap-1">
+                              <div className="flex items-center gap-1.5 flex-wrap">
+                                <BillingTypeBadge
+                                  billingType={p.billing_type}
+                                  referenceMonth={p.reference_month}
+                                />
+                                {p.appointment_type && (
+                                  <span className="text-[11px] font-medium text-[#64748B]">
+                                    {p.appointment_type}
+                                  </span>
+                                )}
+                              </div>
+                              {p.description && (
+                                <span
+                                  className="text-xs text-[#64748B] truncate max-w-[220px]"
+                                  title={p.description}
+                                >
+                                  {p.description}
+                                </span>
+                              )}
+                            </div>
                           </td>
 
                           {/* Forma de Pagamento */}
@@ -979,9 +1047,12 @@ export default function Financeiro() {
       {/* Modal de Pagamento (Criar / Editar) */}
       <PaymentModal
         isOpen={isPaymentModalOpen}
+        initialBillingType={initialBillingType}
+        initialReferenceMonth={format(currentDate, 'yyyy-MM')}
         onClose={() => {
           setIsPaymentModalOpen(false)
           setEditingPayment(null)
+          setInitialBillingType('per_session')
         }}
         onSuccess={() => loadAllData()}
         paymentToEdit={editingPayment}

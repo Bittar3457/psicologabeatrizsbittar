@@ -12,7 +12,13 @@ import {
   ConsultationStatus,
   PAYMENT_METHOD_LABELS,
 } from '@/types/clinical'
-import { PatientAvatar, StatusBadge, PaymentStatusBadge } from '@/components/PatientAvatar'
+import {
+  PatientAvatar,
+  StatusBadge,
+  PaymentStatusBadge,
+  BillingTypeBadge,
+} from '@/components/PatientAvatar'
+import { BillingType } from '@/types/clinical'
 import { PatientModal } from '@/components/PatientModal'
 import { ConsultationModal } from '@/components/ConsultationModal'
 import { PaymentModal } from '@/components/PaymentModal'
@@ -60,6 +66,8 @@ export default function PatientDetail() {
   const [isEditPatientOpen, setIsEditPatientOpen] = useState(false)
   const [isConsultationModalOpen, setIsConsultationModalOpen] = useState(false)
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false)
+  const [initialPaymentBillingType, setInitialPaymentBillingType] =
+    useState<BillingType>('per_session')
   const [editingPayment, setEditingPayment] = useState<PaymentRecord | null>(null)
   const [editingSession, setEditingSession] = useState<SessionRecord | null>(null)
   const [editingAppointment, setEditingAppointment] = useState<AppointmentRecord | null>(null)
@@ -219,6 +227,20 @@ export default function PatientDetail() {
             variant="outline"
             onClick={() => {
               setEditingPayment(null)
+              setInitialPaymentBillingType('monthly')
+              setIsPaymentModalOpen(true)
+            }}
+            className="rounded-xl border-[#F1D0C5] text-[#C97B5A] bg-[#FAEDE7] hover:bg-[#FBE4DA] text-xs sm:text-sm font-medium"
+            title="Lançar fechamento mensal para este paciente"
+          >
+            <Calendar className="w-3.5 h-3.5 mr-1 text-[#C97B5A]" />
+            Mensalidade
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => {
+              setEditingPayment(null)
+              setInitialPaymentBillingType('per_session')
               setIsPaymentModalOpen(true)
             }}
             className="rounded-xl border-[#C7DBCF] text-[#5F8D7A] bg-[#E8F0EC]/70 hover:bg-[#E8F0EC] text-xs sm:text-sm font-medium"
@@ -581,17 +603,33 @@ export default function PatientDetail() {
                 Histórico de pagamentos de sessões e consultas deste paciente
               </p>
             </div>
-            <Button
-              onClick={() => {
-                setEditingPayment(null)
-                setIsPaymentModalOpen(true)
-              }}
-              size="sm"
-              className="bg-[#5F8D7A] hover:bg-[#4E7263] text-white rounded-xl text-xs"
-            >
-              <Plus className="w-3.5 h-3.5 mr-1" />
-              Novo pagamento
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button
+                onClick={() => {
+                  setEditingPayment(null)
+                  setInitialPaymentBillingType('monthly')
+                  setIsPaymentModalOpen(true)
+                }}
+                size="sm"
+                variant="outline"
+                className="border-[#F1D0C5] text-[#C97B5A] bg-[#FAEDE7] hover:bg-[#FBE4DA] rounded-xl text-xs"
+              >
+                <Calendar className="w-3.5 h-3.5 mr-1" />
+                Lançar mensalidade
+              </Button>
+              <Button
+                onClick={() => {
+                  setEditingPayment(null)
+                  setInitialPaymentBillingType('per_session')
+                  setIsPaymentModalOpen(true)
+                }}
+                size="sm"
+                className="bg-[#5F8D7A] hover:bg-[#4E7263] text-white rounded-xl text-xs"
+              >
+                <Plus className="w-3.5 h-3.5 mr-1" />
+                Novo pagamento
+              </Button>
+            </div>
           </div>
 
           {payments.length === 0 ? (
@@ -636,18 +674,23 @@ export default function PatientDetail() {
                     </div>
 
                     <div>
-                      <div className="flex items-center gap-2">
+                      <div className="flex flex-wrap items-center gap-2">
                         <span className="font-mono font-bold text-sm text-[#1E293B]">
                           {formatCurrencyBRL(p.amount)}
                         </span>
+                        <BillingTypeBadge
+                          billingType={p.billing_type}
+                          referenceMonth={p.reference_month}
+                        />
                         <PaymentStatusBadge status={p.status} />
                         <span className="text-xs text-[#64748B] font-medium bg-[#F8FAFC] px-2 py-0.5 rounded-lg border border-[#E2E8F0]">
                           {PAYMENT_METHOD_LABELS[p.payment_method] || p.payment_method}
                         </span>
                       </div>
-                      <p className="text-xs text-[#64748B] mt-1 flex items-center gap-2">
+                      <p className="text-xs text-[#64748B] mt-1 flex flex-wrap items-center gap-2">
                         <span className="font-medium text-[#5F8D7A]">
-                          {p.appointment_type || 'Sessão'}
+                          {p.appointment_type ||
+                            (p.billing_type === 'monthly' ? 'Mensalidade' : 'Sessão')}
                         </span>
                         {p.description && <span>• {p.description}</span>}
                       </p>
@@ -826,9 +869,11 @@ export default function PatientDetail() {
         onClose={() => {
           setIsPaymentModalOpen(false)
           setEditingPayment(null)
+          setInitialPaymentBillingType('per_session')
         }}
         onSuccess={() => loadPatientData()}
         initialPatientId={patient.id}
+        initialBillingType={initialPaymentBillingType}
         paymentToEdit={editingPayment}
         patientsList={[{ id: patient.id, full_name: patient.full_name }]}
       />

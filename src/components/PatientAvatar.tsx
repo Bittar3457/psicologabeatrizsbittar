@@ -63,6 +63,58 @@ export const PatientAvatar: React.FC<PatientAvatarProps> = ({
   )
 }
 
+export const BillingTypeBadge: React.FC<{
+  billingType?: 'per_session' | 'monthly' | string | null
+  referenceMonth?: string | null
+  className?: string
+}> = ({ billingType = 'per_session', referenceMonth, className = '' }) => {
+  const isMonthly = billingType === 'monthly'
+
+  if (isMonthly) {
+    let monthLabel = ''
+    if (referenceMonth) {
+      const parts = referenceMonth.split('-')
+      if (parts.length >= 2) {
+        const months = [
+          'Jan',
+          'Fev',
+          'Mar',
+          'Abr',
+          'Mai',
+          'Jun',
+          'Jul',
+          'Ago',
+          'Set',
+          'Out',
+          'Nov',
+          'Dez',
+        ]
+        const mIdx = parseInt(parts[1], 10) - 1
+        if (mIdx >= 0 && mIdx < 12) {
+          monthLabel = ` (${months[mIdx]}/${parts[0]})`
+        }
+      }
+    }
+    return (
+      <span
+        className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-lg text-[11px] font-semibold bg-[#FAEDE7] text-[#C97B5A] border border-[#F1D0C5] ${className}`}
+        title={`Mensalidade referente a ${referenceMonth || 'mês informado'}`}
+      >
+        <span>Mensal</span>
+        {monthLabel && <span className="font-normal opacity-90">{monthLabel}</span>}
+      </span>
+    )
+  }
+
+  return (
+    <span
+      className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-lg text-[11px] font-medium bg-[#F8FAFC] text-[#5F8D7A] border border-[#E2E8F0] ${className}`}
+    >
+      Sessão
+    </span>
+  )
+}
+
 export const PaymentStatusBadge: React.FC<{
   status: 'paid' | 'pending' | 'canceled'
   className?: string

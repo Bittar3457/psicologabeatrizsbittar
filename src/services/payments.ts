@@ -1,5 +1,5 @@
 import pb from '@/lib/pocketbase/client'
-import type { PaymentRecord, PaymentMethod, PaymentStatus } from '@/types/clinical'
+import type { PaymentRecord, PaymentMethod, PaymentStatus, BillingType } from '@/types/clinical'
 
 export interface PaymentFormData {
   patient: string
@@ -11,6 +11,8 @@ export interface PaymentFormData {
   status: PaymentStatus
   description?: string
   appointment_type?: string
+  billing_type?: BillingType
+  reference_month?: string
 }
 
 export const paymentsService = {
