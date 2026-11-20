@@ -114,6 +114,50 @@ export const PAYMENT_STATUS_LABELS: Record<PaymentStatus, string> = {
   canceled: 'Cancelado',
 }
 
+// ===== Formulário de Conceitualização de Caso em ACT =====
+
+export interface ActFormRecord extends RecordModel {
+  patient: string
+  applied_at: string
+  // 1. Problema apresentado
+  client_problem?: string
+  initial_goals?: string
+  act_reformulation?: string
+  assessment_measures?: string
+  // 2. Inflexibilidade: evitação e fusão
+  avoidance_fusion?: string
+  strategy_internal: boolean
+  strategy_external: boolean
+  strategy_in_session: boolean
+  internal_example?: string
+  external_example?: string
+  in_session_example?: string
+  experiential_avoidance?: number // 1 (Pouca) a 5 (Muita)
+  avoidance_analysis?: string
+  // 3. Inflexibilidade: insensibilidade ao momento presente
+  present_moment?: string
+  present_moment_analysis?: string
+  // 4. Inflexibilidade: falta de engajamento
+  lack_engagement?: string
+  lack_engagement_analysis?: string
+  // 5. Fatores que podem limitar a motivação
+  motivation_factors?: string
+  motivation_impact?: string
+  // 6. Variáveis culturais, sociais, ambientais
+  context_variables?: string
+  // 7. Pontos fortes do cliente
+  client_strengths?: string
+  // 8. Plano de tratamento abrangente
+  treatment_plan?: string
+  created: string
+  updated: string
+  expand?: {
+    patient?: PatientRecord
+  }
+}
+
+export type ActFormData = Omit<ActFormRecord, keyof RecordModel | 'created' | 'updated' | 'expand'>
+
 export interface ClinicalPreferences {
   workStart: string // e.g. "08:00"
   workEnd: string // e.g. "19:00"

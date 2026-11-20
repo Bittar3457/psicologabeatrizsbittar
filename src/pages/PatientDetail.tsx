@@ -4,11 +4,13 @@ import { patientsService } from '@/services/patients'
 import { sessionsService } from '@/services/sessions'
 import { appointmentsService } from '@/services/appointments'
 import { paymentsService } from '@/services/payments'
+import { actFormsService } from '@/services/actForms'
 import {
   PatientRecord,
   SessionRecord,
   AppointmentRecord,
   PaymentRecord,
+  ActFormRecord,
   ConsultationStatus,
   PAYMENT_METHOD_LABELS,
 } from '@/types/clinical'
@@ -20,10 +22,22 @@ import {
 } from '@/components/PatientAvatar'
 import { BillingType } from '@/types/clinical'
 import { PatientModal } from '@/components/PatientModal'
+import { ActFormModal } from '@/components/ActFormModal'
 import { ConsultationModal } from '@/components/ConsultationModal'
 import { PaymentModal } from '@/components/PaymentModal'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog'
+import { ACT_SECTION_FIELDS } from '@/lib/act-form-fields'
 import { Card, CardContent } from '@/components/ui/card'
 import { toast } from '@/hooks/use-toast'
 import { useRealtime } from '@/hooks/use-realtime'
@@ -49,6 +63,8 @@ import {
   DollarSign,
   CreditCard,
   TrendingUp,
+  ClipboardList,
+  Trash2,
 } from 'lucide-react'
 import { formatDatePtBr, cleanPhoneForTel, formatCurrencyBRL } from '@/lib/date-format'
 
@@ -60,6 +76,7 @@ export default function PatientDetail() {
   const [sessions, setSessions] = useState<SessionRecord[]>([])
   const [appointments, setAppointments] = useState<AppointmentRecord[]>([])
   const [payments, setPayments] = useState<PaymentRecord[]>([])
+  const [actForms, setActForms] = useState<ActFormRecord[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
   // Modals
@@ -71,20 +88,25 @@ export default function PatientDetail() {
   const [editingPayment, setEditingPayment] = useState<PaymentRecord | null>(null)
   const [editingSession, setEditingSession] = useState<SessionRecord | null>(null)
   const [editingAppointment, setEditingAppointment] = useState<AppointmentRecord | null>(null)
+  const [isActModalOpen, setIsActModalOpen] = useState(false)
+  const [editingActForm, setEditingActForm] = useState<ActFormRecord | null>(null)
+  const [deletingActForm, setDeletingActForm] = useState<ActFormRecord | null>(null)
 
   const loadPatientData = useCallback(async () => {
     if (!id) return
     try {
-      const [pt, sess, appts, pymts] = await Promise.all([
+      const [pt, sess, appts, pymts, forms] = await Promise.all([
         patientsService.getById(id),
         sessionsService.listByPatient(id),
         appointmentsService.listByPatient(id),
         paymentsService.listByPatient(id),
+        actFormsService.listByPatient(id),
       ])
       setPatient(pt)
       setSessions(sess)
       setAppointments(appts)
       setPayments(pymts)
+      setActForms(forms)
     } catch {
       toast({
         variant: 'destructive',
@@ -108,6 +130,26 @@ export default function PatientDetail() {
   useRealtime<SessionRecord>('sessions', () => loadPatientData())
   useRealtime<AppointmentRecord>('appointments', () => loadPatientData())
   useRealtime<PaymentRecord>('payments', () => loadPatientData())
+  useRealtime<ActFormRecord>('act_forms', () => loadPatientData())
+
+  const handleDeleteActForm = async () => {
+    if (!deletingActForm) return
+    try {
+      await actFormsService.delete(deletingActForm.id)
+      toast({
+        title: 'Formulário ACT excluído',
+        description: 'O registro foi removido do histórico do paciente.',
+      })
+      loadPatientData()
+    } catch {
+      toast({
+        variant: 'destructive',
+        title: 'Erro ao excluir o formulário ACT',
+      })
+    } finally {
+      setDeletingActForm(null)
+    }
+  }
 
   const handleUpdateAppointmentStatus = async (
     appt: AppointmentRecord,
@@ -717,7 +759,116 @@ export default function PatientDetail() {
           )}
         </TabsContent>
 
-        {/* TAB 4: Informações Cadastrais */}
+        {/* TAB 4: ACT — Formulário de Conceitualização de Caso */}
+        <TabsContent value="act" className="space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h2 className="font-serif text-lg font-bold text-[#1E293B]">
+                Formulário de Conceitualização de Caso em ACT
+              </h2>
+              <p className="text-xs text-[#64748B]">
+                Cada aplicação fica salva no histórico para acompanhar a evolução do tratamento.
+              </p>
+            </div>
+            <Button
+              onClick={() => {
+                setEditingActForm(null)
+                setIsActModalOpen(true)
+              }}
+              size="sm"
+              className="bg-[#5F8D7A] hover:bg-[#4E7263] text-white rounded-xl text-xs shrink-0"
+            >
+              <Plus className="w-3.5 h-3.5 mr-1" />
+              Novo formulário ACT
+            </Button>
+          </div>
+
+          {actForms.length === 0 ? (
+            <div className="p-12 bg-white rounded-2xl border border-[#E2E8F0] text-center space-y-3">
+              <div className="w-12 h-12 rounded-2xl bg-[#E8F0EC] text-[#5F8D7A] flex items-center justify-center mx-auto border border-[#C7DBCF]">
+                <ClipboardList className="w-6 h-6" />
+              </div>
+              <h3 className="font-serif text-base font-bold text-[#1E293B]">
+                Nenhum formulário ACT aplicado
+              </h3>
+              <p className="text-xs text-[#64748B] max-w-sm mx-auto">
+                Preencha o Formulário de Conceitualização de Caso em ACT para documentar a
+                conceitualização clínica deste paciente.
+              </p>
+              <div className="pt-2">
+                <Button
+                  onClick={() => {
+                    setEditingActForm(null)
+                    setIsActModalOpen(true)
+                  }}
+                  className="bg-[#5F8D7A] hover:bg-[#4E7263] text-white rounded-xl text-xs"
+                >
+                  <Plus className="w-3.5 h-3.5 mr-1" />
+                  Novo formulário ACT
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {actForms.map((form) => {
+                const filledSections = ACT_SECTION_FIELDS.filter((fields) =>
+                  fields.some((f) => String(form[f.key as keyof ActFormRecord] ?? '') !== ''),
+                ).length
+                return (
+                  <div
+                    key={form.id}
+                    onClick={() => {
+                      setEditingActForm(form)
+                      setIsActModalOpen(true)
+                    }}
+                    className="bg-white rounded-2xl border border-[#E2E8F0] p-5 shadow-xs hover:shadow-md hover:border-[#5F8D7A]/40 transition-all cursor-pointer group flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                  >
+                    <div className="flex items-start gap-3.5">
+                      <div className="w-11 h-11 rounded-xl bg-[#E8F0EC] text-[#5F8D7A] flex items-center justify-center shrink-0 border border-[#C7DBCF]">
+                        <ClipboardList className="w-5 h-5" />
+                      </div>
+                      <div className="space-y-1">
+                        <p className="font-semibold text-sm text-[#1E293B]">
+                          Aplicado em {formatDatePtBr(form.applied_at)}
+                        </p>
+                        <p className="text-xs text-[#64748B] flex flex-wrap items-center gap-1.5">
+                          <span>
+                            {filledSections}/{ACT_SECTION_FIELDS.length} seções preenchidas
+                          </span>
+                          {form.experiential_avoidance ? (
+                            <span className="font-medium text-[#5F8D7A]">
+                              • Evitação experiencial: {form.experiential_avoidance}/5
+                            </span>
+                          ) : null}
+                          {form.treatment_plan ? <span>• Plano de tratamento definido</span> : null}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2 self-end sm:self-center shrink-0">
+                      <span className="text-xs text-[#5F8D7A] group-hover:underline flex items-center gap-1">
+                        <Edit2 className="w-3 h-3" /> Abrir
+                      </span>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          setDeletingActForm(form)
+                        }}
+                        className="text-xs text-rose-600 hover:text-rose-700 hover:bg-rose-50 rounded-xl h-8 px-2.5"
+                      >
+                        <Trash2 className="w-3.5 h-3.5 mr-1" />
+                        Excluir
+                      </Button>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          )}
+        </TabsContent>
+
+        {/* TAB 5: Informações Cadastrais */}
         <TabsContent value="info" className="space-y-4">
           <Card className="rounded-3xl border-[#E2E8F0] bg-white shadow-xs">
             <CardContent className="p-6 sm:p-8 space-y-6">
@@ -877,6 +1028,49 @@ export default function PatientDetail() {
         paymentToEdit={editingPayment}
         patientsList={[{ id: patient.id, full_name: patient.full_name }]}
       />
+
+      {/* ACT Case Conceptualization Modal */}
+      <ActFormModal
+        isOpen={isActModalOpen}
+        onClose={() => {
+          setIsActModalOpen(false)
+          setEditingActForm(null)
+        }}
+        onSuccess={() => loadPatientData()}
+        patientId={patient.id}
+        recordToEdit={editingActForm}
+      />
+
+      {/* Delete ACT Form confirmation */}
+      <AlertDialog
+        open={!!deletingActForm}
+        onOpenChange={(open) => {
+          if (!open) setDeletingActForm(null)
+        }}
+      >
+        <AlertDialogContent className="rounded-2xl border-[#E2E8F0] max-w-md">
+          <AlertDialogHeader>
+            <AlertDialogTitle className="font-serif text-xl text-[#1E293B]">
+              Excluir formulário ACT?
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-sm text-[#64748B]">
+              {deletingActForm &&
+                `O formulário aplicado em ${formatDatePtBr(deletingActForm.applied_at)} será removido definitivamente do histórico do paciente.`}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel className="rounded-xl text-xs sm:text-sm">
+              Cancelar
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleDeleteActForm}
+              className="rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs sm:text-sm"
+            >
+              Excluir
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   )
 }
